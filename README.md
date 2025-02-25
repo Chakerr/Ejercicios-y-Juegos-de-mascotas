@@ -4,8 +4,6 @@ Bienvenido al backlog de nuestro proyecto. Este backlog se encuentra documentado
 
 ## 🔗 Acceso rápido
 - 📊 **Backlog en GitHub Projects**: [Ver aquí](https://github.com/users/Chakerr/projects/11)
-- 📄 **Descargar en PDF**: [Aquí](https://github.com/Chakerr/Ejercicios-y-Juegos-de-mascotas/tree/main/Documentacion/backlog.pdf)
-- 📊 **Descargar en Excel**: [Aquí](https://github.com/Chakerr/Ejercicios-y-Juegos-de-mascotas/tree/main/Documentacion/backlog.xlsx)
 
 ## 📜 ¿Cómo está estructurado el backlog?
 - **ID Historia**: Identificador único de cada historia.
