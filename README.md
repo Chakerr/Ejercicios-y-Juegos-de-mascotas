@@ -3,7 +3,7 @@
 Bienvenido al backlog de nuestro proyecto. Este backlog se encuentra documentado en **GitHub Projects**.
 
 ##Acceso rápido
-- 📊 **Backlog en GitHub Projects**: [Ver aquí](https://github.com/users/Chakerr/projects/11)
+- **Backlog en GitHub Projects**: [Ver aquí](https://github.com/users/Chakerr/projects/11)
 
 ##¿Cómo está estructurado el backlog?
 - **ID Historia**: Identificador único de cada historia.
