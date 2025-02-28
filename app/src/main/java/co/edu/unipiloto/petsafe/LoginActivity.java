@@ -1,21 +1,21 @@
 package co.edu.unipiloto.petsafe;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-
-import co.edu.unipiloto.petsafe.RegistroMascotas;
-import co.edu.unipiloto.petsafe.RegistroUsuarioActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
     private EditText etEmail, etPassword;
     private Button btnLogin;
     private TextView tvRegistrar;
+    private Database database; // Instancia de la base de datos
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +27,8 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         tvRegistrar = findViewById(R.id.tvRegistrar);
 
+        database = new Database(this); // Inicializamos la base de datos
+
         // Navegar a la pantalla de Registro de Usuario si no tiene cuenta
         tvRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,14 +38,28 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        // Iniciar sesión y pasar a Registro de Mascotas
+        // Iniciar sesión y validar credenciales
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Aquí puedes validar los datos antes de continuar
-                Intent intent = new Intent(LoginActivity.this, RegistroMascotas.class);
-                startActivity(intent);
-                finish(); // Cierra esta actividad para que no vuelva atrás
+                String correo = etEmail.getText().toString().trim();
+                String contrasena = etPassword.getText().toString().trim();
+
+                if (correo.isEmpty() || contrasena.isEmpty()) {
+                    Toast.makeText(LoginActivity.this, "Por favor, ingresa todos los datos.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                boolean usuarioValido = database.autenticarUsuario(correo, contrasena);
+
+                if (usuarioValido) {
+                    Toast.makeText(LoginActivity.this, "Inicio de sesión exitoso.", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(LoginActivity.this, RegistroMascotas.class);
+                    startActivity(intent);
+                    finish(); // Cierra la actividad de login
+                } else {
+                    Toast.makeText(LoginActivity.this, "Correo o contraseña incorrectos.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
