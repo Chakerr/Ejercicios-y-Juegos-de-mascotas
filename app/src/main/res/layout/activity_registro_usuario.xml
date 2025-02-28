@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="24dp"
-    android:background="@color/white">
+    android:background="@drawable/gradient_background">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,47 +22,68 @@
             android:layout_marginBottom="20dp" />
 
         <!-- Campo de Nombre -->
-        <EditText
-            android:id="@+id/etNombre"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:drawable/editbox_background"
-            android:hint="Nombre completo"
-            android:minHeight="48dp"
-            android:padding="10dp" />
+            android:layout_marginBottom="10dp"
+            app:boxStrokeColor="@color/primaryColor"
+            app:boxStrokeWidthFocused="2dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etNombre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nombre completo"
+                android:padding="12dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Campo de Email -->
-        <EditText
-            android:id="@+id/etEmailRegistro"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@android:drawable/editbox_background"
-            android:hint="Correo electrónico"
-            android:inputType="textEmailAddress"
-            android:minHeight="48dp"
-            android:padding="10dp" />
+            android:layout_marginBottom="10dp"
+            app:boxStrokeColor="@color/primaryColor"
+            app:boxStrokeWidthFocused="2dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etEmailRegistro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Correo electrónico"
+                android:inputType="textEmailAddress"
+                android:padding="12dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Campo de Contraseña -->
-        <EditText
-            android:id="@+id/etPasswordRegistro"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@android:drawable/editbox_background"
-            android:hint="Contraseña"
-            android:inputType="textPassword"
-            android:minHeight="48dp"
-            android:padding="10dp" />
+            app:endIconMode="password_toggle"
+            app:boxStrokeColor="@color/primaryColor"
+            app:boxStrokeWidthFocused="2dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPasswordRegistro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Contraseña"
+                android:inputType="textPassword"
+                android:padding="12dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Botón Registrarse -->
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnRegistrarUsuario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Registrar Usuario"
             android:textColor="@android:color/white"
-            android:layout_marginTop="20dp" />
+            android:backgroundTint="@color/primaryColor"
+            android:padding="12dp"
+            android:textSize="16sp"
+            app:cornerRadius="12dp"
+            app:elevation="6dp"
+            android:layout_marginTop="20dp"/>
 
         <!-- Volver a Login -->
         <TextView
@@ -70,12 +92,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
+            android:background="?attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
             android:minHeight="48dp"
             android:text="¿Ya tienes cuenta? Inicia sesión"
-            android:textColor="@color/black"
-            android:textSize="14sp" />
+            android:textColor="@color/primaryColor"
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 </ScrollView>

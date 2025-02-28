@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@drawable/gradient_background">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
 
         <!-- Fecha de Vacunación -->
         <TextView
@@ -17,34 +18,50 @@
             android:layout_height="wrap_content"
             android:text="Fecha de Vacunación"
             android:textStyle="bold"
+            android:textColor="@color/primaryColor"
+            android:textSize="16sp"
             android:paddingTop="8dp" />
 
-        <EditText
-            android:id="@+id/etFechaVacunacion"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Seleccione la fecha"
-            android:focusable="false"
-            android:clickable="true"
-            android:padding="8dp"
-            android:minHeight="48dp" />
+            app:boxStrokeColor="@color/primaryColor"
+            app:boxStrokeWidthFocused="2dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etFechaVacunacion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Seleccione la fecha"
+                android:focusable="false"
+                android:clickable="true"
+                android:padding="12dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Peso de la mascota -->
         <TextView
-            android:id="@+id/etPesoMascota"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Peso de la mascota"
             android:textStyle="bold"
+            android:textColor="@color/primaryColor"
+            android:textSize="16sp"
             android:paddingTop="8dp" />
 
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Ingrese el peso de la mascota"
-            android:inputType="number"
-            android:minHeight="48dp"
-            android:padding="8dp" />
+            app:boxStrokeColor="@color/primaryColor"
+            app:boxStrokeWidthFocused="2dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPesoMascota"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Ingrese el peso de la mascota"
+                android:inputType="number"
+                android:padding="12dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Vacunas aplicadas -->
         <TextView
@@ -52,26 +69,36 @@
             android:layout_height="wrap_content"
             android:text="Vacunas aplicadas"
             android:textStyle="bold"
+            android:textColor="@color/primaryColor"
+            android:textSize="16sp"
             android:paddingTop="8dp" />
 
-        <Spinner
-            android:id="@+id/spinnerVacunas"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="48dp" />
+            app:boxStrokeColor="@color/primaryColor"
+            app:boxStrokeWidthFocused="2dp">
 
+            <Spinner
+                android:id="@+id/spinnerVacunas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                tools:ignore="TouchTargetSizeCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <!--  Boton de registro de Vacuna -->
-        <Button
+        <!-- Botón de registro de Vacuna -->
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnRegistrarMascota"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@android:color/holo_blue_dark"
-            android:padding="12dp"
             android:text="Registrar Vacuna"
             android:textColor="@android:color/white"
-            android:textStyle="bold" />
-
+            android:backgroundTint="@color/secondaryColor"
+            android:padding="12dp"
+            android:textSize="16sp"
+            app:cornerRadius="12dp"
+            app:elevation="8dp"
+            android:layout_marginTop="20dp"/>
     </LinearLayout>
 </ScrollView>
