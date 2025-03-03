@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">PetAPP</string>
+    <string name="logo">Logo de la aplicación</string>
+    <string name="BotonIngresar">Ingresar</string>
+    <string name="BotonRegistrar">Registrar Usuario</string>
+    <string name="Email">Correo electrónico</string>
+    <string name="Password">Contraseña</string>
+    <string name="IniciarSesion">Iniciar Sesión</string>
+    <string name="Redireccion">¿No tienes cuenta? Regístrate</string>
+    <string name="nombre_completo">Nombre completo</string>
+    <string name="telefono">telefono</string>
+    <string name="VolverLogin">¿Ya tienes cuenta? Inicia sesión</string>
+</resources>
