@@ -36,6 +36,7 @@ class SpringServerApplicationTests {
     String correo = "juan@gmail.com";
     boolean existe = usuarioDao.correoExiste(correo);
     System.out.println("¿El correo existe? " + existe);
+	    
 }
 
 }
