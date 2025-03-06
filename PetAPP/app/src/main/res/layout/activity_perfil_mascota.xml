@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    android:background="@drawable/gradient_background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <!-- Imagen de la mascota -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="@android:color/white"
+            app:strokeColor="@color/primaryColor"
+            app:strokeWidth="4dp"
+            android:layout_marginBottom="20dp">
+
+            <ImageView
+                android:id="@+id/imgPet"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/capitan"/>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Nombre -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            app:boxStrokeColor="@color/primaryColor"
+            app:boxStrokeWidthFocused="2dp"
+            app:endIconMode="none">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tvPetName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nombre"
+                android:focusable="false"
+                android:cursorVisible="false"
+                android:padding="12dp"
+                tools:text="Capitan" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Fecha de Nacimiento -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            app:boxStrokeColor="@color/primaryColor"
+            app:boxStrokeWidthFocused="2dp"
+            app:endIconMode="none">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tvBirthDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Fecha de nacimiento"
+                android:focusable="false"
+                android:cursorVisible="false"
+                android:padding="12dp"
+                tools:text="10/03/2020" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Especie -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            app:boxStrokeColor="@color/primaryColor"
+            app:boxStrokeWidthFocused="2dp"
+            app:endIconMode="none">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tvSpecies"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Especie"
+                android:focusable="false"
+                android:cursorVisible="false"
+                android:padding="12dp"
+                tools:text="Perro" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Raza -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            app:boxStrokeColor="@color/primaryColor"
+            app:boxStrokeWidthFocused="2dp"
+            app:endIconMode="none">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tvBreed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Raza"
+                android:focusable="false"
+                android:cursorVisible="false"
+                android:padding="12dp"
+                tools:text="Coker spanier" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Sexo -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            app:boxStrokeColor="@color/primaryColor"
+            app:boxStrokeWidthFocused="2dp"
+            app:endIconMode="none">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tvGender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Sexo"
+                android:focusable="false"
+                android:cursorVisible="false"
+                android:padding="12dp"
+                tools:text="Macho" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Color -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            app:boxStrokeColor="@color/primaryColor"
+            app:boxStrokeWidthFocused="2dp"
+            app:endIconMode="none">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tvColor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Color"
+                android:focusable="false"
+                android:cursorVisible="false"
+                android:padding="12dp"
+                tools:text="Marrón" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Microchip -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxStrokeColor="@color/primaryColor"
+            app:boxStrokeWidthFocused="2dp"
+            app:endIconMode="none">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tvMicrochip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="¿Tiene Microchip?"
+                android:focusable="false"
+                android:cursorVisible="false"
+                android:padding="12dp"
+                tools:text="Sí" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <ImageView
+            android:src="@drawable/logo_app"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:contentDescription="@string/logo"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp" />
+
+    </LinearLayout>
+</ScrollView>

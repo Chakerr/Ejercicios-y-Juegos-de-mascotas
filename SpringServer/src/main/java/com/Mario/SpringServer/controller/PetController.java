@@ -1,8 +1,12 @@
 package com.Mario.SpringServer.controller;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.Mario.SpringServer.model.Usuario.Usuario;
 import com.Mario.SpringServer.model.Usuario.UsuarioDao;
 
-import org.springframework.web.bind.annotation.RestController;
+import com.Mario.SpringServer.model.Mascota.Mascota;
+import com.Mario.SpringServer.model.Mascota.MascotaDao;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +17,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
-public class UsuarioController {
+public class PetController {
 
 @Autowired
  private UsuarioDao usuarioDao;
+
 
 @GetMapping("/usuario/get-all")
 public List<Usuario> getAllUsuarios(){
@@ -32,6 +37,20 @@ public Usuario save(@RequestBody Usuario usuario){
 public boolean verificarCorreo(@RequestParam String correo) {
     return usuarioDao.correoExiste(correo);
 }
+
+@PostMapping("/usuario/login")
+public boolean login(@RequestParam String correo, @RequestParam String password) {
+    return usuarioDao.verificarCredenciales(correo, password);
+}
+
+@Autowired
+ private MascotaDao mascotaDao;
+
+ @PostMapping("/mascota/saveMascota")
+public Mascota saveMascota(@RequestBody Mascota mascota){
+ return mascotaDao.saveMascota(mascota);
+}
+
 
 }
 
