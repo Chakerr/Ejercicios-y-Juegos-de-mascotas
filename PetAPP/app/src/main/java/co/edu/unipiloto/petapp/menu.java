@@ -9,7 +9,6 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class menu extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +29,6 @@ public class menu extends AppCompatActivity {
         btnCerrarSesion.setOnClickListener(v -> {
               cerrarSesion();
         });
-
     }
     private void cerrarSesion() {
         SharedPreferences sharedPreferences = getSharedPreferences("UserSession", Context.MODE_PRIVATE);
