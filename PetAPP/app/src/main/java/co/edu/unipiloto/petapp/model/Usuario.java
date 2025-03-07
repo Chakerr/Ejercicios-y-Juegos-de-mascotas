@@ -1,4 +1,5 @@
 package co.edu.unipiloto.petapp.model;
+import java.util.List;
 
 public class Usuario {
     private Integer idUsuario;
@@ -6,6 +7,7 @@ public class Usuario {
     private String telefono;
     private String correo;
     private String password;
+    private List<Mascota> mascotas;
 
     // Getters y Setters
     public Integer getIdUsuario() {
@@ -37,5 +39,11 @@ public class Usuario {
     }
     public void setPassword(String password) {
         this.password = password;
+    }
+    public List<Mascota> getMascotas() {
+        return mascotas;
+    }
+    public void setMascotas(List<Mascota> mascotas) {
+        this.mascotas = mascotas;
     }
 }

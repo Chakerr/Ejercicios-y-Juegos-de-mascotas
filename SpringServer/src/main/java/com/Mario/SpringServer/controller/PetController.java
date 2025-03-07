@@ -51,6 +51,11 @@ public Mascota saveMascota(@RequestBody Mascota mascota){
  return mascotaDao.saveMascota(mascota);
 }
 
+@GetMapping("/mascota/getByUsuario")
+    public List<Mascota> getMascotasByUsuario(@RequestParam String correo) {
+        return mascotaDao.getMascotasByUsuario(correo);
+    }
+
 
 }
 

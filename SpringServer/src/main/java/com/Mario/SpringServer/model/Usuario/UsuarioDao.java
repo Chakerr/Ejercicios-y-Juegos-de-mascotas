@@ -37,7 +37,15 @@ public class UsuarioDao {
 
   public boolean verificarCredenciales(String correo, String password) {
     Optional<Usuario> usuario = usuarioRepository.findByCorreoAndPassword(correo, password);
-    return usuario.isPresent(); 
-}
+    return usuario.isPresent();
+  }
+
+  public Usuario findByCorreo(String correo) {
+    return usuarioRepository.findByCorreo(correo);
+  }
+
+  public Optional<Usuario> findById(Integer id) {
+    return usuarioRepository.findById(id);
+  }
 
 }

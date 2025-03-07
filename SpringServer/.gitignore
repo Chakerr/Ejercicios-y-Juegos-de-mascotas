@@ -31,3 +31,28 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Archivos de compilación
+/target/
+/out/
+
+# Configuración de IDEs
+/.idea/
+/*.iml
+/.vscode/
+/*.class
+
+# Dependencias
+/.mvn/
+/mvnw
+/mvnw.cmd
+
+# Configuración local
+/application.properties
+/application.yml
+
+# Archivos de caché y logs
+/logs/
+/*.log
+/.DS_Store
+

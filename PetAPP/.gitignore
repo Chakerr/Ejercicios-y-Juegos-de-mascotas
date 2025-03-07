@@ -13,3 +13,29 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+
+# Directorios de compilación
+/build
+/app/build
+/.gradle
+/.idea
+/.cxx
+
+# Archivos de configuración de usuario
+/local.properties
+/*.iml
+
+# Archivos de caché y logs
+*.log
+*.DS_Store
+*.lock
+
+# Dependencias
+/.gradle/
+/.externalNativeBuild
+
+# Claves o credenciales (asegúrate de no subirlas)
+*.keystore
+*.jks
+/google-services.json

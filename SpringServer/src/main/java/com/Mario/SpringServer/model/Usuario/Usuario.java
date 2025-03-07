@@ -1,35 +1,38 @@
 package com.Mario.SpringServer.model.Usuario;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
+
+import jakarta.persistence.*;
+import java.util.List;
+
+import com.Mario.SpringServer.model.Mascota.Mascota;
 
 @Entity
-@Table(name = "Usuario", uniqueConstraints = {
-        @UniqueConstraint(columnNames = "Correo")
-})
+@Table(name = "usuario")
 public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "IdUsuario")
+    @Column(name = "id_usuario")
     private Integer idUsuario;
 
-    @Column(name = "NombreCompleto", nullable = false, length = 255)
+    @Column(name = "nombre_completo", nullable = false, length = 255)
     private String nombreCompleto;
 
-    @Column(name = "Telefono", length = 20)
+    @Column(name = "telefono", length = 20)
     private String telefono;
 
-    @Column(name = "Correo", nullable = false, length = 255, unique = true)
+    @Column(name = "correo", nullable = false, unique = true, length = 255)
     private String correo;
 
-    @Column(name = "Password", nullable = false)
+    @Column(name = "password", nullable = false, length = 255)
     private String password;
+
+    // Relación con Mascota (Un usuario puede tener muchas mascotas)
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Mascota> mascotas;
+
+    // Constructor vacío requerido por JPA
+    public Usuario() {}
 
     // Getters y Setters
     public Integer getIdUsuario() {
@@ -70,5 +73,13 @@ public class Usuario {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Mascota> getMascotas() {
+        return mascotas;
+    }
+
+    public void setMascotas(List<Mascota> mascotas) {
+        this.mascotas = mascotas;
     }
 }

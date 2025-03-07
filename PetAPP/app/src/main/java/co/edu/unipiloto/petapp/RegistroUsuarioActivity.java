@@ -8,7 +8,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import co.edu.unipiloto.petapp.model.Usuario;
 import co.edu.unipiloto.petapp.retrofit.RetrofitService;
-import co.edu.unipiloto.petapp.retrofit.UsuarioApi;
+import co.edu.unipiloto.petapp.retrofit.PetApi;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -17,7 +17,7 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
 
     private TextInputEditText inputEditName, inputEditEmail, inputEditTelefono, inputEditPassword;
     private MaterialButton botonRegistro;
-    private UsuarioApi usuarioApi;
+    private PetApi usuarioApi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
         botonRegistro = findViewById(R.id.btnRegistrarUsuario);
 
         RetrofitService retrofitService = new RetrofitService();
-        usuarioApi = retrofitService.getRetrofit().create(UsuarioApi.class);
+        usuarioApi = retrofitService.getRetrofit().create(PetApi.class);
 
         botonRegistro.setOnClickListener(v -> verificarCorreoAntesDeRegistrar());
     }
