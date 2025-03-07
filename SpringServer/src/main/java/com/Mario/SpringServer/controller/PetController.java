@@ -9,6 +9,7 @@ import com.Mario.SpringServer.model.Mascota.Mascota;
 import com.Mario.SpringServer.model.Mascota.MascotaDao;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,17 @@ public class PetController {
 
     @Autowired
     private UsuarioDao usuarioDao;
+
+    @GetMapping("/id")
+    public ResponseEntity<Integer> obtenerIdUsuario(@RequestParam String email) {
+        Usuario usuario = usuarioDao.findByCorreo(email);
+        if (usuario != null) {
+            return ResponseEntity.ok(usuario.getIdUsuario());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 
     @GetMapping("/usuario/get-all")
     public List<Usuario> getAllUsuarios() {
@@ -46,9 +58,17 @@ public class PetController {
     @Autowired
     private MascotaDao mascotaDao;
 
-    @PostMapping("/mascota/saveMascota")
-    public Mascota saveMascota(@RequestBody Mascota mascota) {
-        return mascotaDao.saveMascota(mascota);
+    @PostMapping("/mascota/agregar")
+    public ResponseEntity<?> agregarMascota(@RequestBody Mascota mascota, @RequestParam Integer id_usuario) {
+        // 1️⃣ Buscar el usuario por ID
+        Optional<Usuario> usuarioOpt = usuarioDao.findById(id_usuario);
+        if (usuarioOpt.isEmpty()) {
+            return ResponseEntity.badRequest().body("Usuario no encontrado");
+        }
+
+        mascota.setUsuario(usuarioOpt.get());
+        Mascota nuevaMascota = mascotaDao.saveMascota(mascota);
+        return ResponseEntity.ok(nuevaMascota);
     }
 
     @GetMapping("/mascota/getByUsuario")
@@ -56,14 +76,5 @@ public class PetController {
         return mascotaDao.getMascotasByUsuario(correo);
     }
 
-    @GetMapping("/usuario/id")
-    public ResponseEntity<Integer> obtenerIdUsuario(@RequestParam String email) {
-        Usuario usuario = usuarioDao.findByCorreo(email);
-        if (usuario != null) {
-            return ResponseEntity.ok(usuario.getIdUsuario());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
 
 }

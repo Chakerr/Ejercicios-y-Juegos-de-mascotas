@@ -27,7 +27,7 @@ public class Usuario {
     @Column(name = "password", nullable = false, length = 255)
     private String password;
 
-    // Relación con Mascota (Un usuario puede tener muchas mascotas)
+    
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Mascota> mascotas;
 

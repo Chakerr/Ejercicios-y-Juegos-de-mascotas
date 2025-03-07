@@ -4,14 +4,27 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
+
+import co.edu.unipiloto.petapp.model.Usuario;
+import co.edu.unipiloto.petapp.retrofit.RetrofitService;
+import co.edu.unipiloto.petapp.retrofit.PetApi;
+import co.edu.unipiloto.petapp.model.Mascota;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class RegistroMascotas extends AppCompatActivity {
@@ -24,7 +37,6 @@ public class RegistroMascotas extends AppCompatActivity {
     private MaterialButton btnRegistrarMascota;
     private Calendar calendario;
     private SharedPreferences sharedPreferences;
-
     private final Map<String, String[]> razasPorEspecie = new HashMap<>();
 
     @Override
@@ -32,24 +44,18 @@ public class RegistroMascotas extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registro_mascotas);
 
-        // Inicializar SharedPreferences
         sharedPreferences = getSharedPreferences("UserSession", Context.MODE_PRIVATE);
-
-        // Verificar si hay una sesión activa
         if (!sharedPreferences.getBoolean("isLoggedIn", false)) {
-            // Si no hay sesión activa, redirigir a LoginActivity
             Intent intent = new Intent(RegistroMascotas.this, LoginActivity.class);
             startActivity(intent);
             finish();
             return;
         }
 
-        // Obtener el email del usuario desde SharedPreferences
         String emailUsuario = sharedPreferences.getString("email", "Usuario desconocido");
         int userId = sharedPreferences.getInt("userId", -1);
 
 
-        // Referencias a los elementos del layout
         etNombreMascota = findViewById(R.id.etNombreMascota);
         etFechaNacimiento = findViewById(R.id.etFechaNacimiento);
         spinnerEspecie = findViewById(R.id.spinnerEspecie);
@@ -61,55 +67,38 @@ public class RegistroMascotas extends AppCompatActivity {
         btnRegistrarMascota = findViewById(R.id.btnRegistrarMascota);
         calendario = Calendar.getInstance();
 
-        // Configurar DatePickerDialog para seleccionar la fecha
         etFechaNacimiento.setOnClickListener(v -> mostrarDatePicker());
-
-        // Inicializar listas de especies, razas y colores
         inicializarListas();
 
-        // Manejar el cambio de estado del switch de microchip
-        switchMicrochip.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            tvMicrochipEstado.setText(isChecked ? "Sí" : "No");
-        });
+        switchMicrochip.setOnCheckedChangeListener((buttonView, isChecked) ->
+                tvMicrochipEstado.setText(isChecked ? "Sí" : "No"));
 
-        btnRegistrarMascota.setOnClickListener(v -> {
-            enviarDatos(userId,emailUsuario);
-        });
+        btnRegistrarMascota.setOnClickListener(v -> enviarDatos(userId,emailUsuario));
     }
 
     private void inicializarListas() {
         String[] especies = {"Perro", "Gato", "Otro"};
-        ArrayAdapter<String> adapterEspecie = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, especies);
-        spinnerEspecie.setAdapter(adapterEspecie);
+        spinnerEspecie.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, especies));
 
         razasPorEspecie.put("Perro", new String[]{"Labrador", "Bulldog", "Pastor Alemán", "Otro"});
         razasPorEspecie.put("Gato", new String[]{"Siames", "Persa", "Bengalí", "Otro"});
         razasPorEspecie.put("Otro", new String[]{"Desconocido"});
 
         actualizarRazas("Perro");
-
         spinnerEspecie.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String especieSeleccionada = parent.getItemAtPosition(position).toString();
-                actualizarRazas(especieSeleccionada);
+                actualizarRazas(parent.getItemAtPosition(position).toString());
             }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
+            @Override public void onNothingSelected(AdapterView<?> parent) {}
         });
 
         String[] colores = {"Negro", "Blanco", "Marrón", "Gris", "Dorado", "Otro"};
-        ArrayAdapter<String> adapterColor = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, colores);
-        spinnerColor.setAdapter(adapterColor);
+        spinnerColor.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, colores));
     }
 
     private void actualizarRazas(String especie) {
-        String[] razas = razasPorEspecie.get(especie);
-        if (razas != null) {
-            ArrayAdapter<String> adapterRaza = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, razas);
-            spinnerRaza.setAdapter(adapterRaza);
-        }
+        spinnerRaza.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, razasPorEspecie.get(especie)));
     }
 
     private void mostrarDatePicker() {
@@ -117,21 +106,66 @@ public class RegistroMascotas extends AppCompatActivity {
         int mes = calendario.get(Calendar.MONTH);
         int dia = calendario.get(Calendar.DAY_OF_MONTH);
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
-                (view, year, month, dayOfMonth) -> {
-                    String fecha = year + "-" + String.format("%02d", (month + 1)) + "-" + String.format("%02d", dayOfMonth);
-                    etFechaNacimiento.setText(fecha);
-                }, anio, mes, dia);
-
-        datePickerDialog.show();
+        new DatePickerDialog(this, (view, year, month, dayOfMonth) ->
+                etFechaNacimiento.setText(year + "-" + String.format("%02d", (month + 1)) + "-" + String.format("%02d", dayOfMonth)),
+                anio, mes, dia).show();
     }
 
-    private void enviarDatos(int userId,String emailUsuario) {
-        // Aquí puedes usar el email del usuario para enviar los datos al backend
-        Toast.makeText(this, "ID user: " + userId, Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, "Registrando mascota para: " + emailUsuario, Toast.LENGTH_SHORT).show();
-        cerrarSesion();
+
+    private void enviarDatos(int userId, String emailUsuario) {
+        if (userId == -1) {
+            Toast.makeText(this, "Error: Usuario no identificado.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        RetrofitService retrofitService = new RetrofitService();
+        PetApi petApi = retrofitService.getRetrofit().create(PetApi.class);
+
+        Usuario usuario = new Usuario();
+        usuario.setIdUsuario(userId);
+
+        String nombreMascota = etNombreMascota.getText().toString().trim();
+        String fechaNacimiento = etFechaNacimiento.getText().toString().trim(); // Ahora es un String
+
+        if (fechaNacimiento.isEmpty()) {
+            Toast.makeText(this, "Debe ingresar la fecha de nacimiento", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String especie = spinnerEspecie.getSelectedItem().toString();
+        String raza = spinnerRaza.getSelectedItem().toString();
+        String color = spinnerColor.getSelectedItem().toString();
+        boolean microchip = switchMicrochip.isChecked();
+
+        int selectedSexoId = rgSexo.getCheckedRadioButtonId();
+        if (selectedSexoId == -1) {
+            Toast.makeText(this, "Seleccione un sexo para la mascota", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        String sexo = selectedSexoId == R.id.rbMacho ? "Macho" : "Hembra";
+
+        // Crea la mascota con fecha como String
+        Mascota mascota = new Mascota(usuario, nombreMascota, fechaNacimiento, especie, raza, sexo, color, microchip);
+
+        petApi.saveMascota(mascota).enqueue(new Callback<Mascota>() {
+            @Override
+            public void onResponse(Call<Mascota> call, Response<Mascota> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Toast.makeText(RegistroMascotas.this, "Mascota registrada exitosamente", Toast.LENGTH_SHORT).show();
+                    finish();
+                } else {
+                    Toast.makeText(RegistroMascotas.this, "Error al registrar la mascota", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Mascota> call, Throwable t) {
+                Toast.makeText(RegistroMascotas.this, "Error de conexión", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
+
+
 
     private void cerrarSesion() {
         SharedPreferences sharedPreferences = getSharedPreferences("UserSession", Context.MODE_PRIVATE);

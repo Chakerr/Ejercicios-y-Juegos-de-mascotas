@@ -4,8 +4,9 @@ package co.edu.unipiloto.petapp.model;
 
 import java.time.LocalDate;
 public class Mascota {
-    public Mascota(Usuario usuario, String nombreMascota, LocalDate fechaNacimiento, String especie, String raza,
+    public Mascota(Usuario usuario, String nombreMascota, String fechaNacimiento, String especie, String raza,
                    String sexo, String color, Boolean microchip) {
+
         this.usuario = usuario;
         this.nombreMascota = nombreMascota;
         this.fechaNacimiento = fechaNacimiento;
@@ -21,7 +22,7 @@ public class Mascota {
     private Integer idMascota;
     private Usuario usuario;
     private String nombreMascota;
-    private LocalDate fechaNacimiento;
+    private String fechaNacimiento;
     private String especie;
     private String raza;
     private String sexo;
@@ -53,11 +54,11 @@ public class Mascota {
         this.nombreMascota = nombreMascota;
     }
 
-    public LocalDate getFechaNacimiento() {
+    public String getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(LocalDate fechaNacimiento) {
+    public void setFechaNacimiento(String fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 

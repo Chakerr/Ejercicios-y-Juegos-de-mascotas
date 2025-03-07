@@ -3,8 +3,8 @@ package com.Mario.SpringServer;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,31 +54,38 @@ class SpringServerApplicationTests {
     }
 
     @Test
-    void addMascota() {
-        int idUsuario = 1;
+    void addMascotaByUserIdTest() {
+        Integer usuarioId = 39; 
 
-        // Verificar si el usuario realmente existe en la base de datos
-        Optional<Usuario> usuarioOpt = usuarioDao.findById(idUsuario);
+        Optional<Usuario> usuarioOpt = usuarioDao.findById(usuarioId);
+        assertTrue(usuarioOpt.isPresent(), "El usuario con ID " + usuarioId + " no existe en la base de datos");
 
-        if (usuarioOpt.isEmpty()) {
-            throw new RuntimeException("El usuario con ID " + idUsuario + " no existe en la base de datos.");
-        }
+        Usuario usuario = usuarioOpt.get();
 
-        Usuario usuario = usuarioOpt.get(); 
+        Mascota mascota = new Mascota();
+        mascota.setUsuario(usuario);
+        mascota.setNombreMascota("Bobby");
+        mascota.setFechaNacimiento("2020-12-11");
+        mascota.setEspecie("Perro");
+        mascota.setRaza("Labrador");
+        mascota.setSexo("Macho");
+        mascota.setColor("Marrón");
+        mascota.setMicrochip(true);
 
-        Mascota mascota = new Mascota(
-                usuario, 
-                "Firulais",
-                LocalDate.of(2020, 5, 10),
-                "Perro",
-                "Labrador",
-                "Macho",
-                "Dorado",
-                true);
+        // 3. Guardar la mascota
+        mascota = mascotaDao.saveMascota(mascota);
 
-        Mascota mascotaGuardada = mascotaDao.saveMascota(mascota);
+        // 4. Recuperar las mascotas del usuario
+        List<Mascota> mascotas = mascotaDao.getMascotasByUsuario(usuario.getCorreo());
 
-        assertNotNull(mascotaGuardada.getIdMascota(), "El ID de la mascota no debería ser nulo");
+        // 5. Verificar que la mascota fue guardada correctamente
+        assertNotNull(mascotas, "La lista de mascotas no debería ser nula");
+        assertFalse(mascotas.isEmpty(), "La lista de mascotas no debería estar vacía");
+        assertTrue(mascotas.stream().anyMatch(m -> m.getNombreMascota().equals("Bobby")),
+                "La mascota Bobby debería estar en la lista");
     }
-
 }
+    
+    
+
+

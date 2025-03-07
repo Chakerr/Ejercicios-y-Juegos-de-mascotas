@@ -1,7 +1,5 @@
 package com.Mario.SpringServer.model.Mascota;
 
-import java.time.LocalDate;
-
 import com.Mario.SpringServer.model.Usuario.Usuario;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -11,7 +9,7 @@ import jakarta.persistence.*;
 @Table(name = "mascotas")
 public class Mascota {
 
-    public Mascota(Usuario usuario, String nombreMascota, LocalDate fechaNacimiento, String especie, String raza,
+    public Mascota(Usuario usuario, String nombreMascota, String fechaNacimiento, String especie, String raza,
             String sexo, String color, Boolean microchip) {
         this.usuario = usuario;
         this.nombreMascota = nombreMascota;
@@ -39,8 +37,8 @@ public class Mascota {
     @Column(name = "nombre_mascota", length = 50, nullable = false)
     private String nombreMascota;
 
-    @Column(name = "fecha_nacimiento")
-    private LocalDate fechaNacimiento;
+    @Column(name = "fecha_nacimiento", length = 50)
+    private String fechaNacimiento;
 
     @Column(name = "especie", length = 20)
     private String especie;
@@ -82,11 +80,11 @@ public class Mascota {
         this.nombreMascota = nombreMascota;
     }
 
-    public LocalDate getFechaNacimiento() {
+    public String getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(LocalDate fechaNacimiento) {
+    public void setFechaNacimiento(String fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 
@@ -129,5 +127,4 @@ public class Mascota {
     public void setMicrochip(Boolean microchip) {
         this.microchip = microchip;
     }
-
 }

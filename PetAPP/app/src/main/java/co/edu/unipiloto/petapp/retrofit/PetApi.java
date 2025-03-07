@@ -19,7 +19,6 @@ public interface PetApi {
     Call<Boolean> verificarCorreo(@Query("correo") String correo);
     @GET("usuario/id")
     Call<Integer> obtenerIdUsuario(@Query("email") String email);
-
     @POST("/usuario/login")
     Call<Boolean> login(@Query("correo") String correo, @Query("password") String password);
     @POST("/mascota/saveMascota")

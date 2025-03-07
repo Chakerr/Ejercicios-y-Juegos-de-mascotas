@@ -24,12 +24,10 @@ public class MascotaDao {
     
     public List<Mascota> getMascotasByUsuario(String correo) {
       Usuario usuario = usuarioDao.findByCorreo(correo);
-      if (usuario != null) {
-          return mascotaRepository.findByUsuario(usuario);
-      }
-      return List.of(); 
+      return (usuario != null) ? mascotaRepository.findByUsuario(usuario) : List.of();
+  }
   }
   
   
-}
+
 

@@ -12,8 +12,6 @@ public interface UsuarioRepository extends CrudRepository<Usuario, Integer> {
     Optional<Usuario> findByCorreoAndPassword(String correo, String password);
     Usuario findByCorreo(String correo);
     
-    @SuppressWarnings("null")
-    Optional<Usuario> findById(Integer id);
 
     
 
