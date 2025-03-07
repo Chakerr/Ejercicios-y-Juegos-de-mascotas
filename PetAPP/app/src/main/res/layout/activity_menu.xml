@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="24dp"
+    android:background="@drawable/gradient_background">
+
+    <!-- Logo de la aplicación -->
+    <ImageView
+        android:id="@+id/logo"
+        android:src="@drawable/logo_app"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:contentDescription="@string/logo"
+        android:layout_marginBottom="40dp"/>
+
+    <!-- Botón de Registrar Mascota -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_registrar_mascota"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Registrar Mascota"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@color/primaryColor"
+        android:padding="12dp"
+        android:textSize="18sp"
+        app:cornerRadius="12dp"
+        app:elevation="6dp"
+        android:layout_marginBottom="20dp"
+        tools:ignore="VisualLintButtonSize" />
+
+    <!-- Botón de Perfil del Usuario -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_perfil_usuario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Perfil del Usuario"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@color/secondaryColor"
+        android:padding="12dp"
+        android:textSize="18sp"
+        app:cornerRadius="12dp"
+        app:elevation="6dp"
+        android:layout_marginBottom="20dp"
+        tools:ignore="VisualLintButtonSize" />
+
+    <!-- Botón de Perfil de la Mascota -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_perfil_mascota"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Perfil de la Mascota"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@color/primaryColor"
+        android:padding="12dp"
+        android:textSize="18sp"
+        app:cornerRadius="12dp"
+        app:elevation="6dp"
+        tools:ignore="VisualLintButtonSize" />
+
+</LinearLayout>

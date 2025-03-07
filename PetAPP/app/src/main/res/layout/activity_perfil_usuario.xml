@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    android:background="@drawable/gradient_background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <ImageView
+            android:src="@drawable/logo_app"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:contentDescription="@string/logo"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp" />
+
+        <!-- Nombre -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            app:boxStrokeColor="@color/primaryColor"
+            app:boxStrokeWidthFocused="2dp"
+            app:endIconMode="none">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tvPetName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nombre"
+                android:focusable="false"
+                android:cursorVisible="false"
+                android:padding="12dp"
+                tools:text="Luis" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <!-- NTelefono -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            app:boxStrokeColor="@color/primaryColor"
+            app:boxStrokeWidthFocused="2dp"
+            app:endIconMode="none">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tvTelefono"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Telefono"
+                android:focusable="false"
+                android:cursorVisible="false"
+                android:padding="12dp"
+                tools:text="3333333333" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Sexo -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            app:boxStrokeColor="@color/primaryColor"
+            app:boxStrokeWidthFocused="2dp"
+            app:endIconMode="none">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tvGender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Correo"
+                android:focusable="false"
+                android:cursorVisible="false"
+                android:padding="12dp"
+                tools:text="luis@gmail.com" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <!-- Botón de Perfil de la Mascota -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_Actualizar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Actualizar"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/primaryColor"
+            android:padding="12dp"
+            android:textSize="18sp"
+            app:cornerRadius="12dp"
+            app:elevation="6dp"
+            tools:ignore="VisualLintButtonSize" />
+
+
+
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,41 @@
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+
+# Directorios de compilación
+/build
+/app/build
+/.gradle
+/.idea
+/.cxx
+
+# Archivos de configuración de usuario
+/local.properties
+/*.iml
+
+# Archivos de caché y logs
+*.log
+*.DS_Store
+*.lock
+
+# Dependencias
+/.gradle/
+/.externalNativeBuild
+
+# Claves o credenciales (asegúrate de no subirlas)
+*.keystore
+*.jks
+/google-services.json
