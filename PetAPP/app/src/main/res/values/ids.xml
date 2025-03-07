@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="btnRegistrarMascota" type="id" />
+    <item name="switchMicrochip" type="id" />
+    <item name="etColor" type="id" />
+    <item name="etSexo" type="id" />
+    <item name="etRaza" type="id" />
+    <item name="etEspecie" type="id" />
+    <item name="etFechaNacimiento" type="id" />
+    <item name="etNombreMascota" type="id" />
+</resources>
