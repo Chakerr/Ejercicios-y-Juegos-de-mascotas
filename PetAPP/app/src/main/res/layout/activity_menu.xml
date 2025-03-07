@@ -33,20 +33,6 @@
         android:layout_marginBottom="20dp"
         tools:ignore="VisualLintButtonSize" />
 
-    <!-- Botón de Perfil del Usuario -->
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_perfil_usuario"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Perfil del Usuario"
-        android:textColor="@android:color/white"
-        android:backgroundTint="@color/secondaryColor"
-        android:padding="12dp"
-        android:textSize="18sp"
-        app:cornerRadius="12dp"
-        app:elevation="6dp"
-        android:layout_marginBottom="20dp"
-        tools:ignore="VisualLintButtonSize" />
 
     <!-- Botón de Perfil de la Mascota -->
     <com.google.android.material.button.MaterialButton
@@ -60,6 +46,20 @@
         android:textSize="18sp"
         app:cornerRadius="12dp"
         app:elevation="6dp"
+        tools:ignore="VisualLintButtonSize" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_cerrar_sesion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cerrar Sesión"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@color/primaryColor"
+        android:padding="12dp"
+        android:textSize="18sp"
+        app:cornerRadius="12dp"
+        app:elevation="6dp"
+        android:layout_marginBottom="20dp"
         tools:ignore="VisualLintButtonSize" />
 
 </LinearLayout>

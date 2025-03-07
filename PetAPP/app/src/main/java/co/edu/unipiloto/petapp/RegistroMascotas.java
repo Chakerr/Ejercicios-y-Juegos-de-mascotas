@@ -48,6 +48,8 @@ public class RegistroMascotas extends AppCompatActivity {
 
         // Evento del botón para registrar mascota
         btnRegistrarMascota.setOnClickListener(v -> registrarMascota());
+        Intent intent = new Intent(RegistroMascotas.this, menu.class);
+        startActivity(intent);
     }
 
     private void registrarMascota() {
@@ -75,8 +77,7 @@ public class RegistroMascotas extends AppCompatActivity {
             public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     Toast.makeText(RegistroMascotas.this, "Mascota registrada con éxito", Toast.LENGTH_SHORT).show();
-                    finish(); // Cerrar actividad después del registro
-                    cerrarSesion();
+                    finish();
                 } else {
                     Toast.makeText(RegistroMascotas.this, "Error en el registro", Toast.LENGTH_SHORT).show();
                 }
@@ -90,18 +91,5 @@ public class RegistroMascotas extends AppCompatActivity {
 
         });
 
-    }
-
-    private void cerrarSesion() {
-        SharedPreferences sharedPreferences = getSharedPreferences("UserSession", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.clear();  // Elimina todos los datos guardados en SharedPreferences
-        editor.apply();
-
-        // Redirigir al usuario a la pantalla de login
-        Intent intent = new Intent(RegistroMascotas.this, LoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Limpiar la pila de actividades
-        startActivity(intent);
-        finish();
     }
 }

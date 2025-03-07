@@ -123,7 +123,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void irARegistroMascotas() {
-        Intent intent = new Intent(LoginActivity.this, RegistroMascotas.class);
+        Intent intent = new Intent(LoginActivity.this, menu.class);
         startActivity(intent);
         finish();
     }

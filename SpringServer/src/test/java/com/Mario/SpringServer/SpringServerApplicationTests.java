@@ -36,7 +36,7 @@ class SpringServerApplicationTests {
         usuarioDao.save(usuario);
     }
 
-    // @Test
+     //@Test
     void getAllUsuariosDelete() {
         List<Usuario> usuario = usuarioDao.getAllUsuarios();
         for (Usuario usuario1 : usuario) {
@@ -44,7 +44,7 @@ class SpringServerApplicationTests {
         }
     }
 
-    // @Test
+     @Test
     void getMascotasByUsuario() {
         String correo = "juan@gmail.com";
         List<Mascota> mascotas = mascotaDao.getMascotasByUsuario(correo);
@@ -53,7 +53,7 @@ class SpringServerApplicationTests {
         assertFalse(mascotas.isEmpty(), "La lista de mascotas no debería estar vacía");
     }
 
-    @Test
+    //@Test
     void addMascotaByUserIdTest() {
         Integer usuarioId = 39; 
 
