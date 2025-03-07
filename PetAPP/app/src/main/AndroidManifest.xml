@@ -17,6 +17,15 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".perfil_usuario"
+            android:exported="false" />
+        <activity
+            android:name=".perfil_mascota"
+            android:exported="false" />
+        <activity
+            android:name=".menu"
+            android:exported="false" />
+        <activity
             android:name=".RegistroMascotas"
             android:exported="false" />
         <activity
