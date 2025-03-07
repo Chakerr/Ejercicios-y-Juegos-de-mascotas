@@ -71,9 +71,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     if (response.body()) {
-                        guardarSesion(correo);
-                        Toast.makeText(LoginActivity.this, "Login exitoso", Toast.LENGTH_SHORT).show();
-                        irARegistroMascotas();
+                        obtenerIdYGuardarSesion(correo);
                     } else {
                         Toast.makeText(LoginActivity.this, "Credenciales incorrectas", Toast.LENGTH_SHORT).show();
                     }
@@ -89,9 +87,32 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void guardarSesion(String correo) {
+    private void obtenerIdYGuardarSesion(String correo) {
+        Call<Integer> call = usuarioApi.obtenerIdUsuario(correo);
+
+        call.enqueue(new Callback<Integer>() {
+            @Override
+            public void onResponse(Call<Integer> call, Response<Integer> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    int userId = response.body();
+                    guardarSesion(userId);
+                    Toast.makeText(LoginActivity.this, "Login exitoso", Toast.LENGTH_SHORT).show();
+                    irARegistroMascotas();
+                } else {
+                    Toast.makeText(LoginActivity.this, "Error al obtener ID de usuario", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Integer> call, Throwable t) {
+                Toast.makeText(LoginActivity.this, "Error de conexión al obtener ID", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void guardarSesion(int userId) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("email", correo);
+        editor.putInt("userId", userId);
         editor.putBoolean("isLoggedIn", true);
         editor.apply();
     }
@@ -102,5 +123,3 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
 }
-
-

@@ -46,6 +46,7 @@ public class RegistroMascotas extends AppCompatActivity {
 
         // Obtener el email del usuario desde SharedPreferences
         String emailUsuario = sharedPreferences.getString("email", "Usuario desconocido");
+        int userId = sharedPreferences.getInt("userId", -1);
 
 
         // Referencias a los elementos del layout
@@ -72,7 +73,7 @@ public class RegistroMascotas extends AppCompatActivity {
         });
 
         btnRegistrarMascota.setOnClickListener(v -> {
-            enviarDatos(emailUsuario);
+            enviarDatos(userId,emailUsuario);
         });
     }
 
@@ -125,8 +126,9 @@ public class RegistroMascotas extends AppCompatActivity {
         datePickerDialog.show();
     }
 
-    private void enviarDatos(String emailUsuario) {
+    private void enviarDatos(int userId,String emailUsuario) {
         // Aquí puedes usar el email del usuario para enviar los datos al backend
+        Toast.makeText(this, "ID user: " + userId, Toast.LENGTH_SHORT).show();
         Toast.makeText(this, "Registrando mascota para: " + emailUsuario, Toast.LENGTH_SHORT).show();
         cerrarSesion();
     }
