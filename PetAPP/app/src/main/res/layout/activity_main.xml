@@ -30,7 +30,7 @@
         android:textSize="18sp"
         app:cornerRadius="12dp"
         app:elevation="6dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         tools:ignore="VisualLintButtonSize" />
 
     <!-- Botón de Registro -->
@@ -45,6 +45,7 @@
         android:textSize="18sp"
         app:cornerRadius="12dp"
         app:elevation="6dp"
+        android:layout_marginBottom="10dp"
         tools:ignore="VisualLintButtonSize" />
 
 </LinearLayout>

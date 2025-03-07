@@ -176,7 +176,29 @@
             android:textSize="18sp"
             app:cornerRadius="12dp"
             app:elevation="6dp"
+            android:layout_marginTop="20dp"
             tools:ignore="VisualLintButtonSize" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnGenerarQR"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Generar QR"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/primaryColor"
+            android:padding="12dp"
+            android:textSize="18sp"
+            app:cornerRadius="12dp"
+            app:elevation="6dp"
+            android:layout_marginTop="10dp"/>
+
+        <ImageView
+            android:id="@+id/qrImageView"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+
 
         <ImageView
             android:src="@drawable/logo_app"
