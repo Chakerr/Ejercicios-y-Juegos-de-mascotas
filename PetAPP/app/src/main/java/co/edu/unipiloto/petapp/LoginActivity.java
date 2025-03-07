@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -56,6 +57,10 @@ public class LoginActivity extends AppCompatActivity {
 
             if (correo.isEmpty() || contrasena.isEmpty()) {
                 Toast.makeText(LoginActivity.this, "Por favor, ingresa todos los datos.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (!Patterns.EMAIL_ADDRESS.matcher(correo).matches()) {
+                Toast.makeText(LoginActivity.this, "Por favor, ingresa un correo electrónico válido.", Toast.LENGTH_SHORT).show();
                 return;
             }
 

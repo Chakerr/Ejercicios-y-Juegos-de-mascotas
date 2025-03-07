@@ -25,14 +25,19 @@ public class PetController {
     private UsuarioDao usuarioDao;
 
     @GetMapping("/usuario/id")
-    public ResponseEntity<Integer> obtenerIdUsuario(@RequestParam String email) {
-        Usuario usuario = usuarioDao.findByCorreo(email);
-        if (usuario != null) {
-            return ResponseEntity.ok(usuario.getIdUsuario());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+public ResponseEntity<Integer> obtenerIdUsuario(@RequestParam String correo) {
+    System.out.println("Buscando usuario con correo: " + correo);
+    Usuario usuario = usuarioDao.findByCorreo(correo);
+
+    if (usuario == null) {
+        System.out.println("No se encontró ningún usuario con ese correo.");
+        return ResponseEntity.notFound().build();
     }
+
+    System.out.println("Usuario encontrado: ID=" + usuario.getIdUsuario());
+    return ResponseEntity.ok(usuario.getIdUsuario());
+}
+
 
 
     @GetMapping("/usuario/get-all")
