@@ -14,6 +14,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -87,5 +88,9 @@ public ResponseEntity<?> agregarMascota(@RequestBody Mascota mascota, @RequestPa
         return mascotaDao.getMascotasByUsuario(correo);
     }
 
+    @GetMapping("/mascota/usuario/{idUsuario}")
+    public List<Mascota> getMascotasByUsuarioId(@PathVariable Integer idUsuario) {
+        return mascotaDao.getMascotasByUsuarioId(idUsuario);
+    }
 
 }

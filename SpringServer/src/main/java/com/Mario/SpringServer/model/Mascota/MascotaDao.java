@@ -11,23 +11,24 @@ import com.Mario.SpringServer.model.Usuario.UsuarioDao;
 @Service
 public class MascotaDao {
 
-    @Autowired
-    private MascotaRepository mascotaRepository;
+  @Autowired
+  private MascotaRepository mascotaRepository;
 
-    @Autowired
-    private UsuarioDao usuarioDao;  
+  @Autowired
+  private UsuarioDao usuarioDao;
 
-    
-    public Mascota saveMascota(Mascota mascota){
-     return mascotaRepository.save(mascota);
-    }
-    
-    public List<Mascota> getMascotasByUsuario(String correo) {
-      Usuario usuario = usuarioDao.findByCorreo(correo);
-      return (usuario != null) ? mascotaRepository.findByUsuario(usuario) : List.of();
+  public Mascota saveMascota(Mascota mascota) {
+    return mascotaRepository.save(mascota);
   }
+
+  public List<Mascota> getMascotasByUsuario(String correo) {
+    Usuario usuario = usuarioDao.findByCorreo(correo);
+    return (usuario != null) ? mascotaRepository.findByUsuario(usuario) : List.of();
   }
-  
-  
 
+  public List<Mascota> getMascotasByUsuarioId(Integer idUsuario) {
+    Usuario usuario = usuarioDao.findById(idUsuario).orElse(null);
+    return (usuario != null) ? mascotaRepository.findByUsuario(usuario) : List.of();
+  }
 
+}

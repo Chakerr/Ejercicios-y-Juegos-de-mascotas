@@ -9,6 +9,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 
@@ -24,8 +25,8 @@ public interface PetApi {
     Call<Boolean> login(@Query("correo") String correo, @Query("password") String password);
     @POST("/mascota/agregar")
     Call<Map<String, Object>> agregarMascota(@Query("id_usuario") int idUsuario, @Body Map<String, Object> mascota);
-    @GET("/mascota/getByUsuario")
-    Call<List<Mascota>> getMascotasByUsuario(@Query("correo") String correo);
+    @GET("/mascota/usuario/{idUsuario}")
+    Call<List<Mascota>> getMascotasByUsuarioId(@Path("idUsuario") int idUsuario);
 
 
 }

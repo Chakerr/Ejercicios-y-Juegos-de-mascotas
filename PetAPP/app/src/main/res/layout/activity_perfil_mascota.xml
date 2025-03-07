@@ -25,6 +25,14 @@
             app:strokeWidth="4dp"
             android:layout_marginBottom="20dp"/>
 
+        <Spinner
+            android:id="@+id/spinnerMascotas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:minHeight="48dp" />
+
+
 
         <!-- Nombre -->
         <com.google.android.material.textfield.TextInputLayout
@@ -164,6 +172,7 @@
                 android:padding="12dp"
                 tools:text="Sí" />
         </com.google.android.material.textfield.TextInputLayout>
+
         <!-- Botón de Perfil de la Mascota -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_Actualizar"
