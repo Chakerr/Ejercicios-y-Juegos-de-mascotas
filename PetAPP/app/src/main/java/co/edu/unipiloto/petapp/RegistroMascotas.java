@@ -1,5 +1,6 @@
 package co.edu.unipiloto.petapp;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import co.edu.unipiloto.petapp.retrofit.PetApi;
@@ -22,6 +25,7 @@ import java.util.Map;
 public class RegistroMascotas extends AppCompatActivity {
 
     private EditText etNombre, etFecha, etEspecie, etRaza, etSexo, etColor;
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
     private Switch switchMicrochip;
     private PetApi petApi;
     private SharedPreferences sharedPreferences;
@@ -72,9 +76,9 @@ public class RegistroMascotas extends AppCompatActivity {
         // Enviar petición POST al servidor con el ID del usuario
         Call<Map<String, Object>> call = petApi.agregarMascota(userId, mascota);
 
-        call.enqueue(new Callback<Map<String, Object>>() {
+        call.enqueue(new Callback<>() {
             @Override
-            public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
+            public void onResponse(@NonNull Call<Map<String, Object>> call, @NonNull Response<Map<String, Object>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     Toast.makeText(RegistroMascotas.this, "Mascota registrada con éxito", Toast.LENGTH_SHORT).show();
                 } else {
@@ -83,7 +87,7 @@ public class RegistroMascotas extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Map<String, Object>> call, Throwable t) {
+            public void onFailure(@NonNull Call<Map<String, Object>> call, @NonNull Throwable t) {
                 Toast.makeText(RegistroMascotas.this, "Error de conexión: " + t.getMessage(), Toast.LENGTH_LONG).show();
             }
 
@@ -91,4 +95,5 @@ public class RegistroMascotas extends AppCompatActivity {
         });
 
     }
+
 }

@@ -25,6 +25,7 @@
         <activity
             android:name=".menu"
             android:exported="false" />
+
         <activity
             android:name=".RegistroMascotas"
             android:exported="false" />
