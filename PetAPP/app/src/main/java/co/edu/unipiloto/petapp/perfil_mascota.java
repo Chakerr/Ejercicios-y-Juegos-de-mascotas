@@ -2,14 +2,16 @@ package co.edu.unipiloto.petapp;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.TextView;
+import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
+import com.google.gson.Gson;
+import com.journeyapps.barcodescanner.BarcodeEncoder;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
 import java.util.ArrayList;
 import java.util.List;
 import co.edu.unipiloto.petapp.model.Mascota;
@@ -23,9 +25,11 @@ public class perfil_mascota extends AppCompatActivity {
 
     private Spinner spinnerMascotas;
     private TextView tvPetName, tvSpecies, tvBreed, tvGender, tvBirthDate, tvColor, tvMicrochip;
+    private ImageView qrImageView;
+    private Button btnGenerateQR;
     private PetApi petApi;
     private SharedPreferences sharedPreferences;
-    private List<Mascota> listaMascotas = new ArrayList<>(); // Lista para almacenar las mascotas
+    private List<Mascota> listaMascotas = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,8 @@ public class perfil_mascota extends AppCompatActivity {
         tvBirthDate = findViewById(R.id.tvBirthDate);
         tvColor = findViewById(R.id.tvColor);
         tvMicrochip = findViewById(R.id.tvMicrochip);
+        qrImageView = findViewById(R.id.qrImageView);
+        btnGenerateQR = findViewById(R.id.btnGenerarQR);
 
         // Inicializar SharedPreferences
         sharedPreferences = getSharedPreferences("UserSession", Context.MODE_PRIVATE);
@@ -57,6 +63,16 @@ public class perfil_mascota extends AppCompatActivity {
 
         // Obtener mascotas del usuario
         obtenerMascotas(userId);
+
+        // Listener del botón para generar QR
+        btnGenerateQR.setOnClickListener(v -> {
+            int selectedPosition = spinnerMascotas.getSelectedItemPosition();
+            if (!listaMascotas.isEmpty() && selectedPosition >= 0) {
+                generarQR(listaMascotas.get(selectedPosition));
+            } else {
+                Toast.makeText(this, "No hay mascota seleccionada", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void obtenerMascotas(int userId) {
@@ -67,7 +83,7 @@ public class perfil_mascota extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     listaMascotas = response.body();
                     if (!listaMascotas.isEmpty()) {
-                        configurarSpinner(); // Llenar el Spinner con los nombres de las mascotas
+                        configurarSpinner();
                     } else {
                         tvPetName.setText("No se encontraron mascotas.");
                     }
@@ -85,31 +101,25 @@ public class perfil_mascota extends AppCompatActivity {
     }
 
     private void configurarSpinner() {
-        // Extraer los nombres de las mascotas para el Spinner
         List<String> nombresMascotas = new ArrayList<>();
         for (Mascota mascota : listaMascotas) {
             nombresMascotas.add(mascota.getNombreMascota());
         }
 
-        // Adaptador para el Spinner
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, nombresMascotas);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerMascotas.setAdapter(adapter);
 
-        // Listener para detectar cambios en la selección
         spinnerMascotas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                actualizarDatosMascota(listaMascotas.get(position)); // Mostrar datos de la mascota seleccionada
+                actualizarDatosMascota(listaMascotas.get(position));
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // No hacer nada si no se selecciona nada
-            }
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
 
-        // Mostrar la primera mascota por defecto
         if (!listaMascotas.isEmpty()) {
             actualizarDatosMascota(listaMascotas.get(0));
         }
@@ -122,8 +132,30 @@ public class perfil_mascota extends AppCompatActivity {
         tvGender.setText(mascota.getSexo());
         tvBirthDate.setText(mascota.getFechaNacimiento());
         tvColor.setText(mascota.getColor());
-        tvMicrochip.setText(mascota.getMicrochip() ? "Si" : "No");
+        tvMicrochip.setText(mascota.getMicrochip() ? "Sí" : "No");
+
+
+    }
+
+    private void generarQR(Mascota mascota) {
+        try {
+            Gson gson = new Gson();
+            String mascotaJson = gson.toJson(mascota); // Convertir mascota a JSON
+
+            BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
+            Bitmap bitmap = barcodeEncoder.encodeBitmap(mascotaJson, BarcodeFormat.QR_CODE, 400, 400);
+
+            // Verifica si el ImageView es nulo antes de asignar el QR
+            if (qrImageView != null) {
+                qrImageView.setImageBitmap(bitmap);
+                qrImageView.setVisibility(View.VISIBLE); // Asegurar que sea visible
+            } else {
+                Log.e("QR_ERROR", "ImageView es nulo");
+            }
+
+        } catch (WriterException e) {
+            Log.e("QR_ERROR", "Error al generar QR: " + e.getMessage());
+            Toast.makeText(this, "Error al generar QR", Toast.LENGTH_SHORT).show();
+        }
     }
 }
-
-
