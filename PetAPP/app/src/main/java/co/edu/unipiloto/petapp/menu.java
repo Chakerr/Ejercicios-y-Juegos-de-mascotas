@@ -20,7 +20,6 @@ public class menu extends AppCompatActivity {
         Button btnCerrarSesion = findViewById(R.id.btn_cerrar_sesion);
 
         btnRegistrarMascota.setOnClickListener(v -> {
-            Log.d("DEBUG", "Botón Registrar Mascota presionado");
             Intent intent = new Intent(menu.this, RegistroMascotas.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);

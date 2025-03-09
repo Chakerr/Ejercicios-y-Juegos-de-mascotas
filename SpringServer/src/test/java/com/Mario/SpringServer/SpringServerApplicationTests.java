@@ -1,13 +1,12 @@
 package com.Mario.SpringServer;
 
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.util.List;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,7 +25,7 @@ class SpringServerApplicationTests {
     @Autowired
     private MascotaDao mascotaDao;
 
-    // @Test
+     @Test
     void addUsuario() {
         Usuario usuario = new Usuario();
         usuario.setNombreCompleto("Juan");
@@ -36,7 +35,7 @@ class SpringServerApplicationTests {
         usuarioDao.save(usuario);
     }
 
-     //@Test
+    @Test
     void getAllUsuariosDelete() {
         List<Usuario> usuario = usuarioDao.getAllUsuarios();
         for (Usuario usuario1 : usuario) {
@@ -53,7 +52,7 @@ class SpringServerApplicationTests {
         assertFalse(mascotas.isEmpty(), "La lista de mascotas no debería estar vacía");
     }
 
-    //@Test
+    @Test
     void addMascotaByUserIdTest() {
         Integer usuarioId = 39; 
 
@@ -71,9 +70,7 @@ class SpringServerApplicationTests {
         mascota.setSexo("Macho");
         mascota.setColor("Marrón");
         mascota.setMicrochip(true);
-
-        // 3. Guardar la mascota
-        mascota = mascotaDao.saveMascota(mascota);
+        mascotaDao.saveMascota(mascota);
 
         // 4. Recuperar las mascotas del usuario
         List<Mascota> mascotas = mascotaDao.getMascotasByUsuario(usuario.getCorreo());

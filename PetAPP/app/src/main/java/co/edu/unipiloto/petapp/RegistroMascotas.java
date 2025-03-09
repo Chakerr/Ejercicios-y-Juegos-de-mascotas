@@ -52,8 +52,7 @@ public class RegistroMascotas extends AppCompatActivity {
 
         // Evento del botón para registrar mascota
         btnRegistrarMascota.setOnClickListener(v -> registrarMascota());
-        Intent intent = new Intent(RegistroMascotas.this, menu.class);
-        startActivity(intent);
+
     }
 
     private void registrarMascota() {
@@ -81,6 +80,9 @@ public class RegistroMascotas extends AppCompatActivity {
             public void onResponse(@NonNull Call<Map<String, Object>> call, @NonNull Response<Map<String, Object>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     Toast.makeText(RegistroMascotas.this, "Mascota registrada con éxito", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(RegistroMascotas.this, menu.class);
+                    startActivity(intent);
+                    finish();
                 } else {
                     Toast.makeText(RegistroMascotas.this, "Error en el registro", Toast.LENGTH_SHORT).show();
                 }
