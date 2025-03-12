@@ -17,6 +17,7 @@ public class menu extends AppCompatActivity {
 
         Button btnRegistrarMascota = findViewById(R.id.btn_registrar_mascota);
         Button btnPerfilMascota = findViewById(R.id.btn_perfil_mascota);
+        Button btnRegistrarMedicamento = findViewById(R.id.btn_registrar_medicamento);
         Button btnCerrarSesion = findViewById(R.id.btn_cerrar_sesion);
 
         btnRegistrarMascota.setOnClickListener(v -> {
@@ -31,6 +32,12 @@ public class menu extends AppCompatActivity {
             startActivity(intent);
 
         });
+
+        btnRegistrarMedicamento.setOnClickListener(v -> {
+            Intent intent = new Intent(menu.this, RegistroMedicamento.class);
+            startActivity(intent);
+        });
+
         btnCerrarSesion.setOnClickListener(v -> {
               cerrarSesion();
         });

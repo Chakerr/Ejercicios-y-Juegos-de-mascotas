@@ -1,4 +1,4 @@
-package com.Mario.SpringServer.controller;
+package com.Mario.SpringServer.controller.Mascota;
 
 import org.springframework.web.bind.annotation.RestController;
 

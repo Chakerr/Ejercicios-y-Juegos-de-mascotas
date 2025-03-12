@@ -3,6 +3,7 @@ package co.edu.unipiloto.petapp.retrofit;
 import java.util.List;
 import java.util.Map;
 
+import co.edu.unipiloto.petapp.model.Medicamento;
 import co.edu.unipiloto.petapp.model.Usuario;
 import co.edu.unipiloto.petapp.model.Mascota;
 import retrofit2.Call;
@@ -27,8 +28,11 @@ public interface PetApi {
     Call<Map<String, Object>> agregarMascota(@Query("id_usuario") int idUsuario, @Body Map<String, Object> mascota);
     @GET("/mascota/usuario/{idUsuario}")
     Call<List<Mascota>> getMascotasByUsuarioId(@Path("idUsuario") int idUsuario);
+    @GET("/medicamentos/pendientes")
+    Call<List<Medicamento>> obtenerMedicamentosPendientes();
 
-
+    @POST("/medicamentos")
+    Call<Medicamento> guardarMedicamento(@Body Medicamento medicamento);
 }
 
 

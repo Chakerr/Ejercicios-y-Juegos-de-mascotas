@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
         android:allowBackup="true"
@@ -17,6 +18,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".RegistroMedicamento"
+            android:exported="false" />
+        <activity
+            android:name=".medicamentos"
+            android:exported="false" />
+        <activity
             android:name=".perfil_usuario"
             android:exported="false" />
         <activity
@@ -25,7 +32,6 @@
         <activity
             android:name=".menu"
             android:exported="false" />
-
         <activity
             android:name=".RegistroMascotas"
             android:exported="false" />

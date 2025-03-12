@@ -1,4 +1,4 @@
-package com.Mario.SpringServer.service;
+package com.Mario.SpringServer.service.Mascota;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
