@@ -38,4 +38,3 @@ public class MedicamentoController {
         return medicamento != null ? ResponseEntity.ok(medicamento) : ResponseEntity.notFound().build();
     }
 }
-
