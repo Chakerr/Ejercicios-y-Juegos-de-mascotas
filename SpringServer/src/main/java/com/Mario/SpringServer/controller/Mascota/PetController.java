@@ -1,13 +1,5 @@
 package com.Mario.SpringServer.controller.Mascota;
 
-import org.springframework.web.bind.annotation.RestController;
-
-import com.Mario.SpringServer.model.Usuario.Usuario;
-import com.Mario.SpringServer.model.Usuario.UsuarioDao;
-
-import com.Mario.SpringServer.model.Mascota.Mascota;
-import com.Mario.SpringServer.model.Mascota.MascotaDao;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -16,8 +8,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.Mario.SpringServer.model.Mascota.Mascota;
+import com.Mario.SpringServer.model.Mascota.MascotaDao;
+import com.Mario.SpringServer.model.Usuario.Usuario;
+import com.Mario.SpringServer.model.Usuario.UsuarioDao;
 
 @RestController
 public class PetController {
@@ -26,20 +25,18 @@ public class PetController {
     private UsuarioDao usuarioDao;
 
     @GetMapping("/usuario/id")
-public ResponseEntity<Integer> obtenerIdUsuario(@RequestParam String correo) {
-    System.out.println("Buscando usuario con correo: " + correo);
-    Usuario usuario = usuarioDao.findByCorreo(correo);
+    public ResponseEntity<Integer> obtenerIdUsuario(@RequestParam String correo) {
+        System.out.println("Buscando usuario con correo: " + correo);
+        Usuario usuario = usuarioDao.findByCorreo(correo);
 
-    if (usuario == null) {
-        System.out.println("No se encontró ningún usuario con ese correo.");
-        return ResponseEntity.notFound().build();
+        if (usuario == null) {
+            System.out.println("No se encontró ningún usuario con ese correo.");
+            return ResponseEntity.notFound().build();
+        }
+
+        System.out.println("Usuario encontrado: ID=" + usuario.getIdUsuario());
+        return ResponseEntity.ok(usuario.getIdUsuario());
     }
-
-    System.out.println("Usuario encontrado: ID=" + usuario.getIdUsuario());
-    return ResponseEntity.ok(usuario.getIdUsuario());
-}
-
-
 
     @GetMapping("/usuario/get-all")
     public List<Usuario> getAllUsuarios() {
@@ -65,23 +62,19 @@ public ResponseEntity<Integer> obtenerIdUsuario(@RequestParam String correo) {
     private MascotaDao mascotaDao;
 
     @PostMapping("/mascota/agregar")
-public ResponseEntity<?> agregarMascota(@RequestBody Mascota mascota, @RequestParam Integer id_usuario) {
-    // Verificar si el usuario existe
-    Optional<Usuario> usuarioOpt = usuarioDao.findById(id_usuario);
-    if (usuarioOpt.isEmpty()) {
-        return ResponseEntity.badRequest().body("Usuario no encontrado");
-    }
+    public ResponseEntity<?> agregarMascota(@RequestBody Mascota mascota, @RequestParam Integer id_usuario) {
+        Optional<Usuario> usuarioOpt = usuarioDao.findById(id_usuario);
+        if (usuarioOpt.isEmpty()) {
+            return ResponseEntity.badRequest().body("Usuario no encontrado");
+        }
+        if (mascota.getNombreMascota() == null || mascota.getNombreMascota().isEmpty()) {
+            return ResponseEntity.badRequest().body("El nombre de la mascota no puede ser vacío");
+        }
 
-    // Verificación del nombre de la mascota
-    if (mascota.getNombreMascota() == null || mascota.getNombreMascota().isEmpty()) {
-        return ResponseEntity.badRequest().body("El nombre de la mascota no puede ser vacío");
+        mascota.setUsuario(usuarioOpt.get());
+        Mascota nuevaMascota = mascotaDao.saveMascota(mascota);
+        return ResponseEntity.ok(nuevaMascota);
     }
-
-    // Asignar el usuario y guardar la mascota
-    mascota.setUsuario(usuarioOpt.get());
-    Mascota nuevaMascota = mascotaDao.saveMascota(mascota);
-    return ResponseEntity.ok(nuevaMascota);
-}
 
     @GetMapping("/mascota/getByUsuario")
     public List<Mascota> getMascotasByUsuario(@RequestParam String correo) {
@@ -91,6 +84,19 @@ public ResponseEntity<?> agregarMascota(@RequestBody Mascota mascota, @RequestPa
     @GetMapping("/mascota/usuario/{idUsuario}")
     public List<Mascota> getMascotasByUsuarioId(@PathVariable Integer idUsuario) {
         return mascotaDao.getMascotasByUsuarioId(idUsuario);
+    }
+
+    @PutMapping("/mascota/actualizar-ubicacion")
+    public ResponseEntity<?> actualizarUbicacionMascota(@RequestParam Integer idMascota,
+            @RequestParam Double latitud,
+            @RequestParam Double longitud) {
+        Mascota mascotaActualizada = mascotaDao.updateUbicacionMascota(idMascota, latitud, longitud);
+
+        if (mascotaActualizada == null) {
+            return ResponseEntity.badRequest().body("Mascota no encontrada");
+        }
+
+        return ResponseEntity.ok(mascotaActualizada);
     }
 
 }

@@ -1,24 +1,6 @@
 package co.edu.unipiloto.petapp.model;
 
-
-
-import java.time.LocalDate;
 public class Mascota {
-    public Mascota(Usuario usuario, String nombreMascota, String fechaNacimiento, String especie, String raza,
-                   String sexo, String color, Boolean microchip) {
-
-        this.usuario = usuario;
-        this.nombreMascota = nombreMascota;
-        this.fechaNacimiento = fechaNacimiento;
-        this.especie = especie;
-        this.raza = raza;
-        this.sexo = sexo;
-        this.color = color;
-        this.microchip = microchip;
-    }
-    public Mascota() {
-    }
-
     private Integer idMascota;
     private Usuario usuario;
     private String nombreMascota;
@@ -28,6 +10,26 @@ public class Mascota {
     private String sexo;
     private String color;
     private Boolean microchip;
+    private Double latitud;
+    private Double longitud;
+
+    // 🔹 Constructor con latitud y longitud
+    public Mascota(Usuario usuario, String nombreMascota, String fechaNacimiento, String especie,
+                   String raza, String sexo, String color, Boolean microchip, Double latitud, Double longitud) {
+        this.usuario = usuario;
+        this.nombreMascota = nombreMascota;
+        this.fechaNacimiento = fechaNacimiento;
+        this.especie = especie;
+        this.raza = raza;
+        this.sexo = sexo;
+        this.color = color;
+        this.microchip = microchip;
+        this.latitud = latitud;
+        this.longitud = longitud;
+    }
+
+    public Mascota() {
+    }
 
     // Getters y Setters
     public Integer getIdMascota() {
@@ -102,4 +104,19 @@ public class Mascota {
         this.microchip = microchip;
     }
 
+    public Double getLatitud() {
+        return latitud;
+    }
+
+    public void setLatitud(Double latitud) {
+        this.latitud = latitud;
+    }
+
+    public Double getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(Double longitud) {
+        this.longitud = longitud;
+    }
 }

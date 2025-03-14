@@ -25,7 +25,7 @@ class SpringServerApplicationTests {
     @Autowired
     private MascotaDao mascotaDao;
 
-     @Test
+    @Test
     void addUsuario() {
         Usuario usuario = new Usuario();
         usuario.setNombreCompleto("Juan");

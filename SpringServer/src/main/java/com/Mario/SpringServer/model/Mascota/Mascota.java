@@ -3,14 +3,21 @@ package com.Mario.SpringServer.model.Mascota;
 import com.Mario.SpringServer.model.Usuario.Usuario;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "mascotas")
 public class Mascota {
 
     public Mascota(Usuario usuario, String nombreMascota, String fechaNacimiento, String especie, String raza,
-            String sexo, String color, Boolean microchip) {
+                   String sexo, String color, Boolean microchip, Double latitud, Double longitud) {
         this.usuario = usuario;
         this.nombreMascota = nombreMascota;
         this.fechaNacimiento = fechaNacimiento;
@@ -19,6 +26,8 @@ public class Mascota {
         this.sexo = sexo;
         this.color = color;
         this.microchip = microchip;
+        this.latitud = latitud;
+        this.longitud = longitud;
     }
 
     public Mascota() {
@@ -54,6 +63,13 @@ public class Mascota {
 
     @Column(name = "microchip")
     private Boolean microchip;
+
+    
+    @Column(name = "latitud")
+    private Double latitud;
+
+    @Column(name = "longitud")
+    private Double longitud;
 
     // Getters y Setters
     public Integer getIdMascota() {
@@ -126,5 +142,21 @@ public class Mascota {
 
     public void setMicrochip(Boolean microchip) {
         this.microchip = microchip;
+    }
+
+    public Double getLatitud() {
+        return latitud;
+    }
+
+    public void setLatitud(Double latitud) {
+        this.latitud = latitud;
+    }
+
+    public Double getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(Double longitud) {
+        this.longitud = longitud;
     }
 }
