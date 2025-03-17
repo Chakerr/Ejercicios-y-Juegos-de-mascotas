@@ -43,7 +43,7 @@ class SpringServerApplicationTests {
         }
     }
 
-     @Test
+    @Test
     void getMascotasByUsuario() {
         String correo = "juan@gmail.com";
         List<Mascota> mascotas = mascotaDao.getMascotasByUsuario(correo);

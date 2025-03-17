@@ -20,6 +20,18 @@ import co.edu.unipiloto.petapp.retrofit.RetrofitService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import android.location.Address;
+import android.location.Geocoder;
+import java.io.IOException;
+import java.util.Locale;
+import org.osmdroid.config.Configuration;
+import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.Marker;
+import org.osmdroid.views.overlay.TilesOverlay;
+import android.preference.PreferenceManager;
+
+
 
 public class perfil_mascota extends AppCompatActivity {
 
@@ -30,11 +42,19 @@ public class perfil_mascota extends AppCompatActivity {
     private PetApi petApi;
     private SharedPreferences sharedPreferences;
     private List<Mascota> listaMascotas = new ArrayList<>();
+    private TextView tvDireccion;
+    private MapView mapView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil_mascota);
+
+        Configuration.getInstance().load(getApplicationContext(), PreferenceManager.getDefaultSharedPreferences(this));
+        mapView = findViewById(R.id.mapView);
+        mapView.setTileSource(org.osmdroid.tileprovider.tilesource.TileSourceFactory.MAPNIK);
+        mapView.setBuiltInZoomControls(true);
+        mapView.setMultiTouchControls(true);
 
         // Referencias a los elementos de la UI
         spinnerMascotas = findViewById(R.id.spinnerMascotas);
@@ -45,6 +65,7 @@ public class perfil_mascota extends AppCompatActivity {
         tvBirthDate = findViewById(R.id.tvBirthDate);
         tvColor = findViewById(R.id.tvColor);
         tvMicrochip = findViewById(R.id.tvMicrochip);
+        tvDireccion = findViewById(R.id.tvDireccion);
         qrImageView = findViewById(R.id.qrImageView);
         btnGenerateQR = findViewById(R.id.btnGenerarQR);
 
@@ -134,7 +155,48 @@ public class perfil_mascota extends AppCompatActivity {
         tvColor.setText(mascota.getColor());
         tvMicrochip.setText(mascota.getMicrochip() ? "Sí" : "No");
 
+        // Convertir latitud y longitud en dirección
+        if (mascota.getLatitud() != 0 && mascota.getLongitud() != 0) {
+            String direccion = obtenerDireccion(mascota.getLatitud(), mascota.getLongitud());
+            mostrarUbicacionEnMapa(mascota.getLatitud(), mascota.getLongitud());
+            tvDireccion.setText(direccion);
+        } else {
+            tvDireccion.setText("Ubicación no disponible");
+        }
+    }
 
+    private String obtenerDireccion(double latitud, double longitud) {
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        try {
+            List<Address> direcciones = geocoder.getFromLocation(latitud, longitud, 1);
+            if (direcciones != null && !direcciones.isEmpty()) {
+                Address direccion = direcciones.get(0);
+                return direccion.getAddressLine(0);
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "Dirección no disponible";
+    }
+
+    private void mostrarUbicacionEnMapa(double latitud, double longitud) {
+        GeoPoint ubicacion = new GeoPoint(latitud, longitud);
+        mapView.getController().setZoom(18.0);
+        mapView.getController().setCenter(ubicacion);
+
+        // Limpiar marcadores previos
+        mapView.getOverlays().clear();
+
+        // Agregar marcador
+        Marker marcador = new Marker(mapView);
+        marcador.setPosition(ubicacion);
+        marcador.setTitle("Ubicación de la mascota");
+        marcador.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+        mapView.getOverlays().add(marcador);
+
+        // Refrescar mapa
+        mapView.invalidate();
     }
 
     private void generarQR(Mascota mascota) {
