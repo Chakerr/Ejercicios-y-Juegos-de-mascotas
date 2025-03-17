@@ -18,6 +18,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+
+import com.google.gson.Gson;
+
 import java.util.Calendar;
 
 public class RegistroMedicamento extends AppCompatActivity {
@@ -79,7 +82,11 @@ public class RegistroMedicamento extends AppCompatActivity {
         }
 
         Medicamento medicamento = new Medicamento(null, nombre, dosis, frecuencia, false, fechaHora);
-        Log.d("RegistroMedicamento", "Objeto Medicamento: " + medicamento.toString());
+
+        // Verificar JSON antes de enviarlo
+        Gson gson = new Gson();
+        String jsonMedicamento = gson.toJson(medicamento);
+        Log.d("RegistroMedicamento", "JSON enviado: " + jsonMedicamento);
 
         petApi.guardarMedicamento(medicamento).enqueue(new Callback<Medicamento>() {
             @Override
