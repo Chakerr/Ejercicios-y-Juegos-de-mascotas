@@ -3,6 +3,8 @@ package com.Mario.SpringServer.model.Mascota;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 public class Medicamento {
     @Id
@@ -12,6 +14,9 @@ public class Medicamento {
     private String dosis;
     private String frecuencia;
     private boolean administrado;
+
+    @Column(columnDefinition = "TIMESTAMP")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime proximaDosis;
 
     // Getters y Setters

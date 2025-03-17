@@ -9,6 +9,10 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
+import java.util.concurrent.TimeUnit;
+import co.edu.unipiloto.petapp.workers.MedicamentoWorker;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -18,7 +22,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        
+        PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder(
+                MedicamentoWorker.class, 2, TimeUnit.MINUTES)
+                .build();
+        WorkManager.getInstance(this).enqueue(workRequest);
+
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 1);

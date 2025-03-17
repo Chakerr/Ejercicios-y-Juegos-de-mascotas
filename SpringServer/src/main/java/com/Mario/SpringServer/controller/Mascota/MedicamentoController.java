@@ -4,6 +4,8 @@ import com.Mario.SpringServer.model.Mascota.Medicamento;
 import com.Mario.SpringServer.service.Mascota.MedicamentoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,14 +19,23 @@ public class MedicamentoController {
     }
 
     @PostMapping
-    public Medicamento agregarMedicamento(@RequestBody Medicamento medicamento) {
-        return medicamentoService.agregarMedicamento(medicamento);
+    public ResponseEntity<Medicamento> agregarMedicamento(@RequestBody Medicamento medicamento) {
+        System.out.println("📩 Recibido: " + medicamento.getProximaDosis());
+        Medicamento nuevoMedicamento = medicamentoService.agregarMedicamento(medicamento);
+        return ResponseEntity.ok(nuevoMedicamento);
+    }
+
+    @GetMapping
+    public List<Medicamento> listarMedicamentos() {
+        return medicamentoService.listarMedicamentos();
     }
 
     @GetMapping("/pendientes")
-    public List<Medicamento> obtenerMedicamentosPendientes() {
-        return medicamentoService.obtenerMedicamentosPendientes();
-    }
+public List<Medicamento> obtenerMedicamentosPendientes() {
+    LocalDateTime ahora = LocalDateTime.now();
+    return medicamentoService.obtenerMedicamentosPendientes(ahora);
+}
+
 
     @GetMapping("/{id}")
     public ResponseEntity<Medicamento> obtenerMedicamento(@PathVariable Long id) {
@@ -37,4 +48,6 @@ public class MedicamentoController {
         Medicamento medicamento = medicamentoService.marcarComoAdministrado(id);
         return medicamento != null ? ResponseEntity.ok(medicamento) : ResponseEntity.notFound().build();
     }
+
+    
 }

@@ -46,8 +46,16 @@
             android:id="@+id/etFechaHora"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Fecha y hora (yyyy-MM-dd HH:mm)"
-            android:inputType="datetime" />
+            android:hint="Selecciona fecha y hora"
+            android:focusable="false"
+            android:clickable="true" />
+
+        <Button
+            android:id="@+id/btnSeleccionarFechaHora"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Seleccionar Fecha y Hora"
+            android:layout_marginTop="8dp"/>
 
         <Button
             android:id="@+id/btnGuardar"
