@@ -1,12 +1,21 @@
 package com.Mario.SpringServer.model.Mascota;
 
-import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Medicamento {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,6 +27,11 @@ public class Medicamento {
     @Column(columnDefinition = "TIMESTAMP")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime proximaDosis;
+
+    @ManyToOne
+    @JoinColumn(name = "id_mascota", nullable = false)
+    @JsonIgnore
+    private Mascota mascota;
 
     // Getters y Setters
     public Long getId() {
@@ -66,5 +80,13 @@ public class Medicamento {
 
     public void setProximaDosis(LocalDateTime proximaDosis) {
         this.proximaDosis = proximaDosis;
+    }
+
+    public Mascota getMascota() {
+        return mascota;
+    }
+
+    public void setMascota(Mascota mascota) {
+        this.mascota = mascota;
     }
 }

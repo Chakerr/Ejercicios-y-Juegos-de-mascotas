@@ -1,8 +1,12 @@
 package com.Mario.SpringServer.model.Mascota;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.Mario.SpringServer.model.Usuario.Usuario;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,6 +14,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -70,6 +75,9 @@ public class Mascota {
 
     @Column(name = "longitud")
     private Double longitud;
+
+    @OneToMany(mappedBy = "mascota", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Medicamento> medicamentos = new ArrayList<>();
 
     // Getters y Setters
     public Integer getIdMascota() {
@@ -158,5 +166,13 @@ public class Mascota {
 
     public void setLongitud(Double longitud) {
         this.longitud = longitud;
+    }
+
+    public List<Medicamento> getMedicamentos() {
+        return medicamentos;
+    }
+    
+    public void setMedicamentos(List<Medicamento> medicamentos) {
+        this.medicamentos = medicamentos;
     }
 }
