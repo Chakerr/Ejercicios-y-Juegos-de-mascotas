@@ -32,22 +32,23 @@ public class MedicamentoService {
         return medicamentoRepository.findById(id);
     }
 
-    // Nueva lógica para convertir y filtrar por fecha
     public List<Medicamento> obtenerMedicamentosPendientes() {
         LocalDateTime ahora = LocalDateTime.now();
-
+    
         return medicamentoRepository.findAll().stream()
                 .filter(m -> {
                     try {
                         LocalDateTime proximaDosis = LocalDateTime.parse(m.getProximaDosis(), FORMATTER);
-                        return !m.isAdministrado() && proximaDosis.isBefore(ahora);
+                        
+                        return !m.isAdministrado() && (proximaDosis.isBefore(ahora) || proximaDosis.isAfter(ahora));
                     } catch (Exception e) {
                         System.err.println("Error al parsear fecha: " + m.getProximaDosis() + " - " + e.getMessage());
-                        return false; // Si hay un error al parsear, lo ignoramos
+                        return false;
                     }
                 })
                 .toList();
     }
+    
 
     public Medicamento marcarComoAdministrado(Long id) {
         Optional<Medicamento> optionalMedicamento = medicamentoRepository.findById(id);
