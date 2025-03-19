@@ -1,12 +1,15 @@
 package com.Mario.SpringServer.service.Mascota;
 
-import com.Mario.SpringServer.model.Mascota.Medicamento;
-import com.Mario.SpringServer.repository.Mascota.MedicamentoRepository;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
+
+import com.Mario.SpringServer.model.Mascota.Medicamento;
+import com.Mario.SpringServer.repository.Mascota.MedicamentoRepository;
 
 @Service
 public class MedicamentoService {
@@ -28,8 +31,15 @@ public class MedicamentoService {
         return medicamentoRepository.findById(id);
     }
 
-    public List<Medicamento> obtenerMedicamentosPendientes(LocalDateTime ahora) {
-        return medicamentoRepository.findByAdministradoFalseAndProximaDosisBefore(ahora);
+    // Nueva lógica para convertir y filtrar por fecha
+    public List<Medicamento> obtenerMedicamentosPendientes() {
+        LocalDateTime ahora = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); // Sin 'T'
+    
+        return medicamentoRepository.findAll().stream()
+                .filter(m -> !m.isAdministrado() && 
+                        LocalDateTime.parse(m.getProximaDosis(), formatter).isBefore(ahora))
+                .toList();
     }
     
 
@@ -47,9 +57,7 @@ public class MedicamentoService {
     public void verificarMedicamentosPendientes() {
         System.out.println("Verificando medicamentos pendientes...");
 
-        LocalDateTime ahora = LocalDateTime.now();
-        List<Medicamento> medicamentosPendientes = medicamentoRepository
-                .findByAdministradoFalseAndProximaDosisBefore(ahora);
+        List<Medicamento> medicamentosPendientes = obtenerMedicamentosPendientes();
         System.out.println("Medicamentos pendientes encontrados: " + medicamentosPendientes.size());
 
         for (Medicamento medicamento : medicamentosPendientes) {

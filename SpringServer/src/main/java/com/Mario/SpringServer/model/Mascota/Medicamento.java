@@ -1,7 +1,5 @@
 package com.Mario.SpringServer.model.Mascota;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -25,19 +23,16 @@ public class Medicamento {
     private String frecuencia;
     private boolean administrado;
 
-    @Column(columnDefinition = "TIMESTAMP", nullable = false)
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private String proximaDosis;
+    @Column(nullable = false)
+    private String proximaDosis; // Ahora es String
 
     // Relación muchos a uno con Mascota
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_mascota", nullable = false)
     private Mascota mascota;
 
-    // Constructor vacío (obligatorio para JPA)
     public Medicamento() {}
 
-    // Constructor con parámetros
     public Medicamento(String nombre, String dosis, String frecuencia, boolean administrado, String proximaDosis, Mascota mascota) {
         this.nombre = nombre;
         this.dosis = dosis;

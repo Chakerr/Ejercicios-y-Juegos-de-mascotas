@@ -1,6 +1,5 @@
 package com.Mario.SpringServer.controller.Mascota;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,10 +36,10 @@ public class MedicamentoController {
     }
 
     @GetMapping("/pendientes")
-public List<Medicamento> obtenerMedicamentosPendientes() {
-    LocalDateTime ahora = LocalDateTime.now();
-    return medicamentoService.obtenerMedicamentosPendientes(ahora);
-}
+    public List<Medicamento> obtenerMedicamentosPendientes() {
+        return medicamentoService.obtenerMedicamentosPendientes();
+    }
+    
 
 
     @GetMapping("/{id}")
