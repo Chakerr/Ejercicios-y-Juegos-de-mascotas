@@ -36,7 +36,8 @@ public class RegistroMedicamento extends AppCompatActivity {
     private Button btnSeleccionarFechaHora, btnGuardar;
     private List<Mascota> listaMascotas;
 
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -139,24 +140,17 @@ public class RegistroMedicamento extends AppCompatActivity {
         Mascota mascotaSeleccionada = listaMascotas.get(posicionSeleccionada);
 
         try {
-            // Validar y convertir la fecha
-            LocalDateTime fechaHoraLocalDateTime;
-            try {
-                fechaHoraLocalDateTime = LocalDateTime.parse(fechaHora, FORMATTER);
-            } catch (Exception e) {
-                Toast.makeText(this, "Formato de fecha incorrecto. Usa dd/MM/yyyy HH:mm", Toast.LENGTH_SHORT).show();
-                return;
-            }
+            LocalDateTime fechaHoraLocalDateTime = LocalDateTime.parse(fechaHora, INPUT_FORMATTER);
+            String fechaHoraFormateada = fechaHoraLocalDateTime.format(OUTPUT_FORMATTER);
 
-            // Crear objeto Medicamento
             Medicamento medicamento = new Medicamento();
             medicamento.setNombre(nombreMedicamento);
             medicamento.setDosis(dosis);
             medicamento.setFrecuencia(frecuencia);
-            medicamento.setProximaDosis(fechaHoraLocalDateTime);
+            medicamento.setProximaDosis(fechaHoraFormateada);
+            medicamento.setAdministrado(false);  // Agregar campo faltante
             medicamento.setMascota(mascotaSeleccionada);
 
-            // Llamada a Retrofit
             RetrofitService retrofitService = new RetrofitService();
             PetApi petApi = retrofitService.getRetrofit().create(PetApi.class);
 
@@ -179,7 +173,7 @@ public class RegistroMedicamento extends AppCompatActivity {
             });
 
         } catch (Exception e) {
-            Toast.makeText(this, "Error inesperado al registrar el medicamento.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Error al formatear la fecha.", Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -1,7 +1,5 @@
 package com.Mario.SpringServer.model.Mascota;
 
-import java.time.LocalDateTime;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Column;
@@ -21,19 +19,33 @@ public class Medicamento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nombre;
     private String dosis;
     private String frecuencia;
     private boolean administrado;
 
-    @Column(columnDefinition = "TIMESTAMP")
+    @Column(columnDefinition = "TIMESTAMP", nullable = false)
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime proximaDosis;
+    private String proximaDosis;
 
     // Relación muchos a uno con Mascota
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_mascota")
+    @JoinColumn(name = "id_mascota", nullable = false)
     private Mascota mascota;
+
+    // Constructor vacío (obligatorio para JPA)
+    public Medicamento() {}
+
+    // Constructor con parámetros
+    public Medicamento(String nombre, String dosis, String frecuencia, boolean administrado, String proximaDosis, Mascota mascota) {
+        this.nombre = nombre;
+        this.dosis = dosis;
+        this.frecuencia = frecuencia;
+        this.administrado = administrado;
+        this.proximaDosis = proximaDosis;
+        this.mascota = mascota;
+    }
 
     // Getters y Setters
     public Long getId() {
@@ -76,11 +88,11 @@ public class Medicamento {
         this.administrado = administrado;
     }
 
-    public LocalDateTime getProximaDosis() {
+    public String getProximaDosis() {
         return proximaDosis;
     }
 
-    public void setProximaDosis(LocalDateTime proximaDosis) {
+    public void setProximaDosis(String proximaDosis) {
         this.proximaDosis = proximaDosis;
     }
 

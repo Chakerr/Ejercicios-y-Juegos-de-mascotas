@@ -22,9 +22,6 @@
             android:name=".RegistroMedicamento"
             android:exported="false" />
         <activity
-            android:name=".medicamentos"
-            android:exported="false" />
-        <activity
             android:name=".perfil_mascota"
             android:exported="false" />
         <activity
