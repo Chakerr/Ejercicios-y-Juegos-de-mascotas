@@ -1,5 +1,7 @@
 package co.edu.unipiloto.petapp.model;
 
+import java.util.List;
+
 public class Mascota {
     private Integer idMascota;
     private Usuario usuario;
@@ -12,6 +14,7 @@ public class Mascota {
     private Boolean microchip;
     private Double latitud;
     private Double longitud;
+    private List<Medicamento> medicamentos;
 
     // 🔹 Constructor con latitud y longitud
     public Mascota(Usuario usuario, String nombreMascota, String fechaNacimiento, String especie,
@@ -118,5 +121,11 @@ public class Mascota {
 
     public void setLongitud(Double longitud) {
         this.longitud = longitud;
+    }
+    public List<Medicamento> getMedicamentos() {
+        return medicamentos;
+    }
+    public void setMedicamentos(List<Medicamento> medicamentos) {
+        this.medicamentos = medicamentos;
     }
 }

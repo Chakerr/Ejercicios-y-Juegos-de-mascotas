@@ -13,6 +13,13 @@
         android:orientation="vertical"
         android:padding="16dp">
 
+        <Spinner
+            android:id="@+id/spinnerMascotas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:minHeight="48dp" />
+
         <EditText
             android:id="@+id/etNombre"
             android:layout_width="match_parent"

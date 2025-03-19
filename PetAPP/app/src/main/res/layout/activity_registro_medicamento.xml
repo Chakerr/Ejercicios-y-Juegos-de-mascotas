@@ -1,69 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="24dp"
+    android:background="@drawable/gradient_background"
     tools:context=".RegistroMedicamento">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <!-- Logo de la aplicación -->
+    <ImageView
+        android:id="@+id/logo"
+        android:src="@drawable/logo_app"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:contentDescription="@string/logo"
+        android:layout_marginBottom="40dp" />
+
+    <!-- Spinner de mascotas -->
+    <Spinner
+        android:id="@+id/spinnerMascotas"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:minHeight="48dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Registro de Medicamento"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_gravity="center"
-            android:paddingBottom="16dp" />
+    <!-- Nombre del medicamento -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nombre del medicamento">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etNombre"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Nombre del medicamento" />
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
+    <!-- Dosis -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Dosis">
+
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etDosis"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Dosis"
-            android:inputType="text" />
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
+    <!-- Frecuencia -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Frecuencia">
+
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etFrecuencia"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Frecuencia"
-            android:inputType="text" />
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
+    <!-- Fecha y Hora -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Fecha y Hora">
+
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etFechaHora"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Selecciona fecha y hora"
             android:focusable="false"
             android:clickable="true" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
-            android:id="@+id/btnSeleccionarFechaHora"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Seleccionar Fecha y Hora"
-            android:layout_marginTop="8dp"/>
+    <!-- Botón para seleccionar fecha y hora -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSeleccionarFechaHora"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Seleccionar Fecha y Hora"
+        android:backgroundTint="@color/primaryColor"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="10dp" />
 
-        <Button
-            android:id="@+id/btnGuardar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Guardar Medicamento"
-            android:layout_marginTop="16dp" />
+    <!-- Botón para guardar -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnGuardar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Guardar"
+        android:backgroundTint="@color/primaryColor"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="10dp" />
 
-    </LinearLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

@@ -1,12 +1,10 @@
 package com.Mario.SpringServer.model.Mascota;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.Mario.SpringServer.model.Usuario.Usuario;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,23 +18,6 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "mascotas")
 public class Mascota {
-
-    public Mascota(Usuario usuario, String nombreMascota, String fechaNacimiento, String especie, String raza,
-                   String sexo, String color, Boolean microchip, Double latitud, Double longitud) {
-        this.usuario = usuario;
-        this.nombreMascota = nombreMascota;
-        this.fechaNacimiento = fechaNacimiento;
-        this.especie = especie;
-        this.raza = raza;
-        this.sexo = sexo;
-        this.color = color;
-        this.microchip = microchip;
-        this.latitud = latitud;
-        this.longitud = longitud;
-    }
-
-    public Mascota() {
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -69,15 +50,34 @@ public class Mascota {
     @Column(name = "microchip")
     private Boolean microchip;
 
-    
     @Column(name = "latitud")
     private Double latitud;
 
     @Column(name = "longitud")
     private Double longitud;
 
-    @OneToMany(mappedBy = "mascota", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Medicamento> medicamentos = new ArrayList<>();
+    // Relación uno a muchos con Medicamento
+    @OneToMany(mappedBy = "mascota")
+    @JsonIgnore
+    private List<Medicamento> medicamentos;
+
+    // Constructores
+    public Mascota() {
+    }
+
+    public Mascota(Usuario usuario, String nombreMascota, String fechaNacimiento, String especie, String raza,
+            String sexo, String color, Boolean microchip, Double latitud, Double longitud) {
+        this.usuario = usuario;
+        this.nombreMascota = nombreMascota;
+        this.fechaNacimiento = fechaNacimiento;
+        this.especie = especie;
+        this.raza = raza;
+        this.sexo = sexo;
+        this.color = color;
+        this.microchip = microchip;
+        this.latitud = latitud;
+        this.longitud = longitud;
+    }
 
     // Getters y Setters
     public Integer getIdMascota() {
@@ -171,7 +171,7 @@ public class Mascota {
     public List<Medicamento> getMedicamentos() {
         return medicamentos;
     }
-    
+
     public void setMedicamentos(List<Medicamento> medicamentos) {
         this.medicamentos = medicamentos;
     }

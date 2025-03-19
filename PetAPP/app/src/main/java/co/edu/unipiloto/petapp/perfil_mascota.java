@@ -28,10 +28,7 @@ import org.osmdroid.config.Configuration;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
-import org.osmdroid.views.overlay.TilesOverlay;
 import android.preference.PreferenceManager;
-
-
 
 public class perfil_mascota extends AppCompatActivity {
 

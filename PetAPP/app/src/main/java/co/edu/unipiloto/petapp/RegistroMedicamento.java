@@ -1,148 +1,193 @@
 package co.edu.unipiloto.petapp;
 
+import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-import co.edu.unipiloto.petapp.model.Medicamento;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 import co.edu.unipiloto.petapp.retrofit.PetApi;
 import co.edu.unipiloto.petapp.retrofit.RetrofitService;
+import co.edu.unipiloto.petapp.model.Mascota;
+import co.edu.unipiloto.petapp.model.Medicamento;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
 
-import com.google.gson.Gson;
-
-import java.util.Calendar;
-
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class RegistroMedicamento extends AppCompatActivity {
 
+    private Spinner spinnerMascotas;
     private EditText etNombre, etDosis, etFrecuencia, etFechaHora;
-    private Button btnGuardar, btnSeleccionarFechaHora;
-    private PetApi petApi;
-    private Calendar calendarioSeleccionado;
+    private Button btnSeleccionarFechaHora, btnGuardar;
+    private List<Mascota> listaMascotas;
 
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
+    @SuppressLint("MissingInflatedId")
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro_medicamento);
 
-        // Inicializar Retrofit
-        RetrofitService retrofitService = new RetrofitService();
-        petApi = retrofitService.getRetrofit().create(PetApi.class);
-
-        // Referencias UI
+        spinnerMascotas = findViewById(R.id.spinnerMascotas);
         etNombre = findViewById(R.id.etNombre);
         etDosis = findViewById(R.id.etDosis);
         etFrecuencia = findViewById(R.id.etFrecuencia);
         etFechaHora = findViewById(R.id.etFechaHora);
-        btnGuardar = findViewById(R.id.btnGuardar);
         btnSeleccionarFechaHora = findViewById(R.id.btnSeleccionarFechaHora);
+        btnGuardar = findViewById(R.id.btnGuardar);
 
-        calendarioSeleccionado = Calendar.getInstance();
-
-        // Evento del botón para seleccionar fecha y hora
-        btnSeleccionarFechaHora.setOnClickListener(v -> mostrarDatePicker());
-
-        // Evento del botón guardar
+        cargarMascotas();
+        btnSeleccionarFechaHora.setOnClickListener(v -> seleccionarFechaHora());
         btnGuardar.setOnClickListener(v -> guardarMedicamento());
     }
 
-    private void guardarMedicamento() {
-        String nombre = etNombre.getText().toString().trim();
-        String dosis = etDosis.getText().toString().trim();
-        String frecuencia = etFrecuencia.getText().toString().trim();
-        String fechaHoraTexto = etFechaHora.getText().toString().trim();
+    private void cargarMascotas() {
+        SharedPreferences sharedPreferences = getSharedPreferences("UserSession", Context.MODE_PRIVATE);
+        int userId = sharedPreferences.getInt("userId", -1);
 
-        Log.d("RegistroMedicamento", "Fecha ingresada: " + fechaHoraTexto);
-
-        if (nombre.isEmpty() || dosis.isEmpty() || frecuencia.isEmpty() || fechaHoraTexto.isEmpty()) {
-            Toast.makeText(this, "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show();
+        if (userId == -1) {
+            Toast.makeText(this, "Error: No se encontró el ID del usuario.", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
-        Date fechaHora = null;
-        try {
-            fechaHora = sdf.parse(fechaHoraTexto);
-            Log.d("RegistroMedicamento", "Fecha convertida: " + fechaHora);
-        } catch (ParseException e) {
-            e.printStackTrace();
-            Log.e("RegistroMedicamento", "Error en el formato de la fecha: " + fechaHoraTexto);
-            Toast.makeText(this, "Formato de fecha incorrecto. Usa: yyyy-MM-dd'T'HH:mm:ss", Toast.LENGTH_SHORT).show();
-            return;
-        }
+        RetrofitService retrofitService = new RetrofitService();
+        PetApi petApi = retrofitService.getRetrofit().create(PetApi.class);
 
-        Medicamento medicamento = new Medicamento(null, nombre, dosis, frecuencia, false, fechaHora);
-
-        // Verificar JSON antes de enviarlo
-        Gson gson = new Gson();
-        String jsonMedicamento = gson.toJson(medicamento);
-        Log.d("RegistroMedicamento", "JSON enviado: " + jsonMedicamento);
-
-        petApi.guardarMedicamento(medicamento).enqueue(new Callback<Medicamento>() {
+        Call<List<Mascota>> call = petApi.getMascotasByUsuarioId(userId);
+        call.enqueue(new Callback<List<Mascota>>() {
             @Override
-            public void onResponse(Call<Medicamento> call, Response<Medicamento> response) {
-                if (response.isSuccessful()) {
-                    Log.d("RegistroMedicamento", "Medicamento guardado exitosamente");
-                    Toast.makeText(RegistroMedicamento.this, "Medicamento guardado correctamente", Toast.LENGTH_SHORT).show();
-                    finish();
+            public void onResponse(Call<List<Mascota>> call, Response<List<Mascota>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    listaMascotas = response.body();
+                    if (!listaMascotas.isEmpty()) {
+                        List<String> nombresMascotas = new ArrayList<>();
+                        for (Mascota mascota : listaMascotas) {
+                            nombresMascotas.add(mascota.getNombreMascota());
+                        }
+                        ArrayAdapter<String> adapter = new ArrayAdapter<>(RegistroMedicamento.this, android.R.layout.simple_spinner_item, nombresMascotas);
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spinnerMascotas.setAdapter(adapter);
+                    } else {
+                        Toast.makeText(RegistroMedicamento.this, "No tienes mascotas registradas.", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
-                    Log.e("RegistroMedicamento", "Error en la respuesta del servidor");
-                    Toast.makeText(RegistroMedicamento.this, "Error al guardar el medicamento", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegistroMedicamento.this, "Error al obtener mascotas.", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<Medicamento> call, Throwable t) {
-                Log.e("RegistroMedicamento", "Error de conexión: " + t.getMessage());
+            public void onFailure(Call<List<Mascota>> call, Throwable t) {
                 Toast.makeText(RegistroMedicamento.this, "Error de conexión: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
-    private void mostrarDatePicker() {
-        DatePickerDialog datePickerDialog = new DatePickerDialog(
-                this,
-                (view, year, month, dayOfMonth) -> {
-                    calendarioSeleccionado.set(Calendar.YEAR, year);
-                    calendarioSeleccionado.set(Calendar.MONTH, month);
-                    calendarioSeleccionado.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                    mostrarTimePicker(); // Después de seleccionar la fecha, mostrar el TimePicker
-                },
-                calendarioSeleccionado.get(Calendar.YEAR),
-                calendarioSeleccionado.get(Calendar.MONTH),
-                calendarioSeleccionado.get(Calendar.DAY_OF_MONTH)
-        );
-        datePickerDialog.show();
+
+    private void seleccionarFechaHora() {
+        final Calendar calendario = Calendar.getInstance();
+        int anio = calendario.get(Calendar.YEAR);
+        int mes = calendario.get(Calendar.MONTH);
+        int dia = calendario.get(Calendar.DAY_OF_MONTH);
+
+        new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
+            final int mesReal = month + 1;
+            String fechaSeleccionada = String.format("%02d/%02d/%04d", dayOfMonth, mesReal, year);
+
+            int hora = calendario.get(Calendar.HOUR_OF_DAY);
+            int minuto = calendario.get(Calendar.MINUTE);
+
+            new TimePickerDialog(this, (timeView, hourOfDay, minute) -> {
+                String fechaHora = fechaSeleccionada + " " + String.format("%02d:%02d", hourOfDay, minute);
+                etFechaHora.setText(fechaHora);
+            }, hora, minuto, true).show();
+
+        }, anio, mes, dia).show();
     }
 
-    private void mostrarTimePicker() {
-        TimePickerDialog timePickerDialog = new TimePickerDialog(
-                this,
-                (view, hourOfDay, minute) -> {
-                    calendarioSeleccionado.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                    calendarioSeleccionado.set(Calendar.MINUTE, minute);
-                    actualizarCampoFechaHora();
-                },
-                calendarioSeleccionado.get(Calendar.HOUR_OF_DAY),
-                calendarioSeleccionado.get(Calendar.MINUTE),
-                true
-        );
-        timePickerDialog.show();
+    private void guardarMedicamento() {
+        if (listaMascotas == null || listaMascotas.isEmpty()) {
+            Toast.makeText(this, "No hay mascotas disponibles para registrar un medicamento.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String nombreMedicamento = etNombre.getText().toString().trim();
+        String dosis = etDosis.getText().toString().trim();
+        String frecuencia = etFrecuencia.getText().toString().trim();
+        String fechaHora = etFechaHora.getText().toString().trim();
+        int posicionSeleccionada = spinnerMascotas.getSelectedItemPosition();
+
+        if (nombreMedicamento.isEmpty() || dosis.isEmpty() || frecuencia.isEmpty() || fechaHora.isEmpty()) {
+            Toast.makeText(this, "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Mascota mascotaSeleccionada = listaMascotas.get(posicionSeleccionada);
+
+        try {
+            // Validar y convertir la fecha
+            LocalDateTime fechaHoraLocalDateTime;
+            try {
+                fechaHoraLocalDateTime = LocalDateTime.parse(fechaHora, FORMATTER);
+            } catch (Exception e) {
+                Toast.makeText(this, "Formato de fecha incorrecto. Usa dd/MM/yyyy HH:mm", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Crear objeto Medicamento
+            Medicamento medicamento = new Medicamento();
+            medicamento.setNombre(nombreMedicamento);
+            medicamento.setDosis(dosis);
+            medicamento.setFrecuencia(frecuencia);
+            medicamento.setProximaDosis(fechaHoraLocalDateTime);
+            medicamento.setMascota(mascotaSeleccionada);
+
+            // Llamada a Retrofit
+            RetrofitService retrofitService = new RetrofitService();
+            PetApi petApi = retrofitService.getRetrofit().create(PetApi.class);
+
+            Call<Medicamento> call = petApi.guardarMedicamento(medicamento);
+            call.enqueue(new Callback<Medicamento>() {
+                @Override
+                public void onResponse(Call<Medicamento> call, Response<Medicamento> response) {
+                    if (response.isSuccessful()) {
+                        Toast.makeText(RegistroMedicamento.this, "Medicamento registrado con éxito.", Toast.LENGTH_SHORT).show();
+                        limpiarCampos();
+                    } else {
+                        Toast.makeText(RegistroMedicamento.this, "Error al registrar el medicamento.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Medicamento> call, Throwable t) {
+                    Toast.makeText(RegistroMedicamento.this, "Error de conexión: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        } catch (Exception e) {
+            Toast.makeText(this, "Error inesperado al registrar el medicamento.", Toast.LENGTH_SHORT).show();
+        }
     }
 
-    private void actualizarCampoFechaHora() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
-        String fechaHoraFormateada = sdf.format(calendarioSeleccionado.getTime());
-        etFechaHora.setText(fechaHoraFormateada);
-    }
 
+    private void limpiarCampos() {
+        etNombre.setText("");
+        etDosis.setText("");
+        etFrecuencia.setText("");
+        etFechaHora.setText("");
+    }
 }
