@@ -14,6 +14,7 @@ import com.Mario.SpringServer.repository.Mascota.MedicamentoRepository;
 @Service
 public class MedicamentoService {
     private final MedicamentoRepository medicamentoRepository;
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"); // Ajustado al formato esperado
 
     public MedicamentoService(MedicamentoRepository medicamentoRepository) {
         this.medicamentoRepository = medicamentoRepository;
@@ -34,14 +35,19 @@ public class MedicamentoService {
     // Nueva lógica para convertir y filtrar por fecha
     public List<Medicamento> obtenerMedicamentosPendientes() {
         LocalDateTime ahora = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); // Sin 'T'
-    
+
         return medicamentoRepository.findAll().stream()
-                .filter(m -> !m.isAdministrado() && 
-                        LocalDateTime.parse(m.getProximaDosis(), formatter).isBefore(ahora))
+                .filter(m -> {
+                    try {
+                        LocalDateTime proximaDosis = LocalDateTime.parse(m.getProximaDosis(), FORMATTER);
+                        return !m.isAdministrado() && proximaDosis.isBefore(ahora);
+                    } catch (Exception e) {
+                        System.err.println("Error al parsear fecha: " + m.getProximaDosis() + " - " + e.getMessage());
+                        return false; // Si hay un error al parsear, lo ignoramos
+                    }
+                })
                 .toList();
     }
-    
 
     public Medicamento marcarComoAdministrado(Long id) {
         Optional<Medicamento> optionalMedicamento = medicamentoRepository.findById(id);
