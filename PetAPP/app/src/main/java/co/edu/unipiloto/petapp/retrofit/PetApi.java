@@ -12,6 +12,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import retrofit2.http.PUT;
 
 
 public interface PetApi {
@@ -30,9 +31,15 @@ public interface PetApi {
     Call<List<Mascota>> getMascotasByUsuarioId(@Path("idUsuario") int idUsuario);
     @GET("/medicamentos/pendientes")
     Call<List<Medicamento>> obtenerMedicamentosPendientes();
-
     @POST("/medicamentos")
     Call<Medicamento> guardarMedicamento(@Body Medicamento medicamento);
+    @GET("/medicamentos")
+    Call<List<Medicamento>> getMedicamentos();
+    @PUT("/medicamentos/{id}/administrado")
+    Call<Medicamento> marcarMedicamentoComoAdministrado(@Path("id") Long id);
+
+
+
 }
 
 

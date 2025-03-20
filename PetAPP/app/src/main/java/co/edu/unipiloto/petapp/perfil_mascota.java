@@ -1,6 +1,7 @@
 package co.edu.unipiloto.petapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -29,6 +30,8 @@ import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
 import android.preference.PreferenceManager;
+import co.edu.unipiloto.petapp.AdministrarMedicamentos;
+
 
 public class perfil_mascota extends AppCompatActivity {
 
@@ -46,6 +49,12 @@ public class perfil_mascota extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil_mascota);
+
+        Button btnAdministrarMedicamentos = findViewById(R.id.btnAdministrarMedicamentos);
+        btnAdministrarMedicamentos.setOnClickListener(v -> {
+            Intent intent = new Intent(perfil_mascota.this, AdministrarMedicamentos.class);
+            startActivity(intent);
+        });
 
         Configuration.getInstance().load(getApplicationContext(), PreferenceManager.getDefaultSharedPreferences(this));
         mapView = findViewById(R.id.mapView);
