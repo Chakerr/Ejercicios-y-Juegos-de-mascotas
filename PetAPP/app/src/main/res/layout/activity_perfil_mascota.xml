@@ -201,7 +201,7 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Botón de Perfil de la Mascota -->
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_Actualizar"
             android:layout_width="match_parent"
