@@ -10,7 +10,6 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -31,9 +30,9 @@ public interface PetApi {
     Call<List<Mascota>> getMascotasByUsuarioId(@Path("idUsuario") int idUsuario);
     @GET("/medicamentos/pendientes")
     Call<List<Medicamento>> obtenerMedicamentosPendientes();
+
     @POST("/medicamentos")
     Call<Medicamento> guardarMedicamento(@Body Medicamento medicamento);
-
 }
 
 

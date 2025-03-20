@@ -40,7 +40,7 @@ public class MedicamentoService {
                     try {
                         LocalDateTime proximaDosis = LocalDateTime.parse(m.getProximaDosis(), FORMATTER);
                         
-                        return !m.isAdministrado() && (proximaDosis.isBefore(ahora) || proximaDosis.isAfter(ahora));
+                        return !m.isAdministrado() && proximaDosis.isBefore(ahora);
                     } catch (Exception e) {
                         System.err.println("Error al parsear fecha: " + m.getProximaDosis() + " - " + e.getMessage());
                         return false;
