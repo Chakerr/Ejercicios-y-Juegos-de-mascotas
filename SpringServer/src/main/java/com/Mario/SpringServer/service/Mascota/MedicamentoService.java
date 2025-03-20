@@ -71,4 +71,8 @@ public class MedicamentoService {
             System.out.println("¡Recordatorio! Es hora de administrar el medicamento: " + medicamento.getNombre());
         }
     }
+
+    public List<Medicamento> obtenerMedicamentosPorMascota(Integer idMascota) {
+        return medicamentoRepository.findByMascotaIdMascota(idMascota);
+    }
 }

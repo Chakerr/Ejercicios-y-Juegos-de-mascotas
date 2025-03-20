@@ -56,6 +56,19 @@ public class perfil_mascota extends AppCompatActivity {
             startActivity(intent);
         });
 
+        btnAdministrarMedicamentos.setOnClickListener(v -> {
+            int selectedPosition = spinnerMascotas.getSelectedItemPosition();
+            if (!listaMascotas.isEmpty() && selectedPosition >= 0) {
+                int mascotaId = listaMascotas.get(selectedPosition).getIdMascota();
+                Intent intent = new Intent(perfil_mascota.this, AdministrarMedicamentos.class);
+                intent.putExtra("mascotaId", mascotaId); // Enviar ID de la mascota
+                startActivity(intent);
+            } else {
+                Toast.makeText(this, "No hay mascota seleccionada", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
         Configuration.getInstance().load(getApplicationContext(), PreferenceManager.getDefaultSharedPreferences(this));
         mapView = findViewById(R.id.mapView);
         mapView.setTileSource(org.osmdroid.tileprovider.tilesource.TileSourceFactory.MAPNIK);

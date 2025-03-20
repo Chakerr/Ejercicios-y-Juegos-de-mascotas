@@ -54,5 +54,14 @@ public class MedicamentoController {
         return medicamento != null ? ResponseEntity.ok(medicamento) : ResponseEntity.notFound().build();
     }
 
+    @GetMapping("/mascota/{idMascota}")
+    public ResponseEntity<List<Medicamento>> getMedicamentosPorMascota(@PathVariable Integer idMascota) {
+        List<Medicamento> medicamentos = medicamentoService.obtenerMedicamentosPorMascota(idMascota);
+        if (medicamentos.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(medicamentos);
+    }
+
     
 }
