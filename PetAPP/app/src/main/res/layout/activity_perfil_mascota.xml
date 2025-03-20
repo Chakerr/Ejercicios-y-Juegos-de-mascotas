@@ -177,20 +177,6 @@
                 tools:text="Sí" />
         </com.google.android.material.textfield.TextInputLayout>
 
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnAdministrarMedicamentos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Administrar Medicamentos"
-            android:textColor="@android:color/white"
-            android:backgroundTint="@color/primaryColor"
-            android:padding="12dp"
-            android:textSize="18sp"
-            app:cornerRadius="12dp"
-            app:elevation="6dp"
-            tools:ignore="VisualLintButtonSize" />
-
         <!-- Direccion -->
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -218,6 +204,19 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnAdministrarMedicamentos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Administrar Medicamentos"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/primaryColor"
+            android:padding="12dp"
+            android:textSize="18sp"
+            app:cornerRadius="12dp"
+            app:elevation="6dp"
+            android:layout_marginTop="10dp"
+            tools:ignore="VisualLintButtonSize" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_Actualizar"
@@ -230,7 +229,7 @@
             android:textSize="18sp"
             app:cornerRadius="12dp"
             app:elevation="6dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             tools:ignore="VisualLintButtonSize" />
 
         <com.google.android.material.button.MaterialButton
@@ -260,7 +259,7 @@
             android:layout_height="120dp"
             android:contentDescription="@string/logo"
             android:layout_gravity="center"
-            android:layout_marginBottom="20dp" />
+            android:layout_marginBottom="10dp" />
 
     </LinearLayout>
 </ScrollView>
