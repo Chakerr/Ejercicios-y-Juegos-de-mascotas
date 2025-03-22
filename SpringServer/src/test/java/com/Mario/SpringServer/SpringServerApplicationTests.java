@@ -12,18 +12,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.Mario.SpringServer.model.Mascota.Mascota;
-import com.Mario.SpringServer.model.Mascota.MascotaDao;
 import com.Mario.SpringServer.model.Usuario.Usuario;
-import com.Mario.SpringServer.model.Usuario.UsuarioDao;
+import com.Mario.SpringServer.service.Mascota.MascotaService;
+import com.Mario.SpringServer.service.Usuario.UsuarioService;
 
 @SpringBootTest
 class SpringServerApplicationTests {
 
     @Autowired
-    private UsuarioDao usuarioDao;
+    private UsuarioService usuarioDao;
 
     @Autowired
-    private MascotaDao mascotaDao;
+    private MascotaService mascotaDao;
 
     @Test
     void addUsuario() {

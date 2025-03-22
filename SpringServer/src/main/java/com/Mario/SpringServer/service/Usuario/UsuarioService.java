@@ -1,4 +1,4 @@
-package com.Mario.SpringServer.model.Usuario;
+package com.Mario.SpringServer.service.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,10 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 
+import com.Mario.SpringServer.model.Usuario.Usuario;
 import com.Mario.SpringServer.repository.usuario.UsuarioRepository;
 
 @Service
-public class UsuarioDao {
+public class UsuarioService {
 
   @Autowired
   private UsuarioRepository usuarioRepository;

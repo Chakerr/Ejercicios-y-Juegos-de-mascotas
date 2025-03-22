@@ -1,4 +1,4 @@
-package com.Mario.SpringServer.controller.Mascota;
+package com.Mario.SpringServer.controller.Medicamentos;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Mario.SpringServer.model.medicamentos.Medicamento;
-import com.Mario.SpringServer.service.Mascota.MedicamentoService;
+import com.Mario.SpringServer.service.Medicamentos.MedicamentoService;
 
 @RestController
 @RequestMapping("/medicamentos")

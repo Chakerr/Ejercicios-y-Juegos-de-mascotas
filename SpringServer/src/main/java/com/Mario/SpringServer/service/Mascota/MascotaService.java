@@ -1,4 +1,4 @@
-package com.Mario.SpringServer.model.Mascota;
+package com.Mario.SpringServer.service.Mascota;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,18 +6,19 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.Mario.SpringServer.model.Mascota.Mascota;
 import com.Mario.SpringServer.model.Usuario.Usuario;
-import com.Mario.SpringServer.model.Usuario.UsuarioDao;
 import com.Mario.SpringServer.repository.Mascota.MascotaRepository;
+import com.Mario.SpringServer.service.Usuario.UsuarioService;
 
 @Service
-public class MascotaDao {
+public class MascotaService {
 
   @Autowired
   private MascotaRepository mascotaRepository;
 
   @Autowired
-  private UsuarioDao usuarioDao;
+  private UsuarioService usuarioDao;
 
   public Mascota saveMascota(Mascota mascota) {
     return mascotaRepository.save(mascota);

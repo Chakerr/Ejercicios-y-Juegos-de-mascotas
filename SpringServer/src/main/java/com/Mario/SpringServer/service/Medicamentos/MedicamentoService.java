@@ -1,4 +1,4 @@
-package com.Mario.SpringServer.service.Mascota;
+package com.Mario.SpringServer.service.Medicamentos;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

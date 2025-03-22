@@ -14,15 +14,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Mario.SpringServer.model.Mascota.Mascota;
-import com.Mario.SpringServer.model.Mascota.MascotaDao;
 import com.Mario.SpringServer.model.Usuario.Usuario;
-import com.Mario.SpringServer.model.Usuario.UsuarioDao;
+import com.Mario.SpringServer.service.Mascota.MascotaService;
+import com.Mario.SpringServer.service.Usuario.UsuarioService;
 
 @RestController
 public class PetController {
 
     @Autowired
-    private UsuarioDao usuarioDao;
+    private UsuarioService usuarioDao;
 
     @GetMapping("/usuario/id")
     public ResponseEntity<Integer> obtenerIdUsuario(@RequestParam String correo) {
@@ -59,7 +59,7 @@ public class PetController {
     }
 
     @Autowired
-    private MascotaDao mascotaDao;
+    private MascotaService mascotaDao;
 
     @PostMapping("/mascota/agregar")
     public ResponseEntity<?> agregarMascota(@RequestBody Mascota mascota, @RequestParam Integer id_usuario) {
