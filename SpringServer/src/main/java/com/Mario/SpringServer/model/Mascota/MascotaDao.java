@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.Mario.SpringServer.model.Usuario.Usuario;
 import com.Mario.SpringServer.model.Usuario.UsuarioDao;
+import com.Mario.SpringServer.repository.Mascota.MascotaRepository;
 
 @Service
 public class MascotaDao {

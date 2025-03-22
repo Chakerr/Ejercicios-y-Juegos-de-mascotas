@@ -1,4 +1,6 @@
-package com.Mario.SpringServer.model.Mascota;
+package com.Mario.SpringServer.model.medicamentos;
+
+import com.Mario.SpringServer.model.Mascota.Mascota;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

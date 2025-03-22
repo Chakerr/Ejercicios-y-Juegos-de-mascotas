@@ -1,4 +1,4 @@
-package com.Mario.SpringServer.repository.Mascota;
+package com.Mario.SpringServer.repository.medicamentos;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.Mario.SpringServer.model.Mascota.Medicamento;
+import com.Mario.SpringServer.model.medicamentos.Medicamento;
 
 public interface MedicamentoRepository extends JpaRepository<Medicamento, Long> {
     List<Medicamento> findByMascotaIdMascota(Integer idMascota);

@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 
+import com.Mario.SpringServer.repository.usuario.UsuarioRepository;
+
 @Service
 public class UsuarioDao {
 

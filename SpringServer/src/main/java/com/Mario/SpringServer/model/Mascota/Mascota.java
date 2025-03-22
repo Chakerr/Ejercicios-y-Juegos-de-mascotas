@@ -3,6 +3,7 @@ package com.Mario.SpringServer.model.Mascota;
 import java.util.List;
 
 import com.Mario.SpringServer.model.Usuario.Usuario;
+import com.Mario.SpringServer.model.medicamentos.Medicamento;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;

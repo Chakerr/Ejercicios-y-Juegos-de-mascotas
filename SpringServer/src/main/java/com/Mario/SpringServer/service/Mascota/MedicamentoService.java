@@ -8,8 +8,8 @@ import java.util.Optional;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import com.Mario.SpringServer.model.Mascota.Medicamento;
-import com.Mario.SpringServer.repository.Mascota.MedicamentoRepository;
+import com.Mario.SpringServer.model.medicamentos.Medicamento;
+import com.Mario.SpringServer.repository.medicamentos.MedicamentoRepository;
 
 @Service
 public class MedicamentoService {
