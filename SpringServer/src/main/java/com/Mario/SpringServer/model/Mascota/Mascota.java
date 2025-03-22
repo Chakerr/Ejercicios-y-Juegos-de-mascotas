@@ -2,10 +2,12 @@ package com.Mario.SpringServer.model.Mascota;
 
 import java.util.List;
 
+import com.Mario.SpringServer.model.HistorialMedico.HistorialMedico;
 import com.Mario.SpringServer.model.Usuario.Usuario;
 import com.Mario.SpringServer.model.medicamentos.Medicamento;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,6 +16,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -29,6 +32,9 @@ public class Mascota {
     @JsonIgnore
     @JoinColumn(name = "id_usuario", nullable = false)
     private Usuario usuario;
+
+    @OneToOne(mappedBy = "mascota", cascade = CascadeType.ALL, orphanRemoval = true)
+    private HistorialMedico historialMedico;
 
     @Column(name = "nombre_mascota", length = 50, nullable = false)
     private String nombreMascota;
@@ -95,6 +101,14 @@ public class Mascota {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public HistorialMedico getHistorialMedico() {
+        return historialMedico;
+    }
+
+    public void setHistorialMedico(HistorialMedico historialMedico) {
+        this.historialMedico = historialMedico;
     }
 
     public String getNombreMascota() {
