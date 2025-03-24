@@ -30,6 +30,25 @@ public class HistorialMedicoService {
         }
     }
 
+    public HistorialMedico editarHistorial(Integer id, HistorialMedico historialActualizado) {
+        Optional<HistorialMedico> historialOpt = historialMedicoRepository.findById(id);
+        if (historialOpt.isPresent()) {
+            HistorialMedico historialExistente = historialOpt.get();
+    
+            historialExistente.setAlergias(historialActualizado.getAlergias());
+            historialExistente.setCirugias(historialActualizado.getCirugias());
+            historialExistente.setDesparasitaciones(historialActualizado.getDesparasitaciones());
+            historialExistente.setEnfermedadesPrevias(historialActualizado.getEnfermedadesPrevias());
+            historialExistente.setEsterilizado(historialActualizado.getEsterilizado());
+            historialExistente.setFechaUltimoControl(historialActualizado.getFechaUltimoControl());
+            historialExistente.setVacunas(historialActualizado.getVacunas());
+    
+            return historialMedicoRepository.save(historialExistente);
+        } else {
+            throw new RuntimeException("Historial Médico no encontrado con ID: " + id);
+        }
+    }
+
     
     public Optional<HistorialMedico> getHistorialById(Integer id) {
         return historialMedicoRepository.findById(id); 

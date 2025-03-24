@@ -3,11 +3,13 @@ package com.Mario.SpringServer.controller.HistorialMedico;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -67,12 +69,22 @@ public class HistorialMedicoController {
     }
 
     /**
-     * Guardar o actualizar historial médico
+     * Guardar historial médico
      */
     @PostMapping("/guardar")
     public ResponseEntity<HistorialMedico> saveOrUpdateHistorial(@RequestBody HistorialMedico historial) {
         HistorialMedico historialGuardado = historialMedicoService.saveOrUpdateHistorial(historial);
         return ResponseEntity.ok(historialGuardado);
+    }
+
+    @PutMapping("/editar/{id}")
+    public ResponseEntity<?> editarHistorial(@PathVariable Integer id, @RequestBody HistorialMedico historialActualizado) {
+        try {
+            HistorialMedico historialEditado = historialMedicoService.editarHistorial(id, historialActualizado);
+            return ResponseEntity.ok(historialEditado);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 
     /**

@@ -5,6 +5,7 @@ import java.util.List;
 public class Mascota {
     private Integer idMascota;
     private Usuario usuario;
+    private HistorialMedico historialMedico;
     private String nombreMascota;
     private String fechaNacimiento;
     private String especie;
@@ -49,6 +50,14 @@ public class Mascota {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public HistorialMedico getHistorialMedico() {
+        return historialMedico != null ? historialMedico : new HistorialMedico();
+    }
+
+    public void setHistorialMedico(HistorialMedico historialMedico) {
+        this.historialMedico = historialMedico;
     }
 
     public String getNombreMascota() {

@@ -1,51 +1,15 @@
-package com.Mario.SpringServer.model.HistorialMedico;
+package co.edu.unipiloto.petapp.model;
 
-import com.Mario.SpringServer.model.Mascota.Mascota;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
-
-@Entity
-@Table(name = "historial_medico")
 public class HistorialMedico {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_historial")
     private Integer idHistorial;
-
-    @OneToOne
-    @JoinColumn(name = "id_mascota", nullable = false, unique = true)
-    @JsonIgnoreProperties({"historialMedico"})
     private Mascota mascota;
-
-    @Column(name = "vacunas", length = 255)
     private String vacunas;
-
-    @Column(name = "desparasitaciones", length = 255)
     private String desparasitaciones;
-
-    @Column(name = "alergias", length = 255)
     private String alergias;
-
-    @Column(name = "enfermedades_previas", length = 255)
     private String enfermedadesPrevias;
-
-    @Column(name = "cirugias", length = 255)
     private String cirugias;
-
-    @Column(name = "fecha_ultimo_control", length = 20) 
     private String fechaUltimoControl;
-
-    @Column(name = "esterilizado")
-    private Boolean esterilizado; 
+    private Boolean esterilizado;
 
     // Constructor vacío
     public HistorialMedico() {}
@@ -136,4 +100,6 @@ public class HistorialMedico {
     public void setEsterilizado(Boolean esterilizado) {
         this.esterilizado = esterilizado;
     }
+
 }
+

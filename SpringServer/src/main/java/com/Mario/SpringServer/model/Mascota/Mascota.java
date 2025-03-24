@@ -6,6 +6,7 @@ import com.Mario.SpringServer.model.HistorialMedico.HistorialMedico;
 import com.Mario.SpringServer.model.Usuario.Usuario;
 import com.Mario.SpringServer.model.medicamentos.Medicamento;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -34,6 +35,7 @@ public class Mascota {
     private Usuario usuario;
 
     @OneToOne(mappedBy = "mascota", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties({"mascota"}) 
     private HistorialMedico historialMedico;
 
     @Column(name = "nombre_mascota", length = 50, nullable = false)
@@ -104,7 +106,7 @@ public class Mascota {
     }
 
     public HistorialMedico getHistorialMedico() {
-        return historialMedico;
+        return historialMedico != null ? historialMedico : new HistorialMedico();
     }
 
     public void setHistorialMedico(HistorialMedico historialMedico) {

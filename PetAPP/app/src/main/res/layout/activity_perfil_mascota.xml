@@ -68,10 +68,11 @@
                 android:id="@+id/tvBirthDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Fecha de nacimiento"
-                android:focusable="false"
                 android:cursorVisible="false"
+                android:focusable="false"
+                android:hint="Fecha de nacimiento"
                 android:padding="12dp"
+                tools:ignore="TouchTargetSizeCheck"
                 tools:text="10/03/2020" />
         </com.google.android.material.textfield.TextInputLayout>
 
