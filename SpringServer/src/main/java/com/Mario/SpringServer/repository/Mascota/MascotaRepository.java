@@ -13,7 +13,7 @@ import com.Mario.SpringServer.model.Usuario.Usuario;
 public interface MascotaRepository extends CrudRepository<Mascota, Integer> {
     List<Mascota> findByUsuario(Usuario usuario);
     
-    @SuppressWarnings({ "null", "rawtypes", "unchecked" })
+    @SuppressWarnings({ "null", "rawtypes" })
     @Override
     Optional findById(Integer id);
 }

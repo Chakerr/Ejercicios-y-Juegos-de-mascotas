@@ -19,6 +19,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".MenuPaseador"
+            android:exported="false" />
+        <activity
             android:name=".RutaMascotas"
             android:exported="false" />
         <activity
@@ -34,7 +37,7 @@
             android:name=".perfil_mascota"
             android:exported="false" />
         <activity
-            android:name=".menu"
+            android:name=".MenuDueño"
             android:exported="false" />
         <activity
             android:name=".RegistroMascotas"

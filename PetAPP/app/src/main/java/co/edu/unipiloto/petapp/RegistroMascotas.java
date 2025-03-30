@@ -116,7 +116,7 @@ public class RegistroMascotas extends AppCompatActivity {
             public void onResponse(@NonNull Call<Map<String, Object>> call, @NonNull Response<Map<String, Object>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     Toast.makeText(RegistroMascotas.this, "Mascota registrada con éxito", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(RegistroMascotas.this, menu.class);
+                    Intent intent = new Intent(RegistroMascotas.this, MenuDueño.class);
                     startActivity(intent);
                     finish();
                 } else {

@@ -104,16 +104,19 @@ public class RutaMascotas extends AppCompatActivity {
                     mapView.getController().setCenter(rutaPuntos.get(0));
                     Toast.makeText(RutaMascotas.this, "Ruta cargada correctamente", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(RutaMascotas.this, "No hay rutas guardadas", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RutaMascotas.this, "No hay rutas guardadas. Puedes crear una nueva.", Toast.LENGTH_SHORT).show();
+                    activarMarcadoDePuntos(); // Permitir marcar una nueva ruta
                 }
             }
 
             @Override
             public void onFailure(Call<List<RutaMascota>> call, Throwable t) {
                 Toast.makeText(RutaMascotas.this, "Error al cargar la ruta", Toast.LENGTH_SHORT).show();
+                activarMarcadoDePuntos(); // Permitir marcar una nueva ruta incluso si hay error de conexión
             }
         });
     }
+
 
 
     private void actualizarRuta() {

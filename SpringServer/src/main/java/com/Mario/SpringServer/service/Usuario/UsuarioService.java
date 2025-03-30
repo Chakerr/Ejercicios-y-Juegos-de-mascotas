@@ -38,10 +38,10 @@ public class UsuarioService {
     return usuarioRepository.existsByCorreo(correo);
   }
 
-  public boolean verificarCredenciales(String correo, String password) {
-    Optional<Usuario> usuario = usuarioRepository.findByCorreoAndPassword(correo, password);
-    return usuario.isPresent();
-  }
+  public Optional<Usuario> verificarCredenciales(String correo, String password) {
+    return usuarioRepository.findByCorreoAndPassword(correo, password);
+}
+
 
   public Usuario findByCorreo(String correo) {
     return usuarioRepository.findByCorreo(correo);

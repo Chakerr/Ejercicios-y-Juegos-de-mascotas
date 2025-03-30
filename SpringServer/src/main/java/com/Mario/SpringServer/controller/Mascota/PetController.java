@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Mario.SpringServer.model.Mascota.Mascota;
+import com.Mario.SpringServer.model.Usuario.LoginResponse;
 import com.Mario.SpringServer.model.Usuario.Usuario;
 import com.Mario.SpringServer.service.Mascota.MascotaService;
 import com.Mario.SpringServer.service.Usuario.UsuarioService;
@@ -53,10 +55,18 @@ public class PetController {
         return usuarioDao.correoExiste(correo);
     }
 
-    @PostMapping("/usuario/login")
-    public boolean login(@RequestParam String correo, @RequestParam String password) {
-        return usuarioDao.verificarCredenciales(correo, password);
+   @PostMapping("/usuario/login")
+public ResponseEntity<LoginResponse> login(@RequestParam String correo, @RequestParam String password) {
+    Optional<Usuario> usuario = usuarioDao.verificarCredenciales(correo, password);
+    
+    if (usuario.isPresent()) {
+        Usuario user = usuario.get();
+        return ResponseEntity.ok(new LoginResponse(true, user.getIdUsuario(), user.getRol())); 
+    } else {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new LoginResponse(false, 0, ""));
     }
+}
+
 
     @Autowired
     private MascotaService mascotaDao;

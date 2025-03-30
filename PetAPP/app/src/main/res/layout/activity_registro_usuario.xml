@@ -57,8 +57,7 @@
                 tools:ignore="VisualLintTextFieldSize" />
         </com.google.android.material.textfield.TextInputLayout>
 
-
-        <!-- Campo de telefono -->
+        <!-- Campo de Teléfono -->
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -71,10 +70,41 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/telefono"
-                android:inputType="textEmailAddress"
+                android:inputType="phone"
                 android:padding="12dp"
                 tools:ignore="VisualLintTextFieldSize" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Selección de Rol -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Selecciona tu rol:"
+            android:textSize="16sp"
+            android:textColor="@color/primaryColor"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"/>
+
+        <RadioGroup
+            android:id="@+id/rgRol"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rbDuenio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dueño de Mascota"
+                android:checked="true" />
+
+            <RadioButton
+                android:id="@+id/rbPaseador"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Paseador" />
+        </RadioGroup>
 
         <!-- Campo de Contraseña -->
         <com.google.android.material.textfield.TextInputLayout

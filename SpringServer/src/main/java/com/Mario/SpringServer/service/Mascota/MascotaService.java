@@ -35,7 +35,6 @@ public class MascotaService {
   }
 
   public Mascota updateUbicacionMascota(Integer idMascota, Double latitud, Double longitud) {
-    @SuppressWarnings("unchecked")
     Optional<Mascota> mascotaOptional = mascotaRepository.findById(idMascota);
 
     if (mascotaOptional.isPresent()) {

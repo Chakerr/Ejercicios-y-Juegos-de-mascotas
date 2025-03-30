@@ -2,6 +2,8 @@ package co.edu.unipiloto.petapp;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.button.MaterialButton;
@@ -16,6 +18,7 @@ import retrofit2.Response;
 public class RegistroUsuarioActivity extends AppCompatActivity {
 
     private TextInputEditText inputEditName, inputEditEmail, inputEditTelefono, inputEditPassword;
+    private RadioGroup radioGroupRol;
     private MaterialButton botonRegistro;
     private PetApi usuarioApi;
 
@@ -32,6 +35,7 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
         inputEditEmail = findViewById(R.id.etEmailRegistro);
         inputEditTelefono = findViewById(R.id.etTelefono);
         inputEditPassword = findViewById(R.id.etPasswordRegistro);
+        radioGroupRol = findViewById(R.id.rgRol);
         botonRegistro = findViewById(R.id.btnRegistrarUsuario);
 
         RetrofitService retrofitService = new RetrofitService();
@@ -76,8 +80,9 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
         String correo = inputEditEmail.getText().toString().trim();
         String telefono = inputEditTelefono.getText().toString().trim();
         String password = inputEditPassword.getText().toString().trim();
+        String rol = obtenerRolSeleccionado(); // Capturar rol
 
-        if (nombre.isEmpty() || correo.isEmpty() || telefono.isEmpty() || password.isEmpty()) {
+        if (nombre.isEmpty() || correo.isEmpty() || telefono.isEmpty() || password.isEmpty() || rol.isEmpty()) {
             Toast.makeText(this, "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -87,6 +92,7 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
         usuario.setCorreo(correo);
         usuario.setTelefono(telefono);
         usuario.setPassword(password);
+        usuario.setRol(rol); // Asignar el rol
 
         usuarioApi.getSaveUsuario(usuario).enqueue(new Callback<Usuario>() {
             @Override
@@ -105,5 +111,15 @@ public class RegistroUsuarioActivity extends AppCompatActivity {
                 Log.e("Retrofit", "Fallo en la conexión: " + t.getMessage());
             }
         });
+    }
+
+    private String obtenerRolSeleccionado() {
+        int selectedId = radioGroupRol.getCheckedRadioButtonId();
+        if (selectedId == R.id.rbDuenio) {
+            return "Dueño de Mascota";
+        } else if (selectedId == R.id.rbPaseador) {
+            return "Paseador de mascota";
+        }
+        return "";
     }
 }

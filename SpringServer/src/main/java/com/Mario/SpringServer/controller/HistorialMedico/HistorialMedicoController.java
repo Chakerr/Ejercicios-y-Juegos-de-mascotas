@@ -57,7 +57,6 @@ public class HistorialMedicoController {
      */
     @GetMapping("/porMascota/{idMascota}")
     public ResponseEntity<?> getHistorialByMascota(@PathVariable Integer idMascota) {
-        @SuppressWarnings("unchecked")
         Optional<Mascota> mascotaOpt = mascotaRepository.findById(idMascota);
         if (mascotaOpt.isPresent()) {
             Optional<HistorialMedico> historial = historialMedicoService.getHistorialByMascota(mascotaOpt.get());

@@ -4,12 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class menu extends AppCompatActivity {
+public class MenuDueño extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,25 +21,25 @@ public class menu extends AppCompatActivity {
         Button btnCerrarSesion = findViewById(R.id.btn_cerrar_sesion);
 
         btnRegistrarMascota.setOnClickListener(v -> {
-            Intent intent = new Intent(menu.this, RegistroMascotas.class);
+            Intent intent = new Intent(MenuDueño.this, RegistroMascotas.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
 
         });
 
         btnPerfilMascota.setOnClickListener(v -> {
-            Intent intent = new Intent(menu.this, perfil_mascota.class);
+            Intent intent = new Intent(MenuDueño.this, perfil_mascota.class);
             startActivity(intent);
 
         });
 
         btnRegistrarMedicamento.setOnClickListener(v -> {
-            Intent intent = new Intent(menu.this, RegistroMedicamento.class);
+            Intent intent = new Intent(MenuDueño.this, RegistroMedicamento.class);
             startActivity(intent);
         });
 
         btnHistorialMedico.setOnClickListener(v -> {
-            Intent intent = new Intent(menu.this, HistorialMedicoActivity.class);
+            Intent intent = new Intent(MenuDueño.this, HistorialMedicoActivity.class);
             startActivity(intent);
         });
 
@@ -56,7 +55,7 @@ public class menu extends AppCompatActivity {
         editor.apply();
 
         // Redirigir al usuario a la pantalla de login
-        Intent intent = new Intent(menu.this, MainActivity.class);
+        Intent intent = new Intent(MenuDueño.this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Limpiar la pila de actividades
         startActivity(intent);
         finish();

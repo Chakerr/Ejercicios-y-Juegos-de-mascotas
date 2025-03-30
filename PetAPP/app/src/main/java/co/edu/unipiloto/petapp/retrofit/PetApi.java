@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import co.edu.unipiloto.petapp.model.HistorialMedico;
+import co.edu.unipiloto.petapp.model.LoginResponse;
 import co.edu.unipiloto.petapp.model.Medicamento;
 import co.edu.unipiloto.petapp.model.RutaMascota;
 import co.edu.unipiloto.petapp.model.Usuario;
@@ -27,7 +28,8 @@ public interface PetApi {
     @GET("/usuario/id")
     Call<Integer> obtenerIdUsuario(@Query("correo") String correo);
     @POST("/usuario/login")
-    Call<Boolean> login(@Query("correo") String correo, @Query("password") String password);
+    Call<LoginResponse> login(@Query("correo") String correo, @Query("password") String password);
+
     @POST("/mascota/agregar")
     Call<Map<String, Object>> agregarMascota(@Query("id_usuario") int idUsuario, @Body Map<String, Object> mascota);
     @GET("/mascota/usuario/{idUsuario}")
@@ -36,8 +38,6 @@ public interface PetApi {
     Call<List<Medicamento>> obtenerMedicamentosPendientes();
     @POST("/medicamentos")
     Call<Medicamento> guardarMedicamento(@Body Medicamento medicamento);
-    @GET("/medicamentos")
-    Call<List<Medicamento>> getMedicamentos();
     @PUT("/medicamentos/{id}/administrado")
     Call<Medicamento> marcarMedicamentoComoAdministrado(@Path("id") Long id);
     @GET("medicamentos/mascota/{idMascota}")
@@ -49,8 +49,6 @@ public interface PetApi {
 
     @GET("/historialMedico/porMascota/{idMascota}")
     Call<HistorialMedico> getHistorialMedicoPorMascota(@Path("idMascota") int idMascota);
-    @DELETE("/historialMedico/eliminar/{idMascota}")
-    Call<Void> eliminarHistorial(@Path("id") int id);
 
     @POST("rutas/guardar")
     Call<RutaMascota> guardarRuta(@Body RutaMascota ruta);
@@ -60,8 +58,5 @@ public interface PetApi {
 
     @DELETE("rutas/eliminar/{id}")
     Call<Void> eliminarRuta(@Path("id") int id);
-
-    @PUT("/rutas/actualizar")
-    Call<RutaMascota> actualizarRuta(@Body RutaMascota ruta);
 
 }

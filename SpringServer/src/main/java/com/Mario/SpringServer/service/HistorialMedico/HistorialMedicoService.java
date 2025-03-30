@@ -19,7 +19,6 @@ public class HistorialMedicoService {
     private MascotaRepository mascotaRepository;
 
     public HistorialMedico agregarHistorialAMascota(Integer idMascota, HistorialMedico historial) {
-        @SuppressWarnings("unchecked")
         Optional<Mascota> mascotaOpt = mascotaRepository.findById(idMascota); 
         if (mascotaOpt.isPresent()) {
             Mascota mascota = mascotaOpt.get();

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
+import co.edu.unipiloto.petapp.model.LoginResponse;
 import co.edu.unipiloto.petapp.retrofit.PetApi;
 import co.edu.unipiloto.petapp.retrofit.RetrofitService;
 import retrofit2.Call;
@@ -41,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // Verificar si ya hay una sesión iniciada
         if (sharedPreferences.getBoolean("isLoggedIn", false)) {
-            irARegistroMascotas();
+            redirigirSegunRol(sharedPreferences.getString("rol", ""));
         }
 
         // Navegar a la pantalla de Registro de Usuario
@@ -69,14 +70,19 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void realizarLogin(String correo, String password) {
-        Call<Boolean> call = usuarioApi.login(correo, password);
+        Call<LoginResponse> call = usuarioApi.login(correo, password);
 
-        call.enqueue(new Callback<Boolean>() {
+        call.enqueue(new Callback<LoginResponse>() {
             @Override
-            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    if (response.body()) {
-                        obtenerIdYGuardarSesion(correo);
+                    LoginResponse loginResponse = response.body();
+
+                    if (loginResponse.isSuccess()) {
+                        // Guardar sesión con el rol
+                        guardarSesion(loginResponse.getUserId(), loginResponse.getRole());
+                        // Redirigir según el rol
+                        redirigirSegunRol(loginResponse.getRole());
                     } else {
                         Toast.makeText(LoginActivity.this, "Credenciales incorrectas", Toast.LENGTH_SHORT).show();
                     }
@@ -86,44 +92,30 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Boolean> call, Throwable t) {
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
                 Toast.makeText(LoginActivity.this, "Error de conexión: " + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
 
-    private void obtenerIdYGuardarSesion(String correo) {
-        Call<Integer> call = usuarioApi.obtenerIdUsuario(correo);
-
-        call.enqueue(new Callback<Integer>() {
-            @Override
-            public void onResponse(Call<Integer> call, Response<Integer> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    int userId = response.body();
-                    guardarSesion(userId);
-                    Toast.makeText(LoginActivity.this, "Login exitoso", Toast.LENGTH_SHORT).show();
-                    irARegistroMascotas();
-                } else {
-                    Toast.makeText(LoginActivity.this, "Error al obtener ID de usuario", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Integer> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "Error de conexión al obtener ID", Toast.LENGTH_LONG).show();
-            }
-        });
-    }
-
-    private void guardarSesion(int userId) {
+    private void guardarSesion(int userId, String rol) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt("userId", userId);
+        editor.putString("rol", rol);
         editor.putBoolean("isLoggedIn", true);
         editor.apply();
     }
 
-    private void irARegistroMascotas() {
-        Intent intent = new Intent(LoginActivity.this, menu.class);
+    private void redirigirSegunRol(String rol) {
+        Intent intent;
+        if ("Dueño de Mascota".equals(rol)) {
+            intent = new Intent(LoginActivity.this, MenuDueño.class);
+        } else if ("Paseador de mascota".equals(rol)) {
+            intent = new Intent(LoginActivity.this, MenuPaseador.class);
+        } else {
+            Toast.makeText(this, "Rol no reconocido", Toast.LENGTH_SHORT).show();
+            return;
+        }
         startActivity(intent);
         finish();
     }

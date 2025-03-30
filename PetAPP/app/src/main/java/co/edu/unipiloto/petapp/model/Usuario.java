@@ -1,4 +1,5 @@
 package co.edu.unipiloto.petapp.model;
+
 import java.util.List;
 
 public class Usuario {
@@ -7,6 +8,7 @@ public class Usuario {
     private String telefono;
     private String correo;
     private String password;
+    private String rol;
     private List<Mascota> mascotas;
 
     // Getters y Setters
@@ -39,6 +41,15 @@ public class Usuario {
     }
     public void setPassword(String password) {
         this.password = password;
+    }
+    public String getRol() {
+        return rol;
+    }
+    public void setRol(String rol) {
+        if (!rol.equalsIgnoreCase("Dueño de mascota") && !rol.equalsIgnoreCase("Paseador de mascota")) {
+            throw new IllegalArgumentException("Rol inválido. Debe ser 'Dueño de mascota' o 'Paseador de mascota'");
+        }
+        this.rol = rol;
     }
     public List<Mascota> getMascotas() {
         return mascotas;
