@@ -50,6 +50,23 @@ public class perfil_mascota extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil_mascota);
 
+
+        Button btnRutaMascota = findViewById(R.id.btn_RutaMascota);
+        btnRutaMascota.setOnClickListener(v -> {
+            int selectedPosition = spinnerMascotas.getSelectedItemPosition();
+            if (!listaMascotas.isEmpty() && selectedPosition >= 0) {
+                Mascota mascotaSeleccionada = listaMascotas.get(selectedPosition);
+                Intent intent = new Intent(perfil_mascota.this, RutaMascotas.class);
+                intent.putExtra("latitud_mascota", mascotaSeleccionada.getLatitud());
+                intent.putExtra("longitud_mascota", mascotaSeleccionada.getLongitud());
+                startActivity(intent);
+            } else {
+                Toast.makeText(this, "No hay mascota seleccionada", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
         Button btnAdministrarMedicamentos = findViewById(R.id.btnAdministrarMedicamentos);
         btnAdministrarMedicamentos.setOnClickListener(v -> {
             Intent intent = new Intent(perfil_mascota.this, AdministrarMedicamentos.class);

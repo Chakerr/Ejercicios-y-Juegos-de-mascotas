@@ -5,6 +5,7 @@ import java.util.Map;
 
 import co.edu.unipiloto.petapp.model.HistorialMedico;
 import co.edu.unipiloto.petapp.model.Medicamento;
+import co.edu.unipiloto.petapp.model.RutaMascota;
 import co.edu.unipiloto.petapp.model.Usuario;
 import co.edu.unipiloto.petapp.model.Mascota;
 import retrofit2.Call;
@@ -50,5 +51,17 @@ public interface PetApi {
     Call<HistorialMedico> getHistorialMedicoPorMascota(@Path("idMascota") int idMascota);
     @DELETE("/historialMedico/eliminar/{idMascota}")
     Call<Void> eliminarHistorial(@Path("id") int id);
+
+    @POST("rutas/guardar")
+    Call<RutaMascota> guardarRuta(@Body RutaMascota ruta);
+
+    @GET("rutas/usuario/{usuarioId}")
+    Call<List<RutaMascota>> obtenerRutas(@Path("usuarioId") int usuarioId);
+
+    @DELETE("rutas/eliminar/{id}")
+    Call<Void> eliminarRuta(@Path("id") int id);
+
+    @PUT("/rutas/actualizar")
+    Call<RutaMascota> actualizarRuta(@Body RutaMascota ruta);
 
 }

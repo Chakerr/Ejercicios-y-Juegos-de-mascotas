@@ -43,6 +43,8 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.14.1")
+    implementation("org.wololo:jts2geojson:0.18.1")
     implementation(libs.volley)
     implementation("androidx.work:work-runtime:2.8.1")
     testImplementation(libs.junit)

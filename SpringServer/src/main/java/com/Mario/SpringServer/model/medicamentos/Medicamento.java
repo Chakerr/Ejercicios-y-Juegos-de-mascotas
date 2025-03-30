@@ -26,7 +26,7 @@ public class Medicamento {
     private boolean administrado;
 
     @Column(nullable = false)
-    private String proximaDosis; // Ahora es String
+    private String proximaDosis; 
 
     // Relación muchos a uno con Mascota
     @ManyToOne(fetch = FetchType.EAGER)

@@ -171,10 +171,11 @@
                 android:id="@+id/tvMicrochip"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="¿Tiene Microchip?"
-                android:focusable="false"
                 android:cursorVisible="false"
+                android:focusable="false"
+                android:hint="¿Tiene Microchip?"
                 android:padding="12dp"
+                tools:ignore="TouchTargetSizeCheck"
                 tools:text="Sí" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -220,10 +221,10 @@
             tools:ignore="VisualLintButtonSize" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_Actualizar"
+            android:id="@+id/btn_RutaMascota"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Actualizar"
+            android:text="Ruta de la mascota"
             android:textColor="@android:color/white"
             android:backgroundTint="@color/primaryColor"
             android:padding="12dp"
