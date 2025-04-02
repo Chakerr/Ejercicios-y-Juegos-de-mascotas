@@ -34,6 +34,12 @@ public class RutaMascota {
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
 
+    @Column(name = "notificado_inicio")
+    private boolean notificadoInicio = false;
+    
+    @Column(name = "notificado_ifin")
+    private boolean notificadoFin = false;
+
     public RutaMascota() {}
 
     public RutaMascota(String nombre, List<Punto> coordenadas, Usuario usuario) {
@@ -68,5 +74,21 @@ public class RutaMascota {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public Boolean getNotificadoInicio() {
+        return notificadoInicio;
+    }
+    
+    public void setNotificadoInicio(Boolean notificadoInicio) {
+        this.notificadoInicio = notificadoInicio;
+    }
+    
+    public Boolean getNotificadoFin() {
+        return notificadoFin;
+    }
+    
+    public void setNotificadoFin(Boolean notificadoFin) {
+        this.notificadoFin = notificadoFin;
     }
 }
