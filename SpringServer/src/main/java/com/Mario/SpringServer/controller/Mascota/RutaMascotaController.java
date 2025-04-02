@@ -29,18 +29,18 @@ public class RutaMascotaController {
 
     @PostMapping("/guardar")
     public RutaMascota guardarRuta(@RequestBody RutaMascotaRequest request) {
-        if (request.getUsuarioId() == null) {
+        if (request.getUsuarioId() == null || request.getMascotaId() == null) {
             throw new RuntimeException("El usuarioId no puede ser nulo");
         }
-        return rutaMascotaService.saveRuta(request.getNombre(), request.getCoordenadas(), request.getUsuarioId());
+        return rutaMascotaService.saveRuta(request.getNombre(), request.getCoordenadas(), request.getUsuarioId(), request.getMascotaId());
     }
 
     @PutMapping("/actualizar")
     public RutaMascota actualizarRuta(@RequestBody RutaMascotaRequest request) {
-        if (request.getUsuarioId() == null) {
+        if (request.getUsuarioId() == null || request.getMascotaId() == null) {
             throw new RuntimeException("El usuarioId no puede ser nulo");
         }
-        return rutaMascotaService.updateRuta(request.getNombre(), request.getCoordenadas(), request.getUsuarioId());
+        return rutaMascotaService.updateRuta(request.getNombre(), request.getCoordenadas(), request.getUsuarioId(),  request.getMascotaId());
     }
 
     @GetMapping("/usuario/{usuarioId}")

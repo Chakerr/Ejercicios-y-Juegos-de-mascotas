@@ -34,18 +34,31 @@ public class RutaMascota {
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
 
+    @ManyToOne
+    @JoinColumn(name = "id_mascota")
+    private Mascota mascota;
+
     @Column(name = "notificado_inicio")
     private boolean notificadoInicio = false;
-    
+
     @Column(name = "notificado_ifin")
     private boolean notificadoFin = false;
 
-    public RutaMascota() {}
+    public RutaMascota() {
+    }
 
     public RutaMascota(String nombre, List<Punto> coordenadas, Usuario usuario) {
         this.nombre = nombre;
         this.coordenadas = coordenadas;
         this.usuario = usuario;
+    }
+
+    // 👇 Agregá este
+    public RutaMascota(String nombre, List<Punto> coordenadas, Usuario usuario, Mascota mascota) {
+        this.nombre = nombre;
+        this.coordenadas = coordenadas;
+        this.usuario = usuario;
+        this.mascota = mascota;
     }
 
     public Integer getId() {
@@ -79,16 +92,25 @@ public class RutaMascota {
     public Boolean getNotificadoInicio() {
         return notificadoInicio;
     }
-    
+
     public void setNotificadoInicio(Boolean notificadoInicio) {
         this.notificadoInicio = notificadoInicio;
     }
-    
+
     public Boolean getNotificadoFin() {
         return notificadoFin;
     }
-    
+
     public void setNotificadoFin(Boolean notificadoFin) {
         this.notificadoFin = notificadoFin;
     }
+
+    public Mascota getMascota() {
+        return mascota;
+    }
+
+    public void setMascota(Mascota mascota) {
+        this.mascota = mascota;
+    }
+
 }
