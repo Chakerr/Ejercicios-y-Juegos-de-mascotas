@@ -7,19 +7,29 @@
     android:orientation="vertical"
     android:gravity="center"
     android:padding="24dp"
-    android:background="@drawable/gradient_background">
+    android:background="@drawable/gradient_background"
+    tools:context=".InicioRecorridoActivity">
 
-    <!-- Logo de la aplicación -->
+    <!-- Logo o ícono de recorrido (opcional) -->
     <ImageView
-        android:id="@+id/logo"
+        android:id="@+id/icono_recorrido"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:src="@drawable/logo_app"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
-        android:contentDescription="@string/logo"
-        android:layout_marginBottom="40dp"/>
+        android:contentDescription="Icono de recorrido"
+        android:layout_marginBottom="40dp" />
 
+    <Spinner
+        android:id="@+id/spinnerMascotas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"/>
+
+
+
+    <!-- Botón para simular inicio de recorrido -->
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnIniciarRecorrido"
+        android:id="@+id/btnSimularRecorrido"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Iniciar Recorrido"
@@ -29,23 +39,20 @@
         android:textSize="18sp"
         app:cornerRadius="12dp"
         app:elevation="6dp"
-        android:layout_marginBottom="10dp"
-        tools:ignore="VisualLintButtonSize" />
+        android:layout_marginBottom="16dp" />
 
-
-
+    <!-- Botón para simular fin de recorrido -->
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_cerrar_sesionPaseador"
+        android:id="@+id/btnFinalizarRecorrido"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Cerrar Sesión"
+        android:text="Finalizar Recorrido"
         android:textColor="@android:color/white"
         android:backgroundTint="@color/primaryColor"
         android:padding="12dp"
         android:textSize="18sp"
         app:cornerRadius="12dp"
-        app:elevation="6dp"
-        android:layout_marginBottom="10dp"
-        tools:ignore="VisualLintButtonSize" />
+        app:elevation="6dp" />
+
 
 </LinearLayout>

@@ -12,6 +12,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import co.edu.unipiloto.petapp.InicioRecorridoActivity;
+
 public class MenuPaseador extends AppCompatActivity {
 
     @Override
@@ -24,6 +26,14 @@ public class MenuPaseador extends AppCompatActivity {
         btnCerrarSesion.setOnClickListener(v -> {
             cerrarSesion();
         });
+
+        Button btnIniciarRecorrido = findViewById(R.id.btnIniciarRecorrido);
+
+        btnIniciarRecorrido.setOnClickListener(v -> {
+            Intent intent = new Intent(MenuPaseador.this, InicioRecorridoActivity.class);
+            startActivity(intent);
+        });
+
     }
 
 

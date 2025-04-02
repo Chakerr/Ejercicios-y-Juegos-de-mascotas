@@ -137,4 +137,9 @@ public class Mascota {
     public void setMedicamentos(List<Medicamento> medicamentos) {
         this.medicamentos = medicamentos;
     }
+
+    @Override
+    public String toString() {
+        return nombreMascota;
+    }
 }

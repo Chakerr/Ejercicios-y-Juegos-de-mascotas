@@ -19,6 +19,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".InicioRecorridoActivity"
+            android:exported="false" />
+        <activity
             android:name=".MenuPaseador"
             android:exported="false" />
         <activity
@@ -57,6 +60,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <uses-library
+            android:name="androidx.work.WorkManagerInitializer"
+            android:required="false" />
     </application>
 
 </manifest>

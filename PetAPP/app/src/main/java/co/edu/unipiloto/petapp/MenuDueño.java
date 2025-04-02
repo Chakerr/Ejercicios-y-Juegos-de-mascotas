@@ -5,8 +5,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 public class MenuDueño extends AppCompatActivity {
     @Override
@@ -45,6 +48,16 @@ public class MenuDueño extends AppCompatActivity {
 
         btnCerrarSesion.setOnClickListener(v -> {
               cerrarSesion();
+        });
+        Button btnTestNotificacion = findViewById(R.id.btnTestNotificacion);
+
+        btnTestNotificacion.setOnClickListener(v -> {
+            OneTimeWorkRequest notificacionWork =
+                    new OneTimeWorkRequest.Builder(co.edu.unipiloto.petapp.workers.RutaNotificacionWorker.class)
+                            .build();
+
+            WorkManager.getInstance(this).enqueue(notificacionWork);
+            Toast.makeText(this, "Worker lanzado manualmente", Toast.LENGTH_SHORT).show();
         });
 
     }

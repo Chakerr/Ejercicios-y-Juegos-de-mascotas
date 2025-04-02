@@ -7,17 +7,23 @@ public class RutaMascota {
     private String nombre;
     private int usuarioId;
     private List<Punto> coordenadas;
+    private boolean notificadoInicio;
+    private boolean notificadoFin;
+
+    private int mascotaId;
+
+    private int mascotaSeleccionadaId;  // 👈 Agregá esto en la clase
+
 
     // Constructor vacío
     public RutaMascota() {}
-
     // Constructor con parámetros
-    public RutaMascota(String nombre, int usuarioId, List<Punto> coordenadas) {
+    public RutaMascota(String nombre, int usuarioId, int mascotaId, List<Punto> coordenadas) {
         this.nombre = nombre;
         this.usuarioId = usuarioId;
+        this.mascotaId = mascotaId;
         this.coordenadas = coordenadas;
     }
-
     // Getters y Setters
     public int getId() {
         return id;
@@ -50,5 +56,30 @@ public class RutaMascota {
     public void setCoordenadas(List<Punto> coordenadas) {
         this.coordenadas = coordenadas;
     }
+
+    public boolean isNotificadoInicio() {
+        return notificadoInicio;
+    }
+
+    public void setNotificadoInicio(boolean notificadoInicio) {
+        this.notificadoInicio = notificadoInicio;
+    }
+
+    public boolean isNotificadoFin() {
+        return notificadoFin;
+    }
+
+    public void setNotificadoFin(boolean notificadoFin) {
+        this.notificadoFin = notificadoFin;
+    }
+
+    public int getMascotaId() {
+        return mascotaId;
+    }
+
+    public void setMascotaId(int mascotaId) {
+        this.mascotaId = mascotaId;
+    }
+
 }
 
