@@ -56,6 +56,15 @@ public class perfil_mascota extends AppCompatActivity {
             int selectedPosition = spinnerMascotas.getSelectedItemPosition();
             if (!listaMascotas.isEmpty() && selectedPosition >= 0) {
                 Mascota mascotaSeleccionada = listaMascotas.get(selectedPosition);
+
+                // 🔽 Agrega esto para guardar en SharedPreferences
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putInt("mascotaSeleccionadaId", mascotaSeleccionada.getIdMascota()); // guarda ID mascota
+                int userId = sharedPreferences.getInt("userId", -1);
+                editor.putInt("userId", userId);
+                editor.apply();
+
+                // 🔽 Abre RutaMascotas con lat/lon
                 Intent intent = new Intent(perfil_mascota.this, RutaMascotas.class);
                 intent.putExtra("latitud_mascota", mascotaSeleccionada.getLatitud());
                 intent.putExtra("longitud_mascota", mascotaSeleccionada.getLongitud());
@@ -64,6 +73,7 @@ public class perfil_mascota extends AppCompatActivity {
                 Toast.makeText(this, "No hay mascota seleccionada", Toast.LENGTH_SHORT).show();
             }
         });
+
 
 
 

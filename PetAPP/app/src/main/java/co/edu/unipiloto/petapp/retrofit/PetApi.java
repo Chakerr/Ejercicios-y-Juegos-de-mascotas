@@ -56,8 +56,6 @@ public interface PetApi {
     @GET("rutas/usuario/{usuarioId}")
     Call<List<RutaMascota>> obtenerRutas(@Path("usuarioId") int usuarioId);
 
-    @DELETE("rutas/eliminar/{id}")
-    Call<Void> eliminarRuta(@Path("id") int id);
 
     @GET("/rutas/notificaciones")
     Call<List<RutaMascota>> obtenerRutasNoNotificadas();
@@ -70,9 +68,6 @@ public interface PetApi {
     );
     @GET("/rutas/usuario/{usuarioId}")
     Call<List<RutaMascota>> obtenerRutasPorUsuario(@Path("usuarioId") int usuarioId);
-
-    @GET("/mascotas/usuario/{usuarioId}")
-    Call<List<Mascota>> obtenerMascotasPorUsuario(@Path("usuarioId") int usuarioId);
 
     @GET("mascotas/todas")
     Call<List<Mascota>> obtenerTodasLasMascotas();

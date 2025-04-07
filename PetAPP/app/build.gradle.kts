@@ -45,6 +45,7 @@ dependencies {
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.14.1")
     implementation("org.wololo:jts2geojson:0.18.1")
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation(libs.volley)
     implementation("androidx.work:work-runtime:2.8.1")
     testImplementation(libs.junit)
