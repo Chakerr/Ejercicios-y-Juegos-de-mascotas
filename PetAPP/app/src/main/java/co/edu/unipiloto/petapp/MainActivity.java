@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // ⏱️ Programar el worker para ejecutarse cada 15 minutos
+
         WorkRequest rutaWorkRequest =
                 new PeriodicWorkRequest.Builder(RutaNotificacionWorker.class, 15, TimeUnit.MINUTES)
                         .build();

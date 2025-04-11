@@ -6,43 +6,49 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import com.google.gson.Gson;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+
 import co.edu.unipiloto.petapp.model.Mascota;
 import co.edu.unipiloto.petapp.retrofit.PetApi;
 import co.edu.unipiloto.petapp.retrofit.RetrofitService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
 import android.location.Address;
 import android.location.Geocoder;
-import java.io.IOException;
-import java.util.Locale;
+import android.preference.PreferenceManager;
+
 import org.osmdroid.config.Configuration;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
-import android.preference.PreferenceManager;
-import co.edu.unipiloto.petapp.AdministrarMedicamentos;
-
 
 public class perfil_mascota extends AppCompatActivity {
 
     private Spinner spinnerMascotas;
-    private TextView tvPetName, tvSpecies, tvBreed, tvGender, tvBirthDate, tvColor, tvMicrochip;
+    private TextView tvPetName, tvSpecies, tvBreed, tvGender, tvBirthDate, tvColor, tvMicrochip, tvDireccion;
     private ImageView qrImageView;
-    private Button btnGenerateQR;
     private PetApi petApi;
     private SharedPreferences sharedPreferences;
     private List<Mascota> listaMascotas = new ArrayList<>();
-    private TextView tvDireccion;
     private MapView mapView;
 
     @Override
@@ -50,51 +56,18 @@ public class perfil_mascota extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil_mascota);
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        Button btnRutaMascota = findViewById(R.id.btn_RutaMascota);
-        btnRutaMascota.setOnClickListener(v -> {
-            int selectedPosition = spinnerMascotas.getSelectedItemPosition();
-            if (!listaMascotas.isEmpty() && selectedPosition >= 0) {
-                Mascota mascotaSeleccionada = listaMascotas.get(selectedPosition);
+        sharedPreferences = getSharedPreferences("UserSession", Context.MODE_PRIVATE);
+        int userId = sharedPreferences.getInt("userId", -1);
+        if (userId == -1) {
+            Toast.makeText(this, "Error: No se encontró el ID del usuario.", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-                // 🔽 Agrega esto para guardar en SharedPreferences
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putInt("mascotaSeleccionadaId", mascotaSeleccionada.getIdMascota()); // guarda ID mascota
-                int userId = sharedPreferences.getInt("userId", -1);
-                editor.putInt("userId", userId);
-                editor.apply();
-
-                // 🔽 Abre RutaMascotas con lat/lon
-                Intent intent = new Intent(perfil_mascota.this, RutaMascotas.class);
-                intent.putExtra("latitud_mascota", mascotaSeleccionada.getLatitud());
-                intent.putExtra("longitud_mascota", mascotaSeleccionada.getLongitud());
-                startActivity(intent);
-            } else {
-                Toast.makeText(this, "No hay mascota seleccionada", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
-
-
-        Button btnAdministrarMedicamentos = findViewById(R.id.btnAdministrarMedicamentos);
-        btnAdministrarMedicamentos.setOnClickListener(v -> {
-            Intent intent = new Intent(perfil_mascota.this, AdministrarMedicamentos.class);
-            startActivity(intent);
-        });
-
-        btnAdministrarMedicamentos.setOnClickListener(v -> {
-            int selectedPosition = spinnerMascotas.getSelectedItemPosition();
-            if (!listaMascotas.isEmpty() && selectedPosition >= 0) {
-                int mascotaId = listaMascotas.get(selectedPosition).getIdMascota();
-                Intent intent = new Intent(perfil_mascota.this, AdministrarMedicamentos.class);
-                intent.putExtra("mascotaId", mascotaId); // Enviar ID de la mascota
-                startActivity(intent);
-            } else {
-                Toast.makeText(this, "No hay mascota seleccionada", Toast.LENGTH_SHORT).show();
-            }
-        });
-
+        RetrofitService retrofitService = new RetrofitService();
+        petApi = retrofitService.getRetrofit().create(PetApi.class);
 
         Configuration.getInstance().load(getApplicationContext(), PreferenceManager.getDefaultSharedPreferences(this));
         mapView = findViewById(R.id.mapView);
@@ -102,7 +75,6 @@ public class perfil_mascota extends AppCompatActivity {
         mapView.setBuiltInZoomControls(true);
         mapView.setMultiTouchControls(true);
 
-        // Referencias a los elementos de la UI
         spinnerMascotas = findViewById(R.id.spinnerMascotas);
         tvPetName = findViewById(R.id.tvPetName);
         tvSpecies = findViewById(R.id.tvSpecies);
@@ -113,38 +85,12 @@ public class perfil_mascota extends AppCompatActivity {
         tvMicrochip = findViewById(R.id.tvMicrochip);
         tvDireccion = findViewById(R.id.tvDireccion);
         qrImageView = findViewById(R.id.qrImageView);
-        btnGenerateQR = findViewById(R.id.btnGenerarQR);
 
-        // Inicializar SharedPreferences
-        sharedPreferences = getSharedPreferences("UserSession", Context.MODE_PRIVATE);
-        int userId = sharedPreferences.getInt("userId", -1);
-
-        if (userId == -1) {
-            tvPetName.setText("Error: No se encontró el ID del usuario.");
-            return;
-        }
-
-        // Inicializar Retrofit
-        RetrofitService retrofitService = new RetrofitService();
-        petApi = retrofitService.getRetrofit().create(PetApi.class);
-
-        // Obtener mascotas del usuario
         obtenerMascotas(userId);
-
-        // Listener del botón para generar QR
-        btnGenerateQR.setOnClickListener(v -> {
-            int selectedPosition = spinnerMascotas.getSelectedItemPosition();
-            if (!listaMascotas.isEmpty() && selectedPosition >= 0) {
-                generarQR(listaMascotas.get(selectedPosition));
-            } else {
-                Toast.makeText(this, "No hay mascota seleccionada", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     private void obtenerMascotas(int userId) {
-        Call<List<Mascota>> call = petApi.getMascotasByUsuarioId(userId);
-        call.enqueue(new Callback<List<Mascota>>() {
+        petApi.getMascotasByUsuarioId(userId).enqueue(new Callback<List<Mascota>>() {
             @Override
             public void onResponse(Call<List<Mascota>> call, Response<List<Mascota>> response) {
                 if (response.isSuccessful() && response.body() != null) {
@@ -201,11 +147,9 @@ public class perfil_mascota extends AppCompatActivity {
         tvColor.setText(mascota.getColor());
         tvMicrochip.setText(mascota.getMicrochip() ? "Sí" : "No");
 
-        // Convertir latitud y longitud en dirección
         if (mascota.getLatitud() != 0 && mascota.getLongitud() != 0) {
-            String direccion = obtenerDireccion(mascota.getLatitud(), mascota.getLongitud());
+            tvDireccion.setText(obtenerDireccion(mascota.getLatitud(), mascota.getLongitud()));
             mostrarUbicacionEnMapa(mascota.getLatitud(), mascota.getLongitud());
-            tvDireccion.setText(direccion);
         } else {
             tvDireccion.setText("Ubicación no disponible");
         }
@@ -216,9 +160,7 @@ public class perfil_mascota extends AppCompatActivity {
         try {
             List<Address> direcciones = geocoder.getFromLocation(latitud, longitud, 1);
             if (direcciones != null && !direcciones.isEmpty()) {
-                Address direccion = direcciones.get(0);
-                return direccion.getAddressLine(0);
-
+                return direcciones.get(0).getAddressLine(0);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -230,40 +172,63 @@ public class perfil_mascota extends AppCompatActivity {
         GeoPoint ubicacion = new GeoPoint(latitud, longitud);
         mapView.getController().setZoom(18.0);
         mapView.getController().setCenter(ubicacion);
-
-        // Limpiar marcadores previos
         mapView.getOverlays().clear();
 
-        // Agregar marcador
         Marker marcador = new Marker(mapView);
         marcador.setPosition(ubicacion);
         marcador.setTitle("Ubicación de la mascota");
         marcador.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
         mapView.getOverlays().add(marcador);
-
-        // Refrescar mapa
         mapView.invalidate();
     }
 
     private void generarQR(Mascota mascota) {
         try {
             Gson gson = new Gson();
-            String mascotaJson = gson.toJson(mascota); // Convertir mascota a JSON
-
-            BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
-            Bitmap bitmap = barcodeEncoder.encodeBitmap(mascotaJson, BarcodeFormat.QR_CODE, 400, 400);
-
-            // Verifica si el ImageView es nulo antes de asignar el QR
-            if (qrImageView != null) {
-                qrImageView.setImageBitmap(bitmap);
-                qrImageView.setVisibility(View.VISIBLE); // Asegurar que sea visible
-            } else {
-                Log.e("QR_ERROR", "ImageView es nulo");
-            }
-
+            String mascotaJson = gson.toJson(mascota);
+            Bitmap bitmap = new BarcodeEncoder().encodeBitmap(mascotaJson, BarcodeFormat.QR_CODE, 400, 400);
+            qrImageView.setImageBitmap(bitmap);
+            qrImageView.setVisibility(View.VISIBLE);
         } catch (WriterException e) {
             Log.e("QR_ERROR", "Error al generar QR: " + e.getMessage());
             Toast.makeText(this, "Error al generar QR", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        int selectedPosition = spinnerMascotas.getSelectedItemPosition();
+
+        if (selectedPosition < 0 || listaMascotas.isEmpty()) {
+            Toast.makeText(this, "No hay mascota seleccionada", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+        Mascota mascotaSeleccionada = listaMascotas.get(selectedPosition);
+
+        if (id == R.id.action_medicamentos) {
+            Intent intent = new Intent(this, AdministrarMedicamentos.class);
+            intent.putExtra("mascotaId", mascotaSeleccionada.getIdMascota());
+            startActivity(intent);
+            return true;
+        } else if (id == R.id.action_ruta) {
+            Intent intent = new Intent(this, RutaMascotas.class);
+            intent.putExtra("latitud_mascota", mascotaSeleccionada.getLatitud());
+            intent.putExtra("longitud_mascota", mascotaSeleccionada.getLongitud());
+            startActivity(intent);
+            return true;
+        } else if (id == R.id.action_qr) {
+            generarQR(mascotaSeleccionada);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_perfil_mascota, menu);
+        return true;
     }
 }

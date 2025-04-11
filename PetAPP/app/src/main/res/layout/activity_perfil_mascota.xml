@@ -1,267 +1,216 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="24dp"
-    android:background="@drawable/gradient_background">
+    android:background="@drawable/gradient_background"
+    tools:context=".perfil_mascota">
 
-    <LinearLayout
+
+    <!-- Toolbar personalizada -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:minHeight="?attr/actionBarSize"
+        android:background="@color/primaryColor"
+        app:titleTextColor="@android:color/white"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-        <!-- Imagen de la mascota -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="4dp"
-            app:cardBackgroundColor="@android:color/white"
-            app:strokeColor="@color/primaryColor"
-            app:strokeWidth="4dp"
-            android:layout_marginBottom="20dp"/>
 
-        <Spinner
-            android:id="@+id/spinnerMascotas"
+    <!-- Contenido scrollable -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="24dp">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:minHeight="48dp" />
+            android:orientation="vertical"
+            android:gravity="center">
 
-
-
-        <!-- Nombre -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            app:boxStrokeColor="@color/primaryColor"
-            app:boxStrokeWidthFocused="2dp"
-            app:endIconMode="none">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tvPetName"
+            <!-- Spinner para seleccionar mascota -->
+            <Spinner
+                android:id="@+id/spinnerMascotas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:cursorVisible="false"
-                android:focusable="false"
-                android:hint="Nombre"
-                android:padding="12dp"
-                tools:ignore="TouchTargetSizeCheck"
-                tools:text="Capitan" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginBottom="16dp"
+                android:minHeight="48dp" />
 
-        <!-- Fecha de Nacimiento -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            app:boxStrokeColor="@color/primaryColor"
-            app:boxStrokeWidthFocused="2dp"
-            app:endIconMode="none">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tvBirthDate"
+            <!-- Campo: Nombre -->
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:cursorVisible="false"
-                android:focusable="false"
-                android:hint="Fecha de nacimiento"
-                android:padding="12dp"
-                tools:ignore="TouchTargetSizeCheck"
-                tools:text="10/03/2020" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginBottom="10dp"
+                app:boxStrokeColor="@color/primaryColor"
+                app:boxStrokeWidthFocused="2dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tvPetName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Nombre"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:padding="12dp"
+                    tools:text="Capitán"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-
-
-        <!-- Especie -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            app:boxStrokeColor="@color/primaryColor"
-            app:boxStrokeWidthFocused="2dp"
-            app:endIconMode="none">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tvSpecies"
+            <!-- Campo: Fecha de Nacimiento -->
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Especie"
-                android:focusable="false"
-                android:cursorVisible="false"
-                android:padding="12dp"
-                tools:text="Perro" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginBottom="10dp"
+                app:boxStrokeColor="@color/primaryColor"
+                app:boxStrokeWidthFocused="2dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tvBirthDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Fecha de nacimiento"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:padding="12dp"
+                    tools:text="10/03/2020"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Raza -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            app:boxStrokeColor="@color/primaryColor"
-            app:boxStrokeWidthFocused="2dp"
-            app:endIconMode="none">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tvBreed"
+            <!-- Campo: Especie -->
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Raza"
-                android:focusable="false"
-                android:cursorVisible="false"
-                android:padding="12dp"
-                tools:text="Coker spanier" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginBottom="10dp"
+                app:boxStrokeColor="@color/primaryColor"
+                app:boxStrokeWidthFocused="2dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tvSpecies"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Especie"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:padding="12dp"
+                    tools:text="Perro"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Sexo -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            app:boxStrokeColor="@color/primaryColor"
-            app:boxStrokeWidthFocused="2dp"
-            app:endIconMode="none">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tvGender"
+            <!-- Campo: Raza -->
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Sexo"
-                android:focusable="false"
-                android:cursorVisible="false"
-                android:padding="12dp"
-                tools:text="Macho" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginBottom="10dp"
+                app:boxStrokeColor="@color/primaryColor"
+                app:boxStrokeWidthFocused="2dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tvBreed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Raza"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:padding="12dp"
+                    tools:text="Cocker spaniel"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Color -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            app:boxStrokeColor="@color/primaryColor"
-            app:boxStrokeWidthFocused="2dp"
-            app:endIconMode="none">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tvColor"
+            <!-- Campo: Sexo -->
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Color"
-                android:focusable="false"
-                android:cursorVisible="false"
-                android:padding="12dp"
-                tools:text="Marrón" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginBottom="10dp"
+                app:boxStrokeColor="@color/primaryColor"
+                app:boxStrokeWidthFocused="2dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tvGender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Sexo"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:padding="12dp"
+                    tools:text="Macho"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-
-        <!-- Microchip -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:boxStrokeColor="@color/primaryColor"
-            app:boxStrokeWidthFocused="2dp"
-            app:endIconMode="none">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tvMicrochip"
+            <!-- Campo: Color -->
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:cursorVisible="false"
-                android:focusable="false"
-                android:hint="¿Tiene Microchip?"
-                android:padding="12dp"
-                tools:ignore="TouchTargetSizeCheck"
-                tools:text="Sí" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginBottom="10dp"
+                app:boxStrokeColor="@color/primaryColor"
+                app:boxStrokeWidthFocused="2dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tvColor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Color"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:padding="12dp"
+                    tools:text="Marrón"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Direccion -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            app:boxStrokeColor="@color/primaryColor"
-            app:boxStrokeWidthFocused="2dp"
-            app:endIconMode="none">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tvDireccion"
+            <!-- Campo: Microchip -->
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Dirección"
-                android:focusable="false"
-                android:cursorVisible="false"
-                android:padding="12dp"
-                tools:text="Cargando dirección..." />
+                app:boxStrokeColor="@color/primaryColor"
+                app:boxStrokeWidthFocused="2dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tvMicrochip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="¿Tiene Microchip?"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:padding="12dp"
+                    tools:text="Sí"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
+            <!-- Campo: Dirección -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                app:boxStrokeColor="@color/primaryColor"
+                app:boxStrokeWidthFocused="2dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tvDireccion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Dirección"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:padding="12dp"
+                    tools:text="Calle 123, Ciudad"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Mapa -->
             <org.osmdroid.views.MapView
                 android:id="@+id/mapView"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                android:layout_marginTop="16dp"/>
+                android:layout_marginBottom="16dp" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+            <!-- Imagen QR -->
+            <ImageView
+                android:id="@+id/qrImageView"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                android:layout_marginBottom="16dp" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnAdministrarMedicamentos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Administrar Medicamentos"
-            android:textColor="@android:color/white"
-            android:backgroundTint="@color/primaryColor"
-            android:padding="12dp"
-            android:textSize="18sp"
-            app:cornerRadius="12dp"
-            app:elevation="6dp"
-            android:layout_marginTop="10dp"
-            tools:ignore="VisualLintButtonSize" />
+            <!-- Logo -->
+            <ImageView
+                android:src="@drawable/logo_app"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:contentDescription="@string/logo"
+                android:layout_gravity="center"
+                android:layout_marginBottom="16dp" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_RutaMascota"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Ruta de la mascota"
-            android:textColor="@android:color/white"
-            android:backgroundTint="@color/primaryColor"
-            android:padding="12dp"
-            android:textSize="18sp"
-            app:cornerRadius="12dp"
-            app:elevation="6dp"
-            android:layout_marginTop="10dp"
-            tools:ignore="VisualLintButtonSize" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnGenerarQR"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Generar QR"
-            android:textColor="@android:color/white"
-            android:backgroundTint="@color/primaryColor"
-            android:padding="12dp"
-            android:textSize="18sp"
-            app:cornerRadius="12dp"
-            app:elevation="6dp"
-            android:layout_marginTop="10dp"/>
-
-        <ImageView
-            android:id="@+id/qrImageView"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_gravity="center"
-            android:visibility="gone"/>
-
-
-        <ImageView
-            android:src="@drawable/logo_app"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:contentDescription="@string/logo"
-            android:layout_gravity="center"
-            android:layout_marginBottom="10dp" />
-
-    </LinearLayout>
-</ScrollView>

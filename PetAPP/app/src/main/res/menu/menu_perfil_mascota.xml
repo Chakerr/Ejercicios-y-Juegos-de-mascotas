@@ -1,0 +1,20 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_medicamentos"
+        android:title="Medicamentos"
+        android:icon="@drawable/ic_pill"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_ruta"
+        android:title="Ruta"
+        android:icon="@drawable/ic_route"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_qr"
+        android:title="Generar QR"
+        android:icon="@drawable/ic_qr_code"
+        app:showAsAction="always" />
+</menu>

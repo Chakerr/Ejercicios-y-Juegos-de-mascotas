@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_registrar_mascota"
+        android:icon="@drawable/ic_pet"
+        android:title="Registrar Mascota"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_test_notificacion"
+        android:icon="@drawable/ic_notification"
+        android:title="Probar Notificación"
+        app:showAsAction="always" />
+</menu>
