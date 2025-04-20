@@ -6,6 +6,7 @@ import java.util.Map;
 import co.edu.unipiloto.petapp.model.HistorialMedico;
 import co.edu.unipiloto.petapp.model.LoginResponse;
 import co.edu.unipiloto.petapp.model.Medicamento;
+import co.edu.unipiloto.petapp.model.RecorridoMascota;
 import co.edu.unipiloto.petapp.model.RutaMascota;
 import co.edu.unipiloto.petapp.model.Usuario;
 import co.edu.unipiloto.petapp.model.Mascota;
@@ -73,6 +74,14 @@ public interface PetApi {
     Call<List<Mascota>> obtenerTodasLasMascotas();
 
 
+    @GET("recorridos/todos")
+    Call<List<RecorridoMascota>> obtenerRecorridos();
+
+    @GET("recorridos/mascota/{idMascota}")
+    Call<List<RecorridoMascota>> obtenerRecorridosPorMascota(@Path("idMascota") int idMascota);
+
+    @POST("recorridos/guardar")
+    Call<RecorridoMascota> guardarRecorrido(@Body RecorridoMascota recorridoMascota);
 
 
 

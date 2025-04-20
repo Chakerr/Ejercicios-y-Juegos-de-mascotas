@@ -112,7 +112,9 @@ public class LoginActivity extends AppCompatActivity {
             intent = new Intent(LoginActivity.this, MenuDueño.class);
         } else if ("Paseador de mascota".equals(rol)) {
             intent = new Intent(LoginActivity.this, MenuPaseador.class);
-        } else {
+        } else if ("Admin".equals(rol)) {
+            intent = new Intent(LoginActivity.this, MenuEstadisticas.class);
+        }else {
             Toast.makeText(this, "Rol no reconocido", Toast.LENGTH_SHORT).show();
             return;
         }
