@@ -8,6 +8,7 @@
 
 ## 📱 Aplicación Móvil - PetAPP
 
+
 PetAPP es una app Android desarrollada para que paseadores y dueños de mascotas gestionen el bienestar de sus mascotas. A través de ella, se pueden registrar datos médicos, realizar seguimientos de actividad física y más.
 
 ### Funcionalidades principales:
