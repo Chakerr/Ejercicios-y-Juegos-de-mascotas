@@ -1,5 +1,7 @@
 package com.Mario.SpringServer.model.Mascota;
 
+import com.Mario.SpringServer.model.Paseador.Paseador;
+
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -17,6 +19,10 @@ import jakarta.persistence.Table;
 @Table(name = "recorridos_mascota")
 public class RecorridoMascota {
 
+    @ManyToOne
+    @JoinColumn(name = "id_paseador")
+    private Paseador paseador;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_recorrido")
@@ -33,7 +39,8 @@ public class RecorridoMascota {
     @Column(name = "distancia_metros", nullable = false)
     private double distanciaMetros;
 
-    public RecorridoMascota() {}
+    public RecorridoMascota() {
+    }
 
     public RecorridoMascota(Mascota mascota, double distanciaMetros) {
         this.mascota = mascota;
@@ -74,4 +81,13 @@ public class RecorridoMascota {
     public void setDistanciaMetros(double distanciaMetros) {
         this.distanciaMetros = distanciaMetros;
     }
+
+    public Paseador getPaseador() {
+        return paseador;
+    }
+
+    public void setPaseador(Paseador paseador) {
+        this.paseador = paseador;
+    }
+
 }

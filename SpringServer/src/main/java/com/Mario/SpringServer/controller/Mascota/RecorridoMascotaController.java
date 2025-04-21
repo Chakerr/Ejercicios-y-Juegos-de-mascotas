@@ -26,14 +26,6 @@ public class RecorridoMascotaController {
     @Autowired
     private MascotaRepository mascotaRepository;
 
-    
-    @PostMapping("/guardar")
-    public RecorridoMascota guardarRecorrido(@RequestBody RecorridoMascotaRequest request) {
-        Mascota mascota = mascotaRepository.findById(request.getIdMascota())
-                .orElseThrow(() -> new RuntimeException("Mascota no encontrada"));
-        return recorridoService.guardarRecorrido(mascota, request.getDistanciaMetros());
-    }
-
     @GetMapping("/todos")
     public List<RecorridoMascota> obtenerTodos() {
         return recorridoService.obtenerTodos();
@@ -43,4 +35,17 @@ public class RecorridoMascotaController {
     public List<RecorridoMascota> obtenerPorMascota(@PathVariable Integer idMascota) {
         return recorridoService.obtenerRecorridosPorMascota(idMascota);
     }
+
+    @PostMapping("/guardar")
+    public RecorridoMascota guardarRecorrido(@RequestBody RecorridoMascotaRequest request) {
+        Mascota mascota = mascotaRepository.findById(request.getIdMascota())
+                .orElseThrow(() -> new RuntimeException("Mascota no encontrada"));
+        return recorridoService.guardarRecorrido(mascota, request.getDistanciaMetros());
+    }
+
+    @PostMapping("/crear")
+    public RecorridoMascota crearRecorridoConPaseador(@RequestBody RecorridoMascotaRequest request) {
+        return recorridoService.guardarRecorridoConPaseador(request);
+    }  
+
 }
