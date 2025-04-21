@@ -40,6 +40,7 @@ API REST desarrollada con Spring Boot que gestiona usuarios, mascotas, rutas y n
 
 ---
 
+
 ## 🗂️ Estructura del Proyecto
 
 ```
