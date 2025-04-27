@@ -4,6 +4,7 @@
 **Proyecto:** APPET (Aplicación para Ejercicios y Juegos de Mascotas)  
 **Plataformas:** Android (PetAPP) + Spring Boot (SpringServer) + PostgreSQL
 
+
 ---
 
 ## 📱 Aplicación Móvil - PetAPP
