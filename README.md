@@ -1,9 +1,7 @@
 # APPET - Aplicación para el Cuidado de Mascotas 🐾
 
-
 **Proyecto:** APPET (Aplicación para Ejercicios y Juegos de Mascotas)  
 **Plataformas:** Android (PetAPP) + Spring Boot (SpringServer) + PostgreSQL
-
 
 ---
 
@@ -76,6 +74,5 @@ SpringServer/
 - osmdroid (mapas)
 - Jetpack WorkManager
 - SharedPreferences
-
-
+  
 ---
