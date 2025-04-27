@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -55,18 +56,17 @@ public class PetController {
         return usuarioDao.correoExiste(correo);
     }
 
-   @PostMapping("/usuario/login")
-public ResponseEntity<LoginResponse> login(@RequestParam String correo, @RequestParam String password) {
-    Optional<Usuario> usuario = usuarioDao.verificarCredenciales(correo, password);
-    
-    if (usuario.isPresent()) {
-        Usuario user = usuario.get();
-        return ResponseEntity.ok(new LoginResponse(true, user.getIdUsuario(), user.getRol())); 
-    } else {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new LoginResponse(false, 0, ""));
-    }
-}
+    @PostMapping("/usuario/login")
+    public ResponseEntity<LoginResponse> login(@RequestParam String correo, @RequestParam String password) {
+        Optional<Usuario> usuario = usuarioDao.verificarCredenciales(correo, password);
 
+        if (usuario.isPresent()) {
+            Usuario user = usuario.get();
+            return ResponseEntity.ok(new LoginResponse(true, user.getIdUsuario(), user.getRol()));
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new LoginResponse(false, 0, ""));
+        }
+    }
 
     @Autowired
     private MascotaService mascotaDao;
@@ -107,6 +107,16 @@ public ResponseEntity<LoginResponse> login(@RequestParam String correo, @Request
         }
 
         return ResponseEntity.ok(mascotaActualizada);
+    }
+
+    @DeleteMapping("/mascotas/{id}")
+    public ResponseEntity<String> eliminarMascota(@PathVariable Integer id) {
+        boolean eliminada = mascotaDao.deleteMascota(id);
+        if (eliminada) {
+            return ResponseEntity.ok("Mascota eliminada correctamente.");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Mascota no encontrada.");
+        }
     }
 
 }

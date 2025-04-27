@@ -46,4 +46,14 @@ public class MascotaService {
     return null; 
   }
 
+  public boolean deleteMascota(Integer idMascota) {
+    Optional<Mascota> mascotaOptional = mascotaRepository.findById(idMascota);
+    if (mascotaOptional.isPresent()) {
+      mascotaRepository.deleteById(idMascota);
+      return true;
+    }
+    return false; 
+  }
+  
+
 }
