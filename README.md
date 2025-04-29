@@ -40,7 +40,7 @@ API REST desarrollada con Spring Boot que gestiona usuarios, mascotas, rutas y n
 ---
 
 
-## 🗂️ Estructura del Proyecto
+## Estructura del Proyecto
 
 ```
 PetAPP/
@@ -65,7 +65,7 @@ SpringServer/
 
 ---
 
-## 🛠️ Tecnologías
+## Tecnologías
 
 - Android SDK (Java)
 - Spring Boot 3.x
