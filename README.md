@@ -23,7 +23,7 @@ PetAPP es una app Android desarrollada para que paseadores y dueños de mascotas
 
 ---
 
-## 💻 Backend - Spring Boot (SpringServer)
+## Backend - Spring Boot (SpringServer)
 
 API REST desarrollada con Spring Boot que gestiona usuarios, mascotas, rutas y notificaciones.
 
