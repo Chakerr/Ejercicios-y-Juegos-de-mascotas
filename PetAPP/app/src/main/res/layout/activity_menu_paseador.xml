@@ -32,7 +32,20 @@
         android:layout_marginBottom="10dp"
         tools:ignore="VisualLintButtonSize" />
 
-
+    <!-- Nuevo Botón para ir a Gestionar Tarifas -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnGestionTarifas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Gestionar Tarifa"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@color/primaryColor"
+        android:padding="12dp"
+        android:textSize="18sp"
+        app:cornerRadius="12dp"
+        app:elevation="6dp"
+        android:layout_marginBottom="10dp"
+        tools:ignore="VisualLintButtonSize" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_cerrar_sesionPaseador"

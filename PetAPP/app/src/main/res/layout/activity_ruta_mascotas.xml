@@ -14,7 +14,11 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="parent"
+<<<<<<< HEAD
         app:layout_constraintBottom_toTopOf="@+id/botonera"
+=======
+        app:layout_constraintBottom_toTopOf="@+id/inputAround"
+>>>>>>> 012fc36 (WIP: Cambios antes de rebase)
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="16dp"/>
@@ -121,10 +125,15 @@
         android:background="@drawable/legend_background"
         android:padding="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
+<<<<<<< HEAD
         app:layout_constraintEnd_toStartOf="@+id/botonera"
+=======
+>>>>>>> 012fc36 (WIP: Cambios antes de rebase)
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintWidth_percent="0.35"/>
+        app:layout_constraintWidth_percent="0.35"
+        app:layout_constraintEnd_toStartOf="@id/bottomButtonsLayout"/>
 
+<<<<<<< HEAD
     <!-- Botonera horizontal con Actualizar y Guardar -->
     <LinearLayout
         android:id="@+id/botonera"
@@ -132,9 +141,19 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="end"
+=======
+    <LinearLayout
+        android:id="@+id/bottomButtonsLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+>>>>>>> 012fc36 (WIP: Cambios antes de rebase)
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/inputAround"
+<<<<<<< HEAD
         app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.button.MaterialButton
@@ -166,7 +185,47 @@
             app:icon="@drawable/ic_save"
             app:iconGravity="textStart"/>
     </LinearLayout>
+=======
+        android:weightSum="2">
+>>>>>>> 012fc36 (WIP: Cambios antes de rebase)
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnActualizar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Actualizar"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/primaryColor"
+            android:padding="12dp"
+            android:textSize="14sp"
+            android:minWidth="120dp"
+            android:maxLines="1"
+            android:ellipsize="none"
+            app:cornerRadius="12dp"
+            app:elevation="6dp"
+            app:icon="@drawable/ic_refresh"
+            app:iconGravity="textStart"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnPaseadores"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Paseadores"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/primaryColor"
+            android:padding="12dp"
+            android:textSize="14sp"
+            android:maxLines="1"
+            android:ellipsize="none"
+            app:cornerRadius="12dp"
+            app:elevation="6dp"
+            app:icon="@drawable/ic_pet"
+            app:iconGravity="textStart"
+            android:layout_marginStart="8dp"/>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
 

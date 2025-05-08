@@ -1,10 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TarifaPaseador">
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:padding="24dp"
+    android:background="@drawable/gradient_background"
+    tools:context=".TarifaPaseadorActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Campo de Precio -->
+    <EditText
+        android:id="@+id/etPrecio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:hint="Precio"
+        android:inputType="numberDecimal"
+        android:minHeight="48dp" />
+
+    <!-- Campo de Distancia -->
+    <EditText
+        android:id="@+id/etDistanciaKm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:hint="Distancia (km)"
+        android:inputType="numberDecimal"
+        android:minHeight="48dp" />
+
+    <!-- Botón Guardar -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnGuardar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Guardar"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@color/primaryColor"
+        android:padding="12dp"
+        android:textSize="18sp"
+        app:cornerRadius="12dp"
+        app:elevation="6dp"
+        android:layout_marginBottom="10dp"
+        tools:ignore="VisualLintButtonSize" />
+
+    <!-- Botón Actualizar -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnActualizar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Actualizar"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@color/primaryColor"
+        android:padding="12dp"
+        android:textSize="18sp"
+        app:cornerRadius="12dp"
+        app:elevation="6dp"
+        android:layout_marginBottom="20dp"
+        tools:ignore="VisualLintButtonSize" />
+
+    <!-- RecyclerView para mostrar las tarifas -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvTarifas"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginBottom="20dp" />
+
+    <!-- Logo de la aplicación -->
+    <ImageView
+        android:id="@+id/logo"
+        android:src="@drawable/logo_app"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:contentDescription="@string/logo"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="20dp" />
+
+</LinearLayout>

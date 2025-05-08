@@ -6,13 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
-import co.edu.unipiloto.petapp.InicioRecorridoActivity;
 
 public class MenuPaseador extends AppCompatActivity {
 
@@ -22,20 +16,21 @@ public class MenuPaseador extends AppCompatActivity {
         setContentView(R.layout.activity_menu_paseador);
 
         Button btnCerrarSesion = findViewById(R.id.btn_cerrar_sesionPaseador);
-
-        btnCerrarSesion.setOnClickListener(v -> {
-            cerrarSesion();
-        });
-
         Button btnIniciarRecorrido = findViewById(R.id.btnIniciarRecorrido);
+        Button btnGestionTarifas = findViewById(R.id.btnGestionTarifas); // <--- Nuevo botón
+
+        btnCerrarSesion.setOnClickListener(v -> cerrarSesion());
 
         btnIniciarRecorrido.setOnClickListener(v -> {
             Intent intent = new Intent(MenuPaseador.this, InicioRecorridoActivity.class);
             startActivity(intent);
         });
 
+        btnGestionTarifas.setOnClickListener(v -> {
+            Intent intent = new Intent(MenuPaseador.this, TarifaPaseadorActivity.class);
+            startActivity(intent);
+        });
     }
-
 
     private void cerrarSesion() {
         SharedPreferences sharedPreferences = getSharedPreferences("UserSession", Context.MODE_PRIVATE);

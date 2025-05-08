@@ -19,7 +19,14 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+<<<<<<< HEAD
             android:name=".MenuEstadisticas"
+=======
+            android:name=".PreciosPaseador"
+            android:exported="false" />
+        <activity
+            android:name=".TarifaPaseadorActivity"
+>>>>>>> 012fc36 (WIP: Cambios antes de rebase)
             android:exported="false" />
         <activity
             android:name=".InicioRecorridoActivity"

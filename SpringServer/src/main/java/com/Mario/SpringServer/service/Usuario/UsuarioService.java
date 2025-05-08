@@ -51,4 +51,9 @@ public class UsuarioService {
     return usuarioRepository.findById(id);
   }
 
+  public Optional<Usuario> obtenerUsuarioPorId(Integer id) {
+    return findById(id);
+}
+
+
 }

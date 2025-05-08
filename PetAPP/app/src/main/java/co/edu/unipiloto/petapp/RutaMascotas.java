@@ -1,5 +1,6 @@
 package co.edu.unipiloto.petapp;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -65,6 +66,13 @@ public class RutaMascotas extends AppCompatActivity {
 
             obtenerYMostrarCaminos(puntoInicial.getLatitude(), puntoInicial.getLongitude());
         });
+
+        Button btnPaseadores = findViewById(R.id.btnPaseadores);
+        btnPaseadores.setOnClickListener(v -> {
+            Intent intent = new Intent(RutaMascotas.this, PreciosPaseador.class);
+            startActivity(intent);
+        });
+
 
     }
 

@@ -8,6 +8,8 @@ import co.edu.unipiloto.petapp.model.LoginResponse;
 import co.edu.unipiloto.petapp.model.Medicamento;
 import co.edu.unipiloto.petapp.model.RecorridoMascota;
 import co.edu.unipiloto.petapp.model.RutaMascota;
+import co.edu.unipiloto.petapp.model.TarifaPaseador;
+import co.edu.unipiloto.petapp.model.TarifaPaseadorRequestDTO;
 import co.edu.unipiloto.petapp.model.Usuario;
 import co.edu.unipiloto.petapp.model.Mascota;
 import retrofit2.Call;
@@ -73,7 +75,10 @@ public interface PetApi {
     @GET("mascotas/todas")
     Call<List<Mascota>> obtenerTodasLasMascotas();
 
+    @POST("/tarifas")
+    Call<TarifaPaseador> crearTarifa(@Body TarifaPaseadorRequestDTO tarifa);
 
+<<<<<<< HEAD
     @GET("recorridos/todos")
     Call<List<RecorridoMascota>> obtenerRecorridos();
 
@@ -82,7 +87,18 @@ public interface PetApi {
 
     @POST("recorridos/guardar")
     Call<RecorridoMascota> guardarRecorrido(@Body RecorridoMascota recorridoMascota);
+=======
+    @GET("/tarifas")
+    Call<List<TarifaPaseador>> listarTarifas();
+>>>>>>> 012fc36 (WIP: Cambios antes de rebase)
 
+    @GET("/tarifas/paseador/{id}")
+    Call<List<TarifaPaseador>> listarTarifasPorPaseador(@Path("id") int idPaseador);
 
+    @PUT("/tarifas/{id}")
+    Call<TarifaPaseador> actualizarTarifa(@Path("id") int idTarifa, @Body TarifaPaseadorRequestDTO tarifa);
 
+    @DELETE("/tarifas/{id}")
+    Call<Void> eliminarTarifa(@Path("id") int idTarifa);
 }
+
