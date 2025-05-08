@@ -77,8 +77,6 @@ public interface PetApi {
 
     @POST("/tarifas")
     Call<TarifaPaseador> crearTarifa(@Body TarifaPaseadorRequestDTO tarifa);
-
-<<<<<<< HEAD
     @GET("recorridos/todos")
     Call<List<RecorridoMascota>> obtenerRecorridos();
 
@@ -87,10 +85,8 @@ public interface PetApi {
 
     @POST("recorridos/guardar")
     Call<RecorridoMascota> guardarRecorrido(@Body RecorridoMascota recorridoMascota);
-=======
     @GET("/tarifas")
     Call<List<TarifaPaseador>> listarTarifas();
->>>>>>> 012fc36 (WIP: Cambios antes de rebase)
 
     @GET("/tarifas/paseador/{id}")
     Call<List<TarifaPaseador>> listarTarifasPorPaseador(@Path("id") int idPaseador);

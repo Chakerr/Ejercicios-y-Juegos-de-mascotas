@@ -1,0 +1,91 @@
+[33md91a9c8[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m add: PrecioPaseo
+[33m0b32991[m ADD: Comision
+[33mc842c09[m Update README.md
+[33mfdc7c85[m Update README.md
+[33meb69638[m Update README.md
+[33m4af5ca3[m Update README.md
+[33md8e6e2f[m Update README.md
+[33mba5ba64[m Update README.md
+[33m808236f[m Update README.md
+[33mf13a2c0[m add : eliminar / actualizar info
+[33m550b186[m add: precio paseadores
+[33md3785ff[m Update README.md
+[33mf492fa9[m Update README.md
+[33m9e42176[m Update README.md
+[33mfb6235e[m add : implementation
+[33m33c9583[m add: toolbar
+[33md4d79a1[m Update README.md
+[33m8a7f0cd[m add: traza de rutas
+[33mabc8e3a[m add: base de datos
+[33m33fda79[m update
+[33mddf6fa2[m add: Notificaciones y alertas del cuidador
+[33mf41d49c[m add: Notificaciones y alertas del cuidador
+[33mc9b9a2a[m add backend notificaciones y alertas del cuidador
+[33m5d739bc[m add: base de datos
+[33ma70554c[m ADD: Iniciar sesion Paseador
+[33m4d1eb88[m ADD: RutaMascota
+[33m37527d2[m add: HistorialMedico
+[33m9da0def[m add: controller, repository, service HistorialMedico
+[33m38f8f4d[m add: model HistorialMedico
+[33mb733488[m Fix: Package
+[33m129a401[m add:
+[33m6fb962d[m fix: structure
+[33m54b78f5[m fix: structure
+[33me44b976[m add: estructura inicial spring
+[33m39549ce[m fix: button medicamentos
+[33m9649336[m fix: id mascota
+[33mcf517fa[m Finalizado merge con resolución de conflictos
+[33mc782733[m add: fixeado
+[33mc0a3f83[m add: modificacion medicamentos
+[33m30a4c9a[m add: Notificaciones
+[33me25b654[m add: Informacion medicina en base de datos
+[33m2ef37cb[m add: Correccion Fecha
+[33m441d6a8[m add: Informacion medicina en base de datos
+[33mf71a49f[m add: Relacion Mascotas Medicamento
+[33m57fb3ea[m add: Relacion Mascotas Medicamento
+[33mef97c45[m add: Mapa Perfil mascota
+[33ma30d140[m revision: formato json fecha
+[33m0cffb79[m add: historia de usuario notificaciones y registro de medicamentos
+[33m347e277[m ADD: Coordenas guardadas en el DB
+[33m6d5d30d[m fix
+[33mbdfc036[m fix: mensaje repetido por consola
+[33mdeb8cb5[m add: historia de usuario registro y seguimiento de medicación
+[33m1855580[m add: Qr
+[33mf041a24[m add: btnRegistroMascotas Arreglado
+[33m5176585[m Finalizando merge de main con origin/main
+[33mf7a4a58[m cambio botones
+[33mcb4afec[m Refactor: Qr
+[33m7cb9205[m add: Visualizar perfil mascota
+[33m2435e48[m add: Visualizar perfil mascota
+[33m341d0ab[m refactor
+[33m48a53c1[m add: Qr mascotas
+[33m1060762[m add: Qr mascotas
+[33m9253ab4[m refactor: menu
+[33m880c56d[m add: conexion de botones
+[33m0fe7305[m add: desarrollo funcion mascota
+[33m9919d13[m add: desarrollo funcion mascota
+[33mc26b379[m add: desarrollo funcion mascota
+[33m4a028a9[m add: perfil mascotas y perfil usuario
+[33maabb6ec[m Merge pull request #3 from Chakerr/Diario
+[33m6979d03[m[33m ([m[1;31morigin/Diario[m[33m, [m[1;32mDiario[m[33m)[m add: Mantener sesion Iniciada
+[33mebfa7f4[m Create README.md
+[33m85ec31a[m refactor
+[33m93c33a3[m add: perfil usuario y mascota
+[33m1597701[m add: perfil mascotas
+[33m1d70ca5[m Update SpringServerApplicationTests.java
+[33m29c4d9b[m refactor
+[33mc6e1990[m add: backend
+[33m9e5dd67[m Coreccion de errores
+[33mab23b54[m Base de datos, login y registro
+[33m755eaca[m Merge branch 'Diario' of https://github.com/Chakerr/Ejercicios-y-Juegos-de-mascotas into Diario
+[33m47dcbcf[m fix: diseño app
+[33m2ca964a[m Delete README.md
+[33m262c212[m add: Registro de mascotas y usuarios
+[33mcc4a335[m Update README.md
+[33m7ad45e4[m Update README.md
+[33mf13d305[m Update README.md
+[33m501475c[m Update README.md
+[33mbc002c8[m[33m ([m[1;31morigin/Pruebas[m[33m)[m Delete Documentacion directory
+[33m03143c7[m Update README.md
+[33m52736ef[m add: Documentacion
+[33m17c59a9[m Initial commit
