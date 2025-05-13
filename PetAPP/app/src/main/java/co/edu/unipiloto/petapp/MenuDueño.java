@@ -55,14 +55,7 @@ public class MenuDueño extends AppCompatActivity {
         if (id == R.id.action_registrar_mascota) {
             startActivity(new Intent(this, RegistroMascotas.class));
             return true;
-        } else if (id == R.id.action_test_notificacion) {
-            OneTimeWorkRequest notificacionWork =
-                    new OneTimeWorkRequest.Builder(co.edu.unipiloto.petapp.workers.RutaNotificacionWorker.class).build();
-            WorkManager.getInstance(this).enqueue(notificacionWork);
-            Toast.makeText(this, "Worker lanzado manualmente", Toast.LENGTH_SHORT).show();
-            return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 

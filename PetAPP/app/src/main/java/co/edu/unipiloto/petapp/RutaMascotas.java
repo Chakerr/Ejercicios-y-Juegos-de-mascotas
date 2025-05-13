@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -23,6 +24,15 @@ import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import android.preference.PreferenceManager;
 
+import com.google.android.material.button.MaterialButton;
+
+import co.edu.unipiloto.petapp.model.Ruta;
+import co.edu.unipiloto.petapp.model.RutaRequestDTO;
+import co.edu.unipiloto.petapp.retrofit.PetApi;
+import co.edu.unipiloto.petapp.retrofit.RetrofitService;
+import retrofit2.Call;
+import retrofit2.Response;
+
 public class RutaMascotas extends AppCompatActivity {
 
     private MapView mapView;
@@ -30,7 +40,8 @@ public class RutaMascotas extends AppCompatActivity {
 
     private EditText inputAround;
     private int radioBusqueda = 50;
-
+    private int idMascota;
+    private int idUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +56,8 @@ public class RutaMascotas extends AppCompatActivity {
 
         double latitudMascota = getIntent().getDoubleExtra("latitud_mascota", 0);
         double longitudMascota = getIntent().getDoubleExtra("longitud_mascota", 0);
+        idMascota = getIntent().getIntExtra("id_mascota", -1);
+        idUsuario = getIntent().getIntExtra("id_usuario", -1); // Obtener el ID del usuario de la Intent
 
         puntoInicial = new GeoPoint(latitudMascota, longitudMascota);
 
@@ -74,12 +87,48 @@ public class RutaMascotas extends AppCompatActivity {
         });
 
 
+        MaterialButton btnGuardarRuta = findViewById(R.id.btnGuardarRuta);
+        btnGuardarRuta.setOnClickListener(v -> guardarRuta());
+    }
+
+    private void guardarRuta() {
+        double distancia = radioBusqueda;
+        RutaRequestDTO request = new RutaRequestDTO();
+        request.setIdUsuario(idUsuario);
+        request.setIdMascota(idMascota);
+        request.setDistancia(distancia);
+        request.setIdTarifa(null);
+
+        RetrofitService retrofitService = new RetrofitService();
+        PetApi api = retrofitService.getRetrofit().create(PetApi.class);
+
+        api.crearRuta(request).enqueue(new retrofit2.Callback<Ruta>() {
+
+            @Override
+            public void onResponse(Call<Ruta> call, Response<Ruta> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(RutaMascotas.this, "Ruta guardada exitosamente", Toast.LENGTH_SHORT).show();
+                } else {
+                    try {
+                        String error = response.errorBody().string();
+                        Log.e("API_ERROR", error);
+                        Toast.makeText(RutaMascotas.this, "Error: " + error, Toast.LENGTH_LONG).show();
+                    } catch (Exception e) {
+                        Toast.makeText(RutaMascotas.this, "Error desconocido", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Ruta> call, Throwable t) {
+                Toast.makeText(RutaMascotas.this, "Fallo al conectar: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void obtenerYMostrarCaminos(double lat, double lon) {
         new ObtenerCaminosTask().execute(lat, lon);
     }
-
 
     private class ObtenerCaminosTask extends AsyncTask<Double, Void, String> {
         @Override
@@ -116,7 +165,7 @@ public class RutaMascotas extends AppCompatActivity {
             }
 
             try {
-                mapView.getOverlays().clear(); // limpiar mapa
+                mapView.getOverlays().clear(); // Limpiar el mapa
                 JSONObject root = new JSONObject(json);
                 JSONArray elements = root.getJSONArray("elements");
 
@@ -192,7 +241,7 @@ public class RutaMascotas extends AppCompatActivity {
                 Toast.makeText(RutaMascotas.this, "Error al procesar datos", Toast.LENGTH_SHORT).show();
             }
         }
+
+
     }
 }
-
-

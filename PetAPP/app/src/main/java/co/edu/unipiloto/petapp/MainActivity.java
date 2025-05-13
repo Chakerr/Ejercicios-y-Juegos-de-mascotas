@@ -15,7 +15,6 @@ import java.util.concurrent.TimeUnit;
 import co.edu.unipiloto.petapp.workers.MedicamentoWorker;
 import androidx.work.ExistingPeriodicWorkPolicy;
 import androidx.work.WorkRequest;
-import co.edu.unipiloto.petapp.workers.RutaNotificacionWorker;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -25,16 +24,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        WorkRequest rutaWorkRequest =
-                new PeriodicWorkRequest.Builder(RutaNotificacionWorker.class, 15, TimeUnit.MINUTES)
-                        .build();
-
-        WorkManager.getInstance(this).enqueueUniquePeriodicWork(
-                "RutaNotificaciones",
-                ExistingPeriodicWorkPolicy.KEEP,
-                (PeriodicWorkRequest) rutaWorkRequest
-        );
 
         PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder(
                 MedicamentoWorker.class, 2, TimeUnit.MINUTES)

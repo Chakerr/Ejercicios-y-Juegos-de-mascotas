@@ -17,7 +17,6 @@ import java.util.Collections;
 import java.util.List;
 
 import co.edu.unipiloto.petapp.model.Mascota;
-import co.edu.unipiloto.petapp.model.RutaMascota;
 import co.edu.unipiloto.petapp.retrofit.PetApi;
 import co.edu.unipiloto.petapp.retrofit.RetrofitService;
 import retrofit2.Call;
@@ -96,64 +95,6 @@ public class InicioRecorridoActivity extends AppCompatActivity {
                 return;
             }
 
-            RutaMascota nuevaRuta = new RutaMascota("Recorrido de prueba", userId, mascotaSeleccionadaId, Collections.emptyList());
-
-            petApi.guardarRuta(nuevaRuta).enqueue(new Callback<RutaMascota>() {
-                @Override
-                public void onResponse(Call<RutaMascota> call, Response<RutaMascota> response) {
-                    if (response.isSuccessful()) {
-                        Toast.makeText(InicioRecorridoActivity.this, "Recorrido simulado exitosamente", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(InicioRecorridoActivity.this, "Error al simular recorrido", Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<RutaMascota> call, Throwable t) {
-                    Toast.makeText(InicioRecorridoActivity.this, "Fallo de conexión", Toast.LENGTH_SHORT).show();
-                }
-            });
-        });
-
-        btnFinalizarRecorrido.setOnClickListener(view -> {
-            int userId = prefs.getInt("userId", -1);
-            if (userId == -1) {
-                Toast.makeText(this, "Usuario no identificado", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            petApi.obtenerRutasPorUsuario(userId).enqueue(new Callback<List<RutaMascota>>() {
-                @Override
-                public void onResponse(Call<List<RutaMascota>> call, Response<List<RutaMascota>> response) {
-                    if (response.isSuccessful() && response.body() != null && !response.body().isEmpty()) {
-                        RutaMascota ultimaRuta = response.body().get(response.body().size() - 1);
-
-                        petApi.marcarRutaNotificada((long) ultimaRuta.getId(), false, true)
-                                .enqueue(new Callback<Void>() {
-                                    @Override
-                                    public void onResponse(Call<Void> call, Response<Void> response) {
-                                        if (response.isSuccessful()) {
-                                            Toast.makeText(InicioRecorridoActivity.this, "Recorrido finalizado", Toast.LENGTH_SHORT).show();
-                                        } else {
-                                            Toast.makeText(InicioRecorridoActivity.this, "Error al finalizar recorrido", Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onFailure(Call<Void> call, Throwable t) {
-                                        Toast.makeText(InicioRecorridoActivity.this, "Error de red", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                    } else {
-                        Toast.makeText(InicioRecorridoActivity.this, "No se encontraron rutas", Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<List<RutaMascota>> call, Throwable t) {
-                    Toast.makeText(InicioRecorridoActivity.this, "Error al buscar rutas", Toast.LENGTH_SHORT).show();
-                }
-            });
         });
     }
 }

@@ -1,10 +1,10 @@
-package co.edu.unipiloto.petapp.model;
+package com.Mario.SpringServer.model.Rutas;
 
 public class RutaRequestDTO {
     private int idUsuario;
     private int idMascota;
     private double distancia;
-    private Integer idTarifa;
+    private Integer idTarifa; // puede ser null
 
     public RutaRequestDTO() {}
 

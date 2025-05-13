@@ -214,8 +214,10 @@ public class perfil_mascota extends AppCompatActivity {
             return true;
         } else if (id == R.id.action_ruta) {
             Intent intent = new Intent(this, RutaMascotas.class);
+            intent.putExtra("id_mascota", mascotaSeleccionada.getIdMascota());
             intent.putExtra("latitud_mascota", mascotaSeleccionada.getLatitud());
             intent.putExtra("longitud_mascota", mascotaSeleccionada.getLongitud());
+            intent.putExtra("id_usuario", sharedPreferences.getInt("userId", -1));
             startActivity(intent);
             return true;
         } else if (id == R.id.action_qr) {
