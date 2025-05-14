@@ -1,58 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="6dp"
-    android:backgroundTint="@android:color/white">
+    android:elevation="4dp"
+    android:padding="12dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:orientation="vertical">
 
-        <!-- Texto Precio -->
         <TextView
-            android:id="@+id/tvPrecio"
-            android:layout_width="0dp"
+            android:id="@+id/textNombre"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Precio"
-            android:textSize="18sp"
-            android:textColor="@android:color/black"
-            android:gravity="center"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/viewDivider" />
+            android:text="Nombre del paseador"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="#000000" />
 
-        <!-- Línea Divisora -->
-        <View
-            android:id="@+id/viewDivider"
-            android:layout_width="1dp"
-            android:layout_height="40dp"
-            android:background="#CCCCCC"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/tvPrecio"
-            app:layout_constraintEnd_toStartOf="@id/tvDistancia" />
-
-        <!-- Texto Distancia -->
         <TextView
-            android:id="@+id/tvDistancia"
-            android:layout_width="0dp"
+            android:id="@+id/textCorreo"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Distancia"
-            android:textSize="18sp"
-            android:textColor="@android:color/black"
-            android:gravity="center"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/viewDivider"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:text="correo@example.com"
+            android:textSize="14sp"
+            android:textColor="#444444" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/textTelefono"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tel: 1234567890"
+            android:textSize="14sp"
+            android:textColor="#444444" />
+
+        <TextView
+            android:id="@+id/textPrecio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Precio: $15.0"
+            android:textSize="14sp"
+            android:textColor="#333333" />
+
+        <TextView
+            android:id="@+id/textDistancia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Distancia: 2 km"
+            android:textSize="14sp"
+            android:textColor="#333333" />
+
+    </LinearLayout>
 
 </androidx.cardview.widget.CardView>

@@ -61,7 +61,7 @@ public class TarifaPaseadorActivity extends AppCompatActivity {
 
         // Configurar RecyclerView
         rvTarifas.setLayoutManager(new LinearLayoutManager(this));
-        tarifaAdapter = new TarifaAdapter(new ArrayList<>()); // CORREGIDO: pasar lista vacía
+        tarifaAdapter = new TarifaAdapter(new ArrayList<>());
         rvTarifas.setAdapter(tarifaAdapter);
 
         // Botón guardar
@@ -69,6 +69,14 @@ public class TarifaPaseadorActivity extends AppCompatActivity {
 
         // Botón actualizar
         btnActualizar.setOnClickListener(v -> actualizarTarifa());
+
+        tarifaAdapter.setOnTarifaClickListener(tarifa -> {
+            tarifaExistente = tarifa;
+            etPrecio.setText(String.valueOf(tarifa.getPrecio()));
+            etDistanciaKm.setText(String.valueOf(tarifa.getDistanciaKm()));
+            Toast.makeText(this, "Tarifa seleccionada para editar", Toast.LENGTH_SHORT).show();
+        });
+
 
         // Cargar tarifas existentes
         obtenerTarifasExistentes();
@@ -161,9 +169,18 @@ public class TarifaPaseadorActivity extends AppCompatActivity {
                     tarifaAdapter.setTarifas(tarifas);
 
                     if (!tarifas.isEmpty()) {
-                        tarifaExistente = tarifas.get(0); // Guarda la primera para el botón Actualizar
-                        etPrecio.setText(String.valueOf(tarifaExistente.getPrecio()));
-                        etDistanciaKm.setText(String.valueOf(tarifaExistente.getDistanciaKm()));
+                        // Se asegura que se obtiene la primera tarifa
+                        tarifaExistente = tarifas.get(0);
+
+                        // Ahora verificamos que tarifaExistente no sea null y tiene precio y distancia
+                        if (tarifaExistente != null) {
+                            if (tarifaExistente.getPrecio() != null) {
+                                etPrecio.setText(String.valueOf(tarifaExistente.getPrecio()));
+                            }
+                            if (tarifaExistente.getDistanciaKm() != null) {
+                                etDistanciaKm.setText(String.valueOf(tarifaExistente.getDistanciaKm()));
+                            }
+                        }
                     }
 
                     Log.d("Tarifas", "Cantidad de tarifas cargadas: " + tarifas.size());
@@ -179,6 +196,7 @@ public class TarifaPaseadorActivity extends AppCompatActivity {
             }
         });
     }
+
 
     private void limpiarCampos() {
         etPrecio.setText("");

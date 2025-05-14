@@ -55,6 +55,8 @@ public interface PetApi {
 
     @POST("/tarifas")
     Call<TarifaPaseador> crearTarifa(@Body TarifaPaseadorRequestDTO tarifa);
+    @GET("/tarifas")
+    Call<List<TarifaPaseador>> listarTodasLasTarifas();
     @GET("/tarifas/paseador/{id}")
     Call<List<TarifaPaseador>> listarTarifasPorPaseador(@Path("id") int idPaseador);
 
