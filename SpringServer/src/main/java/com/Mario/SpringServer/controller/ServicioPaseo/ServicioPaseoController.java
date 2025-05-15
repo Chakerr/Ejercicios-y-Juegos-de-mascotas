@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.Mario.SpringServer.model.Mascota.Mascota;
 import com.Mario.SpringServer.model.Paseador.TarifaPaseador;
 import com.Mario.SpringServer.model.ServicioPaseo.ServicioPaseo;
+import com.Mario.SpringServer.model.ServicioPaseo.ServicioPaseoRequestDTO;
 import com.Mario.SpringServer.model.Usuario.Usuario;
 import com.Mario.SpringServer.repository.Mascota.MascotaRepository;
 import com.Mario.SpringServer.repository.Paseador.TarifaPaseadorRepository;
@@ -61,45 +63,47 @@ public class ServicioPaseoController {
     }
 
     @PostMapping
-public ResponseEntity<?> crear(@RequestBody ServicioPaseo servicio) {
-    try {
-        // Validar relaciones
-        Usuario paseador = usuarioRepository.findById(servicio.getPaseador().getIdUsuario())
-                .orElseThrow(() -> new RuntimeException("Paseador no encontrado"));
-        Usuario dueño = usuarioRepository.findById(servicio.getDueño().getIdUsuario())
-                .orElseThrow(() -> new RuntimeException("Dueño no encontrado"));
-        Mascota mascota = mascotaRepository.findById(servicio.getMascota().getIdMascota())
-                .orElseThrow(() -> new RuntimeException("Mascota no encontrada"));
-        TarifaPaseador tarifa = tarifaRepository.findById(servicio.getTarifa().getIdTarifa())
-                .orElseThrow(() -> new RuntimeException("Tarifa no encontrada"));
+    public ResponseEntity<?> crear(@RequestBody ServicioPaseoRequestDTO dto) {
+        try {
+            Usuario paseador = usuarioRepository.findById(dto.getIdPaseador())
+                    .orElseThrow(() -> new RuntimeException("Paseador no encontrado"));
+            Usuario dueño = usuarioRepository.findById(dto.getIdDueño())
+                    .orElseThrow(() -> new RuntimeException("Dueño no encontrado"));
+            Mascota mascota = mascotaRepository.findById(dto.getIdMascota())
+                    .orElseThrow(() -> new RuntimeException("Mascota no encontrada"));
+            TarifaPaseador tarifa = tarifaRepository.findById(dto.getIdTarifa())
+                    .orElseThrow(() -> new RuntimeException("Tarifa no encontrada"));
 
-        
-        int cantidadServicios = servicioPaseoRepository.contarServiciosPorPaseadorYHorario(
-                paseador.getIdUsuario(),
-                servicio.getFecha(),
-                servicio.getHora()
-        );
-        if (cantidadServicios >= 5) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("El paseador ya tiene 5 servicios agendados para esa fecha y hora.");
+            int cantidadServicios = servicioPaseoRepository.contarServiciosPorPaseadorYHorario(
+                    paseador.getIdUsuario(), dto.getFecha(), dto.getHora());
+
+            if (cantidadServicios >= 5) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body("El paseador ya tiene 5 servicios agendados para esa fecha y hora.");
+            }
+
+            ServicioPaseo servicio = new ServicioPaseo();
+            servicio.setPaseador(paseador);
+            servicio.setDueño(dueño);
+            servicio.setMascota(mascota);
+            servicio.setTarifa(tarifa);
+            servicio.setFecha(dto.getFecha());
+            servicio.setHora(dto.getHora());
+            servicio.setEstadoServicio(dto.getEstadoServicio() != null ? dto.getEstadoServicio() : "pendiente");
+            servicio.setEstadoPaseo(dto.getEstadoPaseo() != null ? dto.getEstadoPaseo() : "pendiente");
+
+            ServicioPaseo guardado = servicioPaseoRepository.save(servicio);
+            return ResponseEntity.status(HttpStatus.CREATED).body(guardado);
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
-
-        servicio.setPaseador(paseador);
-        servicio.setDueño(dueño);
-        servicio.setMascota(mascota);
-        servicio.setTarifa(tarifa);
-        servicio.setEstadoServicio("pendiente");
-        servicio.setEstadoPaseo("pendiente");
-
-        ServicioPaseo guardado = servicioPaseoRepository.save(servicio);
-        return ResponseEntity.status(HttpStatus.CREATED).body(guardado);
-
-    } catch (Exception e) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
-}
 
-
+    @GetMapping("/pendientes/paseador/{idPaseador}")
+    public List<ServicioPaseo> getPendientesPorPaseador(@PathVariable Integer idPaseador) {
+        return servicioPaseoRepository.findPendientesByPaseador(idPaseador);
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> eliminar(@PathVariable Integer id) {
@@ -108,5 +112,25 @@ public ResponseEntity<?> crear(@RequestBody ServicioPaseo servicio) {
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @PutMapping("/{id}/estado")
+    public ResponseEntity<?> actualizarEstado(
+            @PathVariable Integer id,
+            @RequestBody ServicioPaseoRequestDTO dto) {
+
+        return servicioPaseoRepository.findById(id)
+                .map(servicioExistente -> {
+                    // Actualiza solo si vienen datos nuevos
+                    if (dto.getEstadoServicio() != null) {
+                        servicioExistente.setEstadoServicio(dto.getEstadoServicio());
+                    }
+                    if (dto.getEstadoPaseo() != null) {
+                        servicioExistente.setEstadoPaseo(dto.getEstadoPaseo());
+                    }
+                    ServicioPaseo actualizado = servicioPaseoRepository.save(servicioExistente);
+                    return ResponseEntity.ok(actualizado);
+                })
+                .orElse(ResponseEntity.notFound().build());
     }
 }

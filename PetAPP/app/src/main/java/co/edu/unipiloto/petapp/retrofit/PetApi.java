@@ -9,6 +9,7 @@ import co.edu.unipiloto.petapp.model.Medicamento;
 import co.edu.unipiloto.petapp.model.Ruta;
 import co.edu.unipiloto.petapp.model.RutaRequestDTO;
 import co.edu.unipiloto.petapp.model.ServicioPaseo;
+import co.edu.unipiloto.petapp.model.ServicioPaseoRequestDTO;
 import co.edu.unipiloto.petapp.model.TarifaPaseador;
 import co.edu.unipiloto.petapp.model.TarifaPaseadorRequestDTO;
 import co.edu.unipiloto.petapp.model.Usuario;
@@ -74,13 +75,22 @@ public interface PetApi {
     Call<ServicioPaseo> getServicioPorId(@Path("id") int id);
 
     @POST("/servicioPaseo")
-    Call<ServicioPaseo> crearOActualizarServicio(@Body ServicioPaseo servicio);
+    Call<ServicioPaseo> crearOActualizarServicio(@Body ServicioPaseoRequestDTO servicioRequest);
+
+    @GET("servicioPaseo/pendientes/paseador/{idPaseador}")
+    Call<List<ServicioPaseo>> obtenerPendientes(@Path("idPaseador") int id);
+
     @DELETE("/servicioPaseo/{id}")
     Call<Void> eliminarServicio(@Path("id") int id);
     @GET("/servicioPaseo/paseador/{idPaseador}")
     Call<List<ServicioPaseo>> getServiciosPorPaseador(@Path("idPaseador") int idPaseador);
-    @GET("/servicioPaseo/dueño/{idDueño}")
-    Call<List<ServicioPaseo>> getServiciosPorDueño(@Path("idDueño") int idDueño);
+    @PUT("/servicioPaseo/{id}/estado")
+    Call<ServicioPaseo> actualizarEstadoServicio(
+            @Path("id") int id,
+            @Body ServicioPaseoRequestDTO estadoActualizar
+    );
+
+
 
 }
 

@@ -18,7 +18,9 @@
         android:theme="@style/Theme.PetAPP"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-
+        <activity
+            android:name=".Peticiones"
+            android:exported="false" />
         <activity
             android:name=".PreciosPaseador"
             android:exported="false" />

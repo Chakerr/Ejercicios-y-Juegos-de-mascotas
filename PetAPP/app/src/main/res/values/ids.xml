@@ -8,4 +8,8 @@
     <item name="etEspecie" type="id" />
     <item name="etFechaNacimiento" type="id" />
     <item name="etNombreMascota" type="id" />
+    <item name="btnRechazar" type="id" />
+    <item name="textEstado" type="id" />
+    <item name="textMascota" type="id" />
+    <item name="btnAceptar" type="id" />
 </resources>

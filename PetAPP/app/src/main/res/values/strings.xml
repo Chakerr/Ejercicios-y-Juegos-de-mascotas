@@ -10,4 +10,8 @@
     <string name="nombre_completo">Nombre completo</string>
     <string name="telefono">telefono</string>
     <string name="VolverLogin">¿Ya tienes cuenta? Inicia sesión</string>
+    <string name="btn_aceptar">Aceptar</string>
+    <string name="btn_rechazar">Rechazar</string>
+    <string name="estado_servicio">EstadoServicio</string>
+    <string name="mascota_nombre">MascotaN</string>
 </resources>

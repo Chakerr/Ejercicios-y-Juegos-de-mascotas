@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -35,13 +36,15 @@ import retrofit2.Response;
 
 public class RutaMascotas extends AppCompatActivity {
 
+    private static final int REQUEST_TARIFA = 1001;
+
     private MapView mapView;
     private GeoPoint puntoInicial;
-
     private EditText inputAround;
     private int radioBusqueda = 50;
     private int idMascota;
     private int idUsuario;
+    private Integer idTarifaSeleccionada = null; // Almacenará el id_tarifa seleccionado
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +60,7 @@ public class RutaMascotas extends AppCompatActivity {
         double latitudMascota = getIntent().getDoubleExtra("latitud_mascota", 0);
         double longitudMascota = getIntent().getDoubleExtra("longitud_mascota", 0);
         idMascota = getIntent().getIntExtra("id_mascota", -1);
-        idUsuario = getIntent().getIntExtra("id_usuario", -1); // Obtener el ID del usuario de la Intent
+        idUsuario = getIntent().getIntExtra("id_usuario", -1);
 
         puntoInicial = new GeoPoint(latitudMascota, longitudMascota);
 
@@ -83,9 +86,11 @@ public class RutaMascotas extends AppCompatActivity {
         Button btnPaseadores = findViewById(R.id.btnPaseadores);
         btnPaseadores.setOnClickListener(v -> {
             Intent intent = new Intent(RutaMascotas.this, PreciosPaseador.class);
-            startActivity(intent);
+            intent.putExtra("id_usuario", idUsuario);
+            intent.putExtra("id_mascota", idMascota);
+            intent.putExtra("id_dueño", idUsuario);
+            startActivityForResult(intent, REQUEST_TARIFA);
         });
-
 
         MaterialButton btnGuardarRuta = findViewById(R.id.btnGuardarRuta);
         btnGuardarRuta.setOnClickListener(v -> guardarRuta());
@@ -97,13 +102,12 @@ public class RutaMascotas extends AppCompatActivity {
         request.setIdUsuario(idUsuario);
         request.setIdMascota(idMascota);
         request.setDistancia(distancia);
-        request.setIdTarifa(null);
+        request.setIdTarifa(idTarifaSeleccionada); // Si es null, igual se puede enviar
 
         RetrofitService retrofitService = new RetrofitService();
         PetApi api = retrofitService.getRetrofit().create(PetApi.class);
 
         api.crearRuta(request).enqueue(new retrofit2.Callback<Ruta>() {
-
             @Override
             public void onResponse(Call<Ruta> call, Response<Ruta> response) {
                 if (response.isSuccessful()) {
@@ -124,6 +128,19 @@ public class RutaMascotas extends AppCompatActivity {
                 Toast.makeText(RutaMascotas.this, "Fallo al conectar: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_TARIFA && resultCode == RESULT_OK && data != null) {
+            idTarifaSeleccionada = data.getIntExtra("id_tarifa", -1);
+            if (idTarifaSeleccionada != -1) {
+                Toast.makeText(this, "Tarifa seleccionada: " + idTarifaSeleccionada, Toast.LENGTH_SHORT).show();
+            } else {
+                idTarifaSeleccionada = null;
+            }
+        }
     }
 
     private void obtenerYMostrarCaminos(double lat, double lon) {
@@ -165,11 +182,10 @@ public class RutaMascotas extends AppCompatActivity {
             }
 
             try {
-                mapView.getOverlays().clear(); // Limpiar el mapa
+                mapView.getOverlays().clear();
                 JSONObject root = new JSONObject(json);
                 JSONArray elements = root.getJSONArray("elements");
 
-                // Guardar nodos
                 ArrayList<GeoPoint> puntos = new ArrayList<>();
                 java.util.Map<Long, GeoPoint> nodos = new java.util.HashMap<>();
 
@@ -201,7 +217,6 @@ public class RutaMascotas extends AppCompatActivity {
                             Polyline polyline = new Polyline();
                             polyline.setPoints(wayPoints);
 
-                            // Obtener tipo de highway
                             String highwayType = el.optJSONObject("tags") != null ? el.getJSONObject("tags").optString("highway", "") : "";
 
                             switch (highwayType) {
@@ -227,7 +242,6 @@ public class RutaMascotas extends AppCompatActivity {
                     }
                 }
 
-                // Agregar marcador de la mascota
                 Marker marker = new Marker(mapView);
                 marker.setPosition(puntoInicial);
                 marker.setTitle("Ubicación de la mascota");
@@ -241,7 +255,5 @@ public class RutaMascotas extends AppCompatActivity {
                 Toast.makeText(RutaMascotas.this, "Error al procesar datos", Toast.LENGTH_SHORT).show();
             }
         }
-
-
     }
 }

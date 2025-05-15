@@ -1,0 +1,42 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="12dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/textMascota"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Mascota"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/textEstado"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Estado"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:paddingTop="8dp">
+
+        <Button
+            android:id="@+id/btnAceptar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Aceptar"
+            android:layout_marginEnd="8dp"/>
+
+        <Button
+            android:id="@+id/btnRechazar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rechazar" />
+    </LinearLayout>
+
+</LinearLayout>

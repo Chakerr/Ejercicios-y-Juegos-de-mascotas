@@ -2,6 +2,7 @@ package co.edu.unipiloto.petapp;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.Calendar;
 import java.util.List;
 
+import co.edu.unipiloto.petapp.model.ServicioPaseo;
+import co.edu.unipiloto.petapp.model.ServicioPaseoRequestDTO;
 import co.edu.unipiloto.petapp.model.TarifaPaseador;
 import co.edu.unipiloto.petapp.retrofit.PetApi;
 import co.edu.unipiloto.petapp.retrofit.RetrofitService;
@@ -148,16 +151,73 @@ public class PreciosPaseador extends AppCompatActivity {
 
     private void agendarServicio() {
         if (tarifaSeleccionada != null) {
-            // Aquí puedes manejar el agendamiento del servicio con la tarifa seleccionada, fecha y hora
-            String fechaHora = selectedYear + "-" + (selectedMonth + 1) + "-" + selectedDay + " " + selectedHour + ":" + selectedMinute;
-            Log.d("Servicio", "Servicio agendado con tarifa: " + tarifaSeleccionada.getPrecio() + " para la fecha: " + fechaHora);
+            // Construir fecha y hora en formato correcto
+            String fecha = String.format("%04d-%02d-%02d", selectedYear, selectedMonth + 1, selectedDay);
+            String hora = String.format("%02d:%02d:00", selectedHour, selectedMinute);
 
-            // Mostrar un mensaje de éxito
-            Toast.makeText(this, "Servicio agendado para el " + fechaHora, Toast.LENGTH_SHORT).show();
+            // Obtener datos del Intent
+            int idDueño = getIntent().getIntExtra("id_dueño", -1);
+            int idMascota = getIntent().getIntExtra("id_mascota", -1);
+            int idPaseador = tarifaSeleccionada.getIdPaseador(); // Obtenido desde la tarifa seleccionada
+            int idTarifa = tarifaSeleccionada.getIdTarifa();
 
-            // Aquí podrías hacer una llamada a la API para registrar el agendamiento
+            // Agregar logs para depurar
+            Log.d("AGENDAR_SERVICIO", "idDueño: " + idDueño);
+            Log.d("AGENDAR_SERVICIO", "idMascota: " + idMascota);
+            Log.d("AGENDAR_SERVICIO", "idPaseador: " + idPaseador);
+            Log.d("AGENDAR_SERVICIO", "idTarifa: " + idTarifa);
+            Log.d("AGENDAR_SERVICIO", "Fecha: " + fecha + ", Hora: " + hora);
+
+            // Validar que los IDs estén presentes
+            if (idDueño == -1 || idMascota == -1 || idPaseador == -1) {
+                Toast.makeText(this, "Faltan datos para agendar el servicio", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Crear el objeto DTO para enviar
+            ServicioPaseoRequestDTO nuevoServicio = new ServicioPaseoRequestDTO();
+            nuevoServicio.setIdPaseador(idPaseador);
+            nuevoServicio.setIdDueño(idDueño);
+            nuevoServicio.setIdMascota(idMascota);
+            nuevoServicio.setIdTarifa(idTarifa);
+            nuevoServicio.setFecha(fecha);
+            nuevoServicio.setHora(hora);
+            nuevoServicio.setEstadoServicio("pendiente");
+            nuevoServicio.setEstadoPaseo("pendiente");
+
+            // Llamada API para crear el servicio
+            apiService.crearOActualizarServicio(nuevoServicio).enqueue(new Callback<ServicioPaseo>() {
+                @Override
+                public void onResponse(Call<ServicioPaseo> call, Response<ServicioPaseo> response) {
+                    if (response.isSuccessful()) {
+                        Toast.makeText(PreciosPaseador.this,
+                                "Servicio agendado correctamente para el " + fecha + " a las " + hora,
+                                Toast.LENGTH_LONG).show();
+
+                        Intent resultIntent = new Intent();
+                        resultIntent.putExtra("id_tarifa", idTarifa);
+                        setResult(RESULT_OK, resultIntent);
+                        finish();
+
+                    } else {
+                        Toast.makeText(PreciosPaseador.this,
+                                "Error al agendar el servicio: " + response.code(),
+                                Toast.LENGTH_LONG).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ServicioPaseo> call, Throwable t) {
+                    Toast.makeText(PreciosPaseador.this,
+                            "Error de conexión: " + t.getMessage(),
+                            Toast.LENGTH_LONG).show();
+                }
+            });
+
         } else {
             Toast.makeText(this, "Por favor selecciona una tarifa", Toast.LENGTH_SHORT).show();
         }
     }
+
+
 }
