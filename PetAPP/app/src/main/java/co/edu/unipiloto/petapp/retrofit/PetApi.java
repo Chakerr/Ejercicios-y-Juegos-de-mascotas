@@ -8,12 +8,14 @@ import co.edu.unipiloto.petapp.model.LoginResponse;
 import co.edu.unipiloto.petapp.model.Medicamento;
 import co.edu.unipiloto.petapp.model.Ruta;
 import co.edu.unipiloto.petapp.model.RutaRequestDTO;
+import co.edu.unipiloto.petapp.model.ServicioPaseo;
 import co.edu.unipiloto.petapp.model.TarifaPaseador;
 import co.edu.unipiloto.petapp.model.TarifaPaseadorRequestDTO;
 import co.edu.unipiloto.petapp.model.Usuario;
 import co.edu.unipiloto.petapp.model.Mascota;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -65,6 +67,20 @@ public interface PetApi {
 
     @POST("/rutas")
     Call<Ruta> crearRuta(@Body RutaRequestDTO rutaRequest);
+
+    @GET("/servicioPaseo")
+    Call<List<ServicioPaseo>> getTodosLosServicios();
+    @GET("/servicioPaseo/{id}")
+    Call<ServicioPaseo> getServicioPorId(@Path("id") int id);
+
+    @POST("/servicioPaseo")
+    Call<ServicioPaseo> crearOActualizarServicio(@Body ServicioPaseo servicio);
+    @DELETE("/servicioPaseo/{id}")
+    Call<Void> eliminarServicio(@Path("id") int id);
+    @GET("/servicioPaseo/paseador/{idPaseador}")
+    Call<List<ServicioPaseo>> getServiciosPorPaseador(@Path("idPaseador") int idPaseador);
+    @GET("/servicioPaseo/dueño/{idDueño}")
+    Call<List<ServicioPaseo>> getServiciosPorDueño(@Path("idDueño") int idDueño);
 
 }
 
