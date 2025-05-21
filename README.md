@@ -1,13 +1,13 @@
-# APPET - Aplicación para el Cuidado de Mascotas
+# Wagglo - Aplicación para el Cuidado de Mascotas
 
-**Proyecto:** APPET (Aplicación para Ejercicios y Juegos de Mascotas)  
-**Plataformas:** Android (PetAPP) + Spring Boot (SpringServer) + PostgreSQL
-
-
-## Aplicación Móvil - PetAPP
+**Proyecto:** Wagglo (Aplicación para Ejercicios y Juegos de Mascotas)  
+**Plataformas:** Android (Wagglo) + Spring Boot (SpringServer) + PostgreSQL
 
 
-PetAPP es una app Android desarrollada para que paseadores y dueños de mascotas gestionen el bienestar de sus mascotas. A través de ella, se pueden registrar datos médicos, realizar seguimientos de actividad física y más.
+## Aplicación Móvil - Wagglo
+
+
+Wagglo es una app Android desarrollada para que paseadores y dueños de mascotas gestionen el bienestar de sus mascotas. A través de ella, se pueden registrar datos médicos, realizar seguimientos de actividad física y más.
 
 ### Funcionalidades principales:
 
