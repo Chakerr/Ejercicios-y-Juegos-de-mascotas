@@ -42,7 +42,7 @@ API REST desarrollada con Spring Boot que gestiona usuarios, mascotas, rutas y n
 ## Estructura del Proyecto
 
 ```
-PetAPP/
+Wagglo/
 ├── app/
 │   ├── src/
 │   │   └── main/java/co/edu/unipiloto/petapp/
