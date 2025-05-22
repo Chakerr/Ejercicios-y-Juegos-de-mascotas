@@ -63,15 +63,3 @@ SpringServer/
 ```
 
 ---
-
-## Tecnologías
-
-- Android SDK (Java)
-- Spring Boot 3.x
-- Retrofit2
-- PostgreSQL
-- osmdroid (mapas)
-- Jetpack WorkManager
-- SharedPreferences
-  
----
