@@ -3,9 +3,7 @@
 **Proyecto:** Wagglo (Aplicación para Ejercicios y Juegos de Mascotas)  
 **Plataformas:** Android (Wagglo) + Spring Boot (SpringServer) + PostgreSQL
 
-
 ## Aplicación Móvil - Wagglo
-
 
 Wagglo es una app Android desarrollada para que paseadores y dueños de mascotas gestionen el bienestar de sus mascotas. A través de ella, se pueden registrar datos médicos, realizar seguimientos de actividad física y más.
 
