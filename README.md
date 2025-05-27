@@ -1,62 +1,60 @@
-# Wagglo - Aplicación para el Cuidado de Mascotas
 
-**Proyecto:** Wagglo (Aplicación para Ejercicios y Juegos de Mascotas)  
-**Plataformas:** Android (Wagglo) + Spring Boot (SpringServer) + PostgreSQL
+# 🐶 Wagglo – Ejercicios y Juegos de Mascotas
 
-## Aplicación Móvil - Wagglo
+**Wagglo** es una aplicación móvil desarrollada en Android que permite a los usuarios registrar, gestionar y realizar actividades relacionadas con el cuidado de sus mascotas. El objetivo es fomentar el bienestar de las mascotas mediante juegos, ejercicios, seguimiento médico y funcionalidades de control diario.
 
-Wagglo es una app Android desarrollada para que paseadores y dueños de mascotas gestionen el bienestar de sus mascotas. A través de ella, se pueden registrar datos médicos, realizar seguimientos de actividad física y más.
+## 📱 Características principales
 
-### Funcionalidades principales:
+- Registro de actividades físicas y juegos para mascotas.
+- Historial médico veterinario.
+- Gestión de medicamentos.
+- Interfaz amigable y centrada en el usuario.
+- Arquitectura moderna con Kotlin DSL (`build.gradle.kts`).
 
-- **Inicio de sesión** y gestión de usuarios (paseadores y dueños).
-- **Registro y visualización de mascotas**, con historial médico.
-- **Creación y visualización de rutas de paseo**, integrando mapas interactivos.
-- **Simulación e historial de recorridos.**
-- **Notificaciones** automáticas para los dueños cuando inicia/finaliza un paseo.
-- **Selección de mascotas** para paseo mediante un spinner.
-- **Almacenamiento local de sesión** con SharedPreferences.
-- **Integración con Retrofit** para la conexión al backend.
-
----
-
-## Backend - Spring Boot (SpringServer)
-
-API REST desarrollada con Spring Boot que gestiona usuarios, mascotas, rutas y notificaciones.
-
-### Componentes clave:
-
-- **Controladores REST** para usuarios, mascotas y rutas.
-- **Servicios** de negocio para lógica personalizada.
-- **Repositorio con Spring Data JPA** (PostgreSQL).
-- **Entidades:** Usuario, Mascota, Historial Médico, Ruta, Punto Geográfico.
-- **Persistencia de rutas geográficas** con `@ElementCollection`.
-- **Endpoints REST para registrar y consultar rutas**, con y sin notificaciones.
-- **Notificación por recorrido (inicio/fin)** usando booleanos notificadoInicio / notificadoFin.
-
----
-
-## Estructura del Proyecto
+## 🗂️ Estructura del Proyecto
 
 ```
 Wagglo/
 ├── app/
 │   ├── src/
-│   │   └── main/java/co/edu/unipiloto/petapp/
-│   │       ├── model/        # Modelos de datos: Mascota, Usuario, RutaMascota...
-│   │       ├── retrofit/     # Servicios y cliente Retrofit
-│   │       ├── workers/      # Worker para notificaciones automáticas
-│   │       ├── activities/   # Actividades de Android (UI)
-│   │       └── ...           # Otros componentes (Login, Menús, etc.)
-│   └── res/layout/           # Layouts XML
-│
-SpringServer/
-├── src/main/java/com/Mario/SpringServer/
-│   ├── controller/           # Controladores REST
-│   ├── service/              # Lógica de negocio
-│   ├── model/                # Entidades JPA
-│   ├── repository/           # Repositorios JPA
-│   └── ...                   # Configuraciones y aplicación
+│   │   ├── main/
+│   │   │   ├── java/co/edu/unipiloto/petapp/
+│   │   │   │   ├── AdministrarMedicamentos.java
+│   │   │   │   ├── HistorialMedicoActivity.java
+│   │   │   │   └── ...
+│   │   │   └── AndroidManifest.xml
+│   ├── build.gradle.kts
+├── build.gradle.kts
+├── settings.gradle.kts
+└── gradle.properties
 ```
 
----
+## ⚙️ Requisitos técnicos
+
+- Android Studio Arctic Fox o superior
+- JDK 11 o superior
+- Kotlin DSL compatible
+- Dispositivo o emulador Android API 26+
+
+## 🚀 Instrucciones de instalación
+
+1. Clona el repositorio:
+
+   ```bash
+   git clone https://github.com/tuusuario/Wagglo.git
+   ```
+
+2. Abre el proyecto en Android Studio.
+
+3. Espera a que Gradle sincronice automáticamente.
+
+4. Conecta un emulador o dispositivo físico y presiona **Run**.
+
+## 👨‍💻 Autores
+
+- Proyecto desarrollado por estudiantes de la Universidad Piloto de Colombia.
+- Contacto o soporte: [correo o LinkedIn]
+
+## 📄 Licencia
+
+Este proyecto es de carácter académico y no posee una licencia comercial. Puede ser usado con fines educativos y personales.
