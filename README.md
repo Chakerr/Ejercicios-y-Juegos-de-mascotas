@@ -11,24 +11,6 @@
 - Interfaz amigable y centrada en el usuario.
 - Arquitectura moderna con Kotlin DSL (`build.gradle.kts`).
 
-## 🗂️ Estructura del Proyecto
-
-```
-Wagglo/
-├── app/
-│   ├── src/
-│   │   ├── main/
-│   │   │   ├── java/co/edu/unipiloto/petapp/
-│   │   │   │   ├── AdministrarMedicamentos.java
-│   │   │   │   ├── HistorialMedicoActivity.java
-│   │   │   │   └── ...
-│   │   │   └── AndroidManifest.xml
-│   ├── build.gradle.kts
-├── build.gradle.kts
-├── settings.gradle.kts
-└── gradle.properties
-```
-
 ## ⚙️ Requisitos técnicos
 
 - Android Studio Arctic Fox o superior
