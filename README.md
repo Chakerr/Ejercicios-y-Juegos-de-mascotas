@@ -1,4 +1,4 @@
-# 🐶 Wagglo – Ejercicios y Juegos de Mascotas
+#Wagglo – Ejercicios y Juegos de Mascotas
 
 **Wagglo** es una aplicación móvil desarrollada en Android que permite a los usuarios registrar, gestionar y realizar actividades relacionadas con el cuidado de sus mascotas. El objetivo es fomentar el bienestar de las mascotas mediante juegos, ejercicios, seguimiento médico y funcionalidades de control diario.
 
