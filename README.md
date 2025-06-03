@@ -10,14 +10,14 @@
 - Interfaz amigable y centrada en el usuario.
 - Arquitectura moderna con Kotlin DSL (`build.gradle.kts`).
 
-## ⚙️ Requisitos técnicos
+## Requisitos técnicos
 
 - Android Studio Arctic Fox o superior
 - JDK 11 o superior
 - Kotlin DSL compatible
 - Dispositivo o emulador Android API 26+
 
-## 🚀 Instrucciones de instalación
+## Instrucciones de instalación
 
 1. Clona el repositorio:
 
@@ -31,11 +31,11 @@
 
 4. Conecta un emulador o dispositivo físico y presiona **Run**.
 
-## 👨‍💻 Autores
+## Autores
 
 - Proyecto desarrollado por estudiantes de la Universidad Piloto de Colombia.
 - Contacto o soporte: [correo o LinkedIn]
 
-## 📄 Licencia
+## Licencia
 
 Este proyecto es de carácter académico y no posee una licencia comercial. Puede ser usado con fines educativos y personales.
